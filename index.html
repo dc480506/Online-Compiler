@@ -1,0 +1,37 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Code Mirror</title>
+<link rel="stylesheet" type="text/css" href="codemirror-5.48.2/lib/codemirror.css">
+<link rel="stylesheet" type="text/css" href="codemirror-5.48.2/theme/darcula.css">
+<link rel="stylesheet" type="text/css" href="codemirror-5.48.2/theme/isotope.css">
+<link rel="stylesheet" type="text/css" href="styles.css">
+<script type="text/javascript" src="codemirror-5.48.2/lib/codemirror.js"></script>
+<script type="text/javascript" src="codemirror-5.48.2/mode/javascript/javascript.js"></script>
+<script type="text/javascript" src="codemirror-5.48.2/addon/edit/matchbrackets.js"></script>
+<script type="text/javascript" src="codemirror-5.48.2/addon/edit/closebrackets.js"></script>
+</head>
+
+<body>
+
+    <textarea id='demotext'>
+
+    function foo() {
+        for(i = 0, i < 10, i++)
+        console.log(i);
+    }
+
+    </textarea>
+
+<script type="text/javascript">
+
+    var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
+          lineNumbers: true,
+          mode: "javascript",
+          theme:"darcula",
+          matchBrackets:true,
+          closebrackets:true
+    });
+</script>
+</body>
+</html>
