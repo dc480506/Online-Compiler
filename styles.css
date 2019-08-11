@@ -4,9 +4,13 @@ body{
 .CodeMirror{
 	top: 10%;
 	height:90%;
-	left:20%;
-	width:50%;
+	left:10%;
+	width:60%;
 	position: absolute;
+	/*resize: horizontal;*/
+	display: inline-block;
+	overflow-y: scroll;
+	/*overflow-wrap: break-word;*/
 }
 .menu-bar{
 	top:0;
@@ -14,6 +18,14 @@ body{
 	position: absolute;
 	background-color: #e74c3c;
 	width: 100%;
+}
+.fas.fa-bars{
+	font-size: 2em;
+	cursor: pointer;
+	left: 3%;
+	top:50%;
+	transform: translate(-50%,-50%);
+	position: absolute;
 }
 .algo-search{
 	right:5%;
@@ -49,8 +61,80 @@ body{
 	color: white;
 	font-size:14px;
 	float: left;
-	transition: 0.4s;
+	transition: 0.3s;
 	line-height: 40px;
 	width: 0;
 	text-align: center;
+}
+.execute{
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	height:50%;
+	transform:translateY(50%);
+	width:5%;
+	left:50%;
+	top:0;
+	cursor: pointer;
+}
+.execute:hover >#run{
+	color:white;
+	background-color: #27ae60;
+} 
+.execute:hover > .fas.fa-play{
+	color:white;
+}
+#run{
+	float: right;
+	display: flex;
+	align-items: center;
+    justify-content:center;
+	outline: none;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	border-radius: 1em;
+	border: none;
+	color: white;
+	background-color:#2f3640; 
+}
+.fas.fa-play{
+	position: absolute;
+	left: 10%;
+	z-index: 1;
+	top:20%;
+	color: #e74c3c;
+}
+.save{
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	height:50%;
+	transform:translateY(50%);
+	width:5%;
+	left:40%;
+	top:0;
+	cursor: pointer;
+}
+.fas.fa-save{
+    position: absolute;
+	left: 7%;
+	z-index: 1;
+	top:20%;
+	color: #e74c3c;
+}
+#save-program{
+	float: right;
+	display: flex;
+	align-items: center;
+    justify-content:center;
+	outline: none;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	border-radius: 1em;
+	border: none;
+	color: white;
+	background-color:#2f3640; 
+	padding-left: 25%;
 }
