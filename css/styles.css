@@ -12,6 +12,13 @@ body{
 	overflow-y: scroll;
 	/*overflow-wrap: break-word;*/
 }
+#theme{
+	top:10%;
+	height: 10%;
+	width: 10%;
+	position: absolute;
+	cursor: pointer;
+}
 .menu-bar{
 	top:0;
 	height: 10%;
