@@ -45,6 +45,21 @@ body{
 	background-color: #e74c3c;
 	width: 100%;
 }
+.fas.fa-laptop-code{
+	font-size: 2.4em;
+	cursor: pointer;
+	left: 4%;
+	top:50%;
+	transform: translate(-50%,-50%);
+	position: absolute;
+	padding: 0.25%;
+	/*background-color: #2f3640;*/
+	border-radius: 0.25em;
+}
+.fas.fa-laptop-code:hover{
+	background-color: #2f3640;
+	color:#3498db;
+}
 /*.fas.fa-bars{
 	font-size: 2em;
 	cursor: pointer;
@@ -54,7 +69,7 @@ body{
 	position: absolute;
 }*/
 .algo-search{
-	right:5%;
+	right:15%;
 	position: absolute;
 	top:50%;
 	transform: translateY(-50%);
@@ -163,4 +178,37 @@ body{
 	color: white;
 	background-color:#2f3640; 
 	padding-left: 25%;
+}
+
+.user-profile{
+	right: 0;
+	top:50%;
+	background-color: #2f3640;
+	color: white;
+	position: absolute;
+	transform: translate(-50%,-50%); 
+	height:50%;
+	padding: 0.25%;
+	width: 8%;
+}
+.fas.fa-caret-down{
+	cursor: pointer;
+	float: right;
+}
+.user-profile >p{
+	transform: translateY(-50%);
+}
+.user-options{
+	width: 8%;
+	right:0;
+	top:90%;
+	transform: translate(-50%,-5%);
+	padding: 0.25%;
+	position: absolute;
+	font-size: 0.9em;
+	background-color: red;
+	display: none;
+}
+li{
+	list-style-type: none;
 }

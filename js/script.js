@@ -25,3 +25,11 @@ document.getElementById("theme").addEventListener("click",function(){
       document.getElementsByClassName("circle")[0].style.transform="translateX(0%)";
     }
 })
+var u=document.querySelector(".user-options");
+document.querySelector(".fas.fa-caret-down").addEventListener("click",function(){
+  if(u.style.display=="none"){
+  u.style.display="block";
+}else{
+  u.style.display="none";
+}
+})
