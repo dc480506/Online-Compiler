@@ -1,7 +1,7 @@
 var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
           lineNumbers: true,
           mode:"text/x-java",
-          theme:"darcula",
+          theme:"xq-dark",
           matchBrackets:true,
           autoCloseBrackets:true,
           autoCloseTags:true
@@ -15,9 +15,13 @@ var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
     }
   });
 document.getElementById("theme").addEventListener("click",function(){
-  if(editor.options.theme=="darcula"){
-     editor.setOption("theme","3024-day");
+  if(editor.options.theme=="xq-dark"){
+     editor.setOption("theme","xq-light");
+     document.getElementsByClassName("toggle-btn")[0].style.backgroundColor="#3498db";
+     document.getElementsByClassName("circle")[0].style.transform="translateX(115%)";
     }else{
-      editor.setOption("theme","darcula");
+      editor.setOption("theme","xq-dark");
+      document.getElementsByClassName("toggle-btn")[0].style.backgroundColor="gray";
+      document.getElementsByClassName("circle")[0].style.transform="translateX(0%)";
     }
 })

@@ -9,15 +9,34 @@ body{
 	position: absolute;
 	/*resize: horizontal;*/
 	display: inline-block;
+	font-size: 1.15em;
 	overflow-y: scroll;
 	/*overflow-wrap: break-word;*/
 }
 #theme{
-	top:10%;
-	height: 10%;
-	width: 10%;
+	top:12%;
+	height: 5%;
+	left: 2.5%;
+	width: 5%;
 	position: absolute;
 	cursor: pointer;
+}
+.toggle-btn{
+	background-color: gray;
+	width: 100%;
+	position: absolute;
+	height: 100%;
+	border-radius: 30px;
+	padding: 3%;
+}
+.toggle-btn > .circle{
+	background-color: white;
+	height:87%;
+	left: 8%;
+	position: absolute;
+	width:40%;
+	border-radius: 50%;
+	transition: transform 0.5s;
 }
 .menu-bar{
 	top:0;
@@ -26,14 +45,14 @@ body{
 	background-color: #e74c3c;
 	width: 100%;
 }
-.fas.fa-bars{
+/*.fas.fa-bars{
 	font-size: 2em;
 	cursor: pointer;
 	left: 3%;
 	top:50%;
 	transform: translate(-50%,-50%);
 	position: absolute;
-}
+}*/
 .algo-search{
 	right:5%;
 	position: absolute;
