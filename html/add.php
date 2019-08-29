@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -22,6 +25,9 @@
 				<div>
 					<button type="button" id="add-button"><i class="fas fa-plus"></i> add</button>
 				</div>
+				   <div >
+				        <label><?php echo $_SESSION['username'];?></label>
+				    </div>  
     	</div>
 		
 

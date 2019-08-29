@@ -11,14 +11,14 @@
       <div class="login">
          <div id="slider">
             <div id="loginslider">
-               <form action="#">
+               <form action="include/login_process.php" method="POST">
                   <h1>Login</h1>
                   <div class="txtb">
-                     <input type="text" required="required">
+                     <input type="text" id="user" name="user" required="required">
                      <span dataplaceholder="Username"></span>
                   </div>
                   <div class="txtb">
-                     <input type="password" required="required">
+                     <input type="password" id="pass" name="pass" required="required">
                      <span dataplaceholder="Password"></span>
                   </div>
                   <p class="keeplogin"> 
