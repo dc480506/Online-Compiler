@@ -33,3 +33,6 @@ document.querySelector(".fas.fa-caret-down").addEventListener("click",function()
   u.style.display="none";
 }
 })
+document.querySelector(".fas.fa-backspace").addEventListener("click",function(){
+  document.getElementById("output-screen").value="";
+})
