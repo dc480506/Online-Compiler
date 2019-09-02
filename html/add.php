@@ -80,19 +80,21 @@
 
 	</div>	<!--bg end-->
 
-	<form class ="create-box" action="" method="post" enctype="text/plain">
+	<div class ="create-box">
+	<form action="include/add_code.php" method="POST" >
 		<div id="cb-close">+</div>
 		<label class="cb-heading">Create a new code</label>
 		<div class="lang-box">
-		<select name="Languages" class="clang">
+		<select name="language" class="clang">
     	<option value="C">C</option>
     	<option value="C++">C++</option>
     	<option value="Java">Java</option>
   	</select>
 		</div>
-		<input class="cname" type="text" placeholder="Name your code">
-		<input class="cb-button" type="submit" value="Create">
+		<input class="cname" type="text" name="codename" placeholder="Name your code">
+		<input class="cb-button" type="submit" value="Create" name="add_btn">
 	</form>
+	</div>
 	
 	<script src="../js/add.js"></script>
   </body>
