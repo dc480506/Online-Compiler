@@ -1,6 +1,7 @@
 <?php
   session_start();
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -18,73 +19,100 @@
 	<div class="bg">
 		<div class="top-bar">
 			<div class="logo">
-				<a href="../index.html">
+				<a href="../index.php">
 					<i class="fas fa-laptop-code"></i>
 					</a>
-				</div>
+			</div>
 				<div>
 					<button type="button" id="add-button"><i class="fas fa-plus"></i> add</button>
 				</div>
-				   <div >
-				        <label><?php echo $_SESSION['username'];?></label>
-				    </div>  
+				<div class="user-options">
+						<?php
+						if(isset($_SESSION['u_user'])){
+							$user=$_SESSION['u_user'];
+							echo '<select class="user-button" onchange="location = this.value;"><option value="" selected disabled hidden><span>';
+							echo $user;
+							echo'</span><i class="fas fa-caret-down" style="margin-left:5px"></i></option>
+							<option value="../include/logout.php">Logout</a></option>
+							</select>';
+						}
+						?>
+				</div>   
     	</div>
 		
 
 	<div class="codes">
-		<figure class="code-sample">
-			<div class= "code-name" >
-				<a href="" class= "code-name-link">abc</a>
-			</div>
-			<div class= "code-lang" >
-				C
-			</div>
-			<div class= "code-time" >
-				1 hour ago
-			</div>
-		</figure>
+	<?php
 
-		<figure class="code-sample">
-			<div class= "code-name" >
-				<a href="" class= "code-name-link">ham</a>
-			</div>
-			<div class= "code-lang" >
-				C++
-			</div>
-			<div class= "code-time" >
-				2 hour ago
-			</div>
-		</figure>
+		include_once '../include/config.php';
 
-		<figure class="code-sample">
-			<div class= "code-name" >
-				<a href="" class= "code-name-link">xya</a>
-			</div>
-			<div class= "code-lang" >
-				Java
-			</div>
-			<div class= "code-time" >
-				10 hour ago
-			</div>
-		</figure>
 
+		$sql="SELECT * FROM code_info WHERE username='$user'";
+		$result=mysqli_query($conn,$sql);
+		
+		if (mysqli_num_rows($result) > 0) {
+			// output data of each row
+			while($row = mysqli_fetch_assoc($result)) {
+				echo'
+				<figure class="code-sample">
+					<div class= "code-name" >
+						<a href="" class= "code-name-link">'.$row["codename"].'</a>
+					</div>
+					<div class= "code-lang" >
+						'.$row["language"].'
+					</div>
+					<div class= "code-time" >
+						'.$row["ctime"].'
+					</div>
+					<div class="code-options">
+
+					</div>
+				</figure>';
+			}
+		}
+		
+
+
+		// <figure class="code-sample">
+		// 	<div class= "code-name" >
+		// 		<a href="" class= "code-name-link">abc</a>
+		// 	</div>
+		// 	<div class= "code-lang" >
+		// 		C
+		// 	</div>
+		// 	<div class= "code-time" >
+		// 		1 hour ago
+		// 	</div>
+		// 	<div class="code-options">
+
+		// 	</div>
+		// </figure>
+
+		?>
+		
+		
 	</div>
+
+	
 
 	</div>	<!--bg end-->
 
-	<form class ="create-box" action="" method="post" enctype="text/plain">
+	<div class ="create-box">
+	<form action="../include/add_code.php" method="POST" >
 		<div id="cb-close">+</div>
 		<label class="cb-heading">Create a new code</label>
 		<div class="lang-box">
-		<select name="Languages" class="clang">
-    	<option value="C">C</option>
-    	<option value="C++">C++</option>
-    	<option value="Java">Java</option>
-  	</select>
+		<select name="language" class="clang">
+    		<option value="C">C</option>
+    		<option value="C++">C++</option>
+			<option value="Java">Java</option>
+			<option value="Python">Python</option>
+  		</select>
 		</div>
-		<input class="cname" type="text" placeholder="Name your code">
-		<input class="cb-button" type="submit" value="Create">
+		<input class="cname" type="text" name="codename" placeholder="Name your code">
+		<input class="cb-button" type="submit" value="Create" name="add_btn">
 	</form>
+	</div>
 	
 	<script src="../js/add.js"></script>
   </body>

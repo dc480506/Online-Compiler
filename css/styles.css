@@ -10,7 +10,6 @@ body{
 	/*resize: horizontal;*/
 	display: inline-block;
 	font-size: 1.15em;
-	overflow-y: scroll;
 	/*overflow-wrap: break-word;*/
 }
 #theme{
@@ -78,18 +77,21 @@ body{
 	height: 100%;
 	color:white;
 	padding: 0.6%;
+	display: inline-block;
 }
 #code-name{
 	font-size:1.1em;
 	position: relative;
 	transform: translateY(40%);
 	padding-bottom: 0.4%;
+	float: left;
 }
 #lang{
 	padding: 0.3%;
 	font-size:0.9em;
 	position: relative;
 	transform: translateY(50%);
+	float: left;
 }
 #lang-img{
 	height: 30%;
@@ -102,6 +104,13 @@ body{
 	position: absolute;
 	padding-left: 2%;
 	transform: translateY(-50%);
+}
+.new-code{
+	position: absolute;
+	top:50%;
+	left:30%;
+	transform: translateY(-50%);
+	background-color: #2f3640;
 }
 .algo-search{
 	right:15%;
@@ -257,7 +266,7 @@ li{
 	height: 90%;
 	background-color: #0a001f;
 	right:0;
-	width:30%;	
+	width:29.8%;	
 }
 .fas.fa-backspace{
 	position: absolute;

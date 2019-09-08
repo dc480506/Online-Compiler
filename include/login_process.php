@@ -1,30 +1,46 @@
 <?php
-    include 'config.php';
-	//get values from login.php
-	$username=$_POST['user'];
-	$password=$_POST['pass'];
-	
-	//to prevent mysql injection
-	/*$username=stripslashes($username);
-	$password=stripslashes($password);*/
-	$username=mysqli_real_escape_string($conn,$username);
-	$password=mysqli_real_escape_string($conn,$password);
-	
-	//connect to the server and select database
-	//mysql_select_db("login");
-	
-	//Query the database for user
-	$result=mysqli_query($conn,"select * from login_details where username='$username' and pwd='$password'")
-				or die("Failed to query database ".mysql_error());
-	$row=mysqli_fetch_array($result);
-	
-	if($row['username'] == $username && $row['pwd'] == $password ){
-		echo "Login Success !! Welcome ".$row['username'];
-	   session_start();
-	   $_SESSION['logged']=true;
-	   $_SESSION['username']=$username;
-	   header("refresh:3;url=../html/add.php");
-	   
-	}else
-		echo "Failed to login......";
+
+session_start();
+
+if(isset($_POST['login_btn'])){
+    include_once 'config.php';
+
+    $user=mysqli_real_escape_string($conn,$_POST['user']);
+    $pass=mysqli_real_escape_string($conn,$_POST['pass']);
+
+    //error handlers
+    //check for empty fields
+    if(empty($user) || empty($pass) ){
+        header("Location: ../index.php?login=empty");
+        exit();
+    }else{
+        //check if input data is present (username )
+        $sql="SELECT * FROM user_details WHERE username='$user'";
+        $result=mysqli_query($conn,$sql);
+        if(mysqli_num_rows($result) < 1){
+            header("Location: ../index.php?login=error");
+            exit();
+        }else{
+            if($row= mysqli_fetch_assoc($result)){
+				//de-hashin password
+				$hashedPwdCheck=password_verify($pass,$row['password']);
+				if($hashedPwdCheck == false){
+					header("Location: ../index.php?login=error");
+            		exit();
+				}elseif($hashedPwdCheck == true){
+					//login the user here
+					$_SESSION['u_user']=$row['username'];
+					header("Location: ../html/add.php?login=Sucess!!!!!");
+            		exit();
+
+				}
+			}
+        }
+    }
+
+}else{
+    header("Location: ../index.php");
+    exit();
+}
+
 ?>

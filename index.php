@@ -1,3 +1,10 @@
+<?php
+
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html>
    <head>
@@ -14,39 +21,39 @@
                <form action="include/login_process.php" method="POST">
                   <h1>Login</h1>
                   <div class="txtb">
-                     <input type="text" id="user" name="user" required="required">
+                     <input type="text" name="user" required="required">
                      <span dataplaceholder="Username"></span>
                   </div>
                   <div class="txtb">
-                     <input type="password" id="pass" name="pass" required="required">
+                     <input type="password" name="pass" required="required">
                      <span dataplaceholder="Password"></span>
                   </div>
                   <p class="keeplogin"> 
                      <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" /> 
                      <label for="loginkeeping">Keep me log in</label>
                   </p>
-                  <input type="submit" class="logbtn" value="Log In">
+                  <input type="submit" class="logbtn" value="Log In" name="login_btn">
                   <div class="bottom">
                      Don't have account? <a id="signup" href="#">Sign up </a>
                   </div>
                </form>
             </div>
             <div id="signupslider">
-               <form>
+               <form action="include/signup_process.php" method="POST">
                   <h1>Sign Up</h1>
                   <div class="txtb">
-                     <input type="text" required="required">
+                     <input type="text" required="required" name="user">
                      <span dataplaceholder="Username"></span>
                   </div>
                   <div class="txtb">
-                     <input type="text" required="required">
+                     <input type="email" required="required" name="email">
                      <span dataplaceholder="Email"></span>
                   </div>
                   <div class="txtb">
-                     <input type="password" required="required">
+                     <input type="password" required="required" name="pass">
                      <span dataplaceholder="Password"></span>
                   </div>
-                  <input type="submit" class="logbtn" value="Create Account">
+                  <input type="submit" class="logbtn" value="Create Account" name="signup_btn">
                   <div class="bottom">
                      Already have an account? <a id="signin" href="#">Log In </a>
                   </div>
