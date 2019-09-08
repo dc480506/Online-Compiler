@@ -55,18 +55,21 @@
 			while($row = mysqli_fetch_assoc($result)) {
 				echo'
 				<figure class="code-sample">
-					<div class= "code-name" >
-						<a href="" class= "code-name-link">'.$row["codename"].'</a>
+				<form method="POST" action="../include/open_code.php">
+					<div class= "code-name">
+					   <input type="hidden" name="code-name" value='.$row["codename"].'>
+						<a href="#" class= "code-name-link" onclick="this.parentNode.parentNode.submit(); return false;">'.$row["codename"].'</a>
 					</div>
 					<div class= "code-lang" >
+					   <input type="hidden" name="code-lang" value='.$row["language"].'>
 						'.$row["language"].'
 					</div>
 					<div class= "code-time" >
 						'.$row["ctime"].'
 					</div>
 					<div class="code-options">
-
 					</div>
+				</form>
 				</figure>';
 			}
 		}
