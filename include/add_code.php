@@ -26,7 +26,28 @@ if(isset($_POST['add_btn'])){
             //insert the code_info into database
             $sql="INSERT INTO code_info (username,codename,language,ctime,utime) VALUES ('$user','$cname','$lang','$ctime','$utime');";
             mysqli_query($conn,$sql);
-            header("Location: ../html/add.php?add_code=Sucess!!!!!");
+            $dir=$base_dir.$user."/".$cname;
+            mkdir($dir,0777,true);
+            if($lang=="C"){
+                $_SESSION['file']="main.c";
+                file_put_contents($dir."/main.c","");
+            }else if($lang=="C++"){
+                $_SESSION['file']="main.cpp";
+                file_put_contents($dir."/main.cpp","");
+            }else if($lang=="Java"){
+                $_SESSION['file']="Main.java";
+                file_put_contents($dir."/Main.java","");
+            }else if($lang=="Python"){
+                $_SESSION['file']="main.py";
+                file_put_contents($dir."/main.py","");
+            }else{
+                header("Location: ../html/add.php?add_code=Error!!!!!");
+            }
+            $_SESSION['language']=$lang;
+            $_SESSION['code']=$cname;
+            $_SESSION['dir']=$dir;
+            header("Location: ../html/editor.php");
+            
             exit();
 			}
         }

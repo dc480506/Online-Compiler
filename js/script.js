@@ -1,19 +1,3 @@
-var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
-          lineNumbers: true,
-          mode:"text/x-java",
-          theme:"xq-dark",
-          matchBrackets:true,
-          autoCloseBrackets:true,
-          autoCloseTags:true
-  });
-  editor.on('keyup', function(editor,event){
-      if( !(event.ctrlKey) && 
-        (event.keyCode>=65 && event.keyCode<=90)
-        ||(event.keyCode>=97 && event.keyCode<=122)
-        ||(event.keyCode>=46 && event.keyCode<=57)){
-       editor.showHint({completeSingle:false});
-    }
-  });
 document.getElementById("theme").addEventListener("click",function(){
   if(editor.options.theme=="xq-dark"){
      editor.setOption("theme","xq-light");
@@ -32,4 +16,7 @@ document.querySelector(".fas.fa-caret-down").addEventListener("click",function()
 }else{
   u.style.display="none";
 }
+})
+document.querySelector(".fas.fa-backspace").addEventListener("click",function(){
+  document.getElementById("output-screen").value="";
 })

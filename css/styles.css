@@ -1,7 +1,6 @@
 body{
 	margin: 0;
 }
-
 .CodeMirror{
 	top: 10%;
 	height:90%;
@@ -11,7 +10,6 @@ body{
 	/*resize: horizontal;*/
 	display: inline-block;
 	font-size: 1.15em;
-	overflow-y: scroll;
 	/*overflow-wrap: break-word;*/
 }
 #theme{
@@ -69,6 +67,51 @@ body{
 	transform: translate(-50%,-50%);
 	position: absolute;
 }*/
+.code-info{
+	position: absolute;
+	top:50%;
+	left:10%;
+	background-color: #6c5ce7;
+	transform: translateY(-50%);
+	font-family: Arial;
+	height: 100%;
+	color:white;
+	padding: 0.6%;
+	display: inline-block;
+}
+#code-name{
+	font-size:1.1em;
+	position: relative;
+	transform: translateY(40%);
+	padding-bottom: 0.4%;
+	float: left;
+}
+#lang{
+	padding: 0.3%;
+	font-size:0.9em;
+	position: relative;
+	transform: translateY(50%);
+	float: left;
+}
+#lang-img{
+	height: 30%;
+}
+.fas.fa-pen{
+	cursor: pointer;
+}
+#lang>span{
+	top:50%;
+	position: absolute;
+	padding-left: 2%;
+	transform: translateY(-50%);
+}
+.new-code{
+	position: absolute;
+	top:50%;
+	left:30%;
+	transform: translateY(-50%);
+	background-color: #2f3640;
+}
 .algo-search{
 	right:15%;
 	position: absolute;
@@ -124,7 +167,7 @@ body{
 	background-color: #27ae60;
 } 
 .execute:hover > .fas.fa-play{
-	color:white;
+	color:rgb(107, 93, 93);
 }
 #run{
 	float: right;
@@ -151,7 +194,7 @@ body{
 	position: absolute;
 	margin: 0;
 	padding: 0;
-	height:50%;
+	height:5%;
 	transform:translateY(50%);
 	width:5%;
 	left:40%;
@@ -191,6 +234,8 @@ body{
 	height:50%;
 	padding: 0.25%;
 	width: 8%;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.9em;
 }
 .fas.fa-caret-down{
 	cursor: pointer;
@@ -209,7 +254,36 @@ body{
 	font-size: 0.9em;
 	background-color: red;
 	display: none;
+	z-index: 1;
+	font-family: Arial, Helvetica, sans-serif;
 }
 li{
 	list-style-type: none;
+}
+#output{
+	position: absolute;
+	top:10%;
+	height: 90%;
+	background-color: #0a001f;
+	right:0;
+	width:29.8%;	
+}
+.fas.fa-backspace{
+	position: absolute;
+	color:white;
+	right:3%;
+	top: 3%;
+	transform:translateY(-50%);
+	cursor: pointer;
+}
+#output-screen{
+	position: absolute;
+	top:6%;
+	width: 100%;
+	padding-left: 2%;
+	background-color: #0a001f;
+	color: white;
+	border: none;
+	outline: none;
+	resize: none;
 }
