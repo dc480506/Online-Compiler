@@ -4,6 +4,7 @@ session_start();
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
@@ -40,7 +41,18 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
         </span>
         <i class="fas fa-pen"></i>
       </div>
-      <div id="lang"><img src="../img/<?php echo $_SESSION['language']?>.jpg" id="lang-img"><span><pre> <?php echo $_SESSION['language']?></pre></span></div>
+      <form action="../include/savecode.php" method="POST">
+      <div id="rename-box">
+         <input type=text name="rename-value">
+         <i class="fas fa-check"></i>
+      </div>
+      </form>
+      <div id="lang">
+        <img src="../img/<?php echo $_SESSION['language']?>.jpg" id="lang-img">
+        <span><pre> <?php echo $_SESSION['language']?></pre>
+        </span>
+      </div>
+      <button type="button" id="cancel">Cancel</button>
     </div>
     <div class="execute">
       <i class="fas fa-play"></i>
@@ -70,6 +82,11 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
         <div class="circle"></div>
       </div>
     </div>
+    <div id="layout">
+        <div class="toggle-btn">
+        <div class="circle"></div>
+      </div>
+    </div>
     <form action="../include/savecode.php" method="POST">
     <div class="save">
         <i class="fas fa-save"></i>
@@ -77,6 +94,7 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
       </div>
     <textarea id='demotext' name="code"><?php echo file_get_contents($_SESSION['dir']."/".$_SESSION['file']);?></textarea>
     </form>
+    <div id="resize"></div>
     <div id="output">
       <i class="fas fa-backspace"></i>
       <textarea id="output-screen"></textarea>

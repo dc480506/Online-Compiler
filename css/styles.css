@@ -20,6 +20,14 @@ body{
 	position: absolute;
 	cursor: pointer;
 }
+#layout{
+	top:19%;
+	height: 5%;
+	left:2.5%;
+	width:5%;
+	position: absolute;
+	cursor: pointer;
+}
 .toggle-btn{
 	background-color: gray;
 	width: 100%;
@@ -167,7 +175,7 @@ body{
 	background-color: #27ae60;
 } 
 .execute:hover > .fas.fa-play{
-	color:rgb(107, 93, 93);
+	color:rgb(255, 255, 255);
 }
 #run{
 	float: right;
@@ -279,6 +287,7 @@ li{
 #output-screen{
 	position: absolute;
 	top:6%;
+	height: 90%;
 	width: 100%;
 	padding-left: 2%;
 	background-color: #0a001f;
@@ -286,4 +295,23 @@ li{
 	border: none;
 	outline: none;
 	resize: none;
+}
+
+#resize{
+	position: absolute;
+	top:10%;
+	height: 90%;
+	left: 70%;
+	width: 0.2%;
+	cursor: ew-resize;
+}
+
+#rename-box,#cancel{
+	display: none;
+	margin-top:5%;
+}
+#cancel{
+	float: left;
+	margin-left:30%;
+	cursor: pointer;
 }

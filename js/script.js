@@ -9,6 +9,38 @@ document.getElementById("theme").addEventListener("click",function(){
       document.getElementsByClassName("circle")[0].style.transform="translateX(0%)";
     }
 })
+var clayout="sidebyside"
+document.getElementById("layout").addEventListener("click",function(){
+  if(clayout=="sidebyside"){
+    clayout="topdown"
+     document.querySelector('.CodeMirror').style.width="90%"
+     document.querySelector('.CodeMirror').style.height="50%"
+     document.querySelector('#resize').style.height="0.8%"
+     document.querySelector('#resize').style.top="60%"
+     document.querySelector('#resize').style.width="90%"
+     document.querySelector('#resize').style.cursor="ns-resize"
+     document.querySelector('#resize').style.left="10%"
+     document.querySelector('#output').style.top="60.8%"
+     document.querySelector('#output').style.width="90%"
+     document.querySelector('#output').style.height="39.2%"
+     document.getElementsByClassName("toggle-btn")[1].style.backgroundColor="#3498db";
+     document.getElementsByClassName("circle")[1].style.transform="translateX(115%)";
+  }else{
+      clayout="sidebyside"
+      document.querySelector('.CodeMirror').style.width="60%"
+      document.querySelector('.CodeMirror').style.height="90%"
+      document.querySelector('#resize').style.height="90%"
+      document.querySelector('#resize').style.top="10%"
+      document.querySelector('#resize').style.width="0.2%"
+      document.querySelector('#resize').style.cursor="ew-resize"
+      document.querySelector('#resize').style.left="70%"
+      document.querySelector('#output').style.top="10%"
+      document.querySelector('#output').style.width="29.8%"
+      document.querySelector('#output').style.height="90%"
+      document.getElementsByClassName("toggle-btn")[1].style.backgroundColor="gray";
+      document.getElementsByClassName("circle")[1].style.transform="translateX(0%)";
+    }
+})
 var u=document.querySelector(".user-options");
 document.querySelector(".fas.fa-caret-down").addEventListener("click",function(){
   if(u.style.display=="none"){
@@ -19,4 +51,16 @@ document.querySelector(".fas.fa-caret-down").addEventListener("click",function()
 })
 document.querySelector(".fas.fa-backspace").addEventListener("click",function(){
   document.getElementById("output-screen").value="";
+})
+
+document.querySelector(".fas.fa-pen").addEventListener("click",function(){
+  document.querySelector("#rename-box").style.display="flex";
+  document.querySelector("#cancel").style.display="flex";
+  document.querySelector("#code-name").style.display="none";
+})
+
+document.querySelector("#cancel").addEventListener("click",function(){
+  document.querySelector("#rename-box").style.display="none";
+  document.querySelector("#cancel").style.display="none";
+  document.querySelector("#code-name").style.display="flex";
 })
