@@ -54,6 +54,10 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
       </div>
       <button type="button" id="cancel">Cancel</button>
     </div>
+    <div class="execute">
+      <i class="fas fa-play"></i>
+      <input id="run" type="button" value="run">
+    </div>
     <div class="new-code">
       <i class="fas fa-plus"></i>
       <input id="new-code" type="button" value="new code">
@@ -104,6 +108,7 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
             compile();
           }
         ?></textarea>
+      <textarea id="output-screen"></textarea>
     </div>
 <script type="text/javascript">
  var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
