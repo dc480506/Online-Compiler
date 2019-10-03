@@ -54,10 +54,6 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
       </div>
       <button type="button" id="cancel">Cancel</button>
     </div>
-    <div class="execute">
-      <i class="fas fa-play"></i>
-      <input id="run" type="button" value="run">
-    </div>
     <div class="new-code">
       <i class="fas fa-plus"></i>
       <input id="new-code" type="button" value="new code">
@@ -78,7 +74,7 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
       </div>
       <div class="execute">
       <i class="fas fa-play"></i>
-      <form action="editor.php" method="POST">
+      <form action="editor.php" method="GET">
       <input id="run" type="submit" name="runcode" value="run">
       </form>
     </div>
@@ -103,12 +99,11 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
     <div id="resize"></div>
     <div id="output">
       <i class="fas fa-backspace"></i>
-      <textarea id="output-screen"> <?php
-          if(isset($_POST['runcode'])){
-            compile();
+      <textarea id="output-screen"><?php
+          if(isset($_GET['runcode'])){
+           compile();
           }
         ?></textarea>
-      <textarea id="output-screen"></textarea>
     </div>
 <script type="text/javascript">
  var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
@@ -144,17 +139,20 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
 <?php
    session_start();
    function compile(){
+    $cwd= getcwd();
+    chdir($_SESSION['dir']);
     if($_SESSION['language']=="Java"){
-    $err=popen("javac ".$_SESSION['dir']."/Main.java",'r');
+    $err=popen("javac Main.java",'r');
+    //echo shell_exec("java Main");
     pclose($err);
    }else if($_SESSION['language']=="C"){
-    $cd=popen("cd ".$_SESSION['dir'],'r');
-    $err=popen("gcc ".$_SESSION['dir']."/main.c",'r');
+    $err=popen("gcc main.c",'r');
     pclose($err);
-    pclose($cd);
+    //echo shell_exec("a");
    }else{
-    $err=popen("g++ ".$_SESSION['dir']."/main.cpp",'r');
+    $err=popen("g++ main.cpp",'r');
     pclose($err);
    }
+   chdir($cwd);
   }
 ?>
