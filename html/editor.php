@@ -74,9 +74,10 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
       </div>
       <div class="execute">
       <i class="fas fa-play"></i>
-      <form action="editor.php" method="GET">
+      <!--<form action="editor.php" method="GET">
       <input id="run" type="submit" name="runcode" value="run">
-      </form>
+      </form>-->
+      <input id="run" type="button" name="runcode" value="run" onclick="executeCode('<?php echo $_SESSION['u_user'].'/'.$_SESSION['code']?>','<?php echo $_SESSION['language']?>')">
     </div>
     </div> 
     <div id="theme">
@@ -89,21 +90,26 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
         <div class="circle"></div>
       </div>
     </div>
+
+    <!-- Remove in future changes
     <form action="../include/savecode.php" method="POST">
     <div class="save">
         <i class="fas fa-save"></i>
         <input id="save-program" type="submit" name="save" value="save">
+      </div>
+    <textarea id='demotext' name="code"><?php //echo file_get_contents($_SESSION['dir']."/".$_SESSION['file']);?></textarea>
+    </form>-->
+    <form>
+      <div class="save">
+        <i class="fas fa-save"></i>
+        <input id="save-program" type="button" name="save" value="save" onclick="saveCode('<?php echo $_SESSION['u_user'].'/'.$_SESSION['code'].'/'.$_SESSION['file']?>')">
       </div>
     <textarea id='demotext' name="code"><?php echo file_get_contents($_SESSION['dir']."/".$_SESSION['file']);?></textarea>
     </form>
     <div id="resize"></div>
     <div id="output">
       <i class="fas fa-backspace"></i>
-      <textarea id="output-screen"><?php
-          if(isset($_GET['runcode'])){
-           compile();
-          }
-        ?></textarea>
+      <textarea readonly="readonly" id="output-screen"></textarea>
     </div>
 <script type="text/javascript">
  var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
@@ -130,29 +136,34 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
         ||(event.keyCode>=46 && event.keyCode<=57)){
        editor.showHint({completeSingle:false});
     }
-  });</script>
+    saveCode('<?php echo $_SESSION['u_user'].'/'.$_SESSION['code'].'/'.$_SESSION['file']?>');
+  });
+  </script>
   <script type="text/javascript" src="../js/script.js"></script>
 </body>
 </html>
 
 
 <?php
-   session_start();
+  /* session_start();
    function compile(){
     $cwd= getcwd();
     chdir($_SESSION['dir']);
     if($_SESSION['language']=="Java"){
-    $err=popen("javac Main.java",'r');
+      if(file_exists("Main.class"))
+        unlink("Main.class");
+      echo shell_exec("javac Main.java 2>&1");
     //echo shell_exec("java Main");
-    pclose($err);
    }else if($_SESSION['language']=="C"){
-    $err=popen("gcc main.c",'r');
-    pclose($err);
+      if(file_exists("a.exe"))
+        unlink("a.exe");
+      echo shell_exec("gcc main.c 2>&1");
     //echo shell_exec("a");
    }else{
-    $err=popen("g++ main.cpp",'r');
-    pclose($err);
+     if(file_exists("a.exe"))
+        unlink("a.exe");
+     echo shell_exec("g++ main.cpp 2>&1");
    }
    chdir($cwd);
   }
-?>
+*/?>

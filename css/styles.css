@@ -209,7 +209,7 @@ body{
 	top:0;
 	cursor: pointer;
 }
-.fas.fa-save{
+.fas.fa-save,.fas.fa-history{
     position: absolute;
 	left: 7%;
 	z-index: 1;
@@ -314,4 +314,7 @@ li{
 	float: left;
 	margin-left:30%;
 	cursor: pointer;
+}
+.saving{
+	display: flex;
 }
