@@ -12,7 +12,7 @@ body {
 .fa-laptop-code {
     font-size: 2.2rem;
     position: absolute;
-    left: 3rem;
+    left: 1.5rem;
     padding: 0.4rem 0;
     color: #93deff;
 }
@@ -93,7 +93,6 @@ body {
 .lang-box select {
     background-color: #aee7e8;
     color: #000;
-    padding: 10px;
     width: 100%;
     height: 100%;
     border: none;
@@ -107,8 +106,8 @@ body {
     position: absolute;
     top: 0;
     right: 0;
-    height: 32.5px;
-    width: 32.5px;
+    height: 31px;
+    width: 31px;
     text-align: center;
     line-height: 32.5px;
     color: #000;
@@ -264,7 +263,8 @@ body {
 .user-options {
     position: absolute;
     right: 8%;
-    height: 100%;
+    height: 3rem;
+    width: 10%;
 }
 
 .user-button {
@@ -283,4 +283,33 @@ body {
     border: 1px solid #323643;
     color: #000;
     background: #93deff;
+}
+
+@media only screen and (max-width:450px) {
+    /* For mobile */
+    .top-bar {
+        width: 100%;
+    }
+    #add-button {
+        position: absolute;
+        right: 40%;
+        left: 40%;
+    }
+    .user-options {
+        position: absolute;
+        right: 18%;
+    }
+    .dropdown-menu {
+        min-width: 100px;
+    }
+    .dropdown-menu.show {
+        display: block;
+        transform: translate3d(-75px, 38px, 0px);
+    }
+    .rename-box {
+        width: 50%;
+    }
+    .create-box {
+        width: 50%;
+    }
 }

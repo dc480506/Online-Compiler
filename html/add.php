@@ -48,10 +48,7 @@
 
 	<div class="codes">
 	<?php
-
 		include_once '../include/config.php';
-
-
 		$sql="SELECT * FROM code_info WHERE username='$user'";
 		$result=mysqli_query($conn,$sql);
 		
@@ -86,8 +83,6 @@
 			}
 		}
 		
-
-
 		// <figure class="code-sample">
 		// 	<div class= "code-name" >
 		// 		<a href="" class= "code-name-link">abc</a>
@@ -99,10 +94,8 @@
 		// 		1 hour ago
 		// 	</div>
 		// 	<div class="code-options">
-
 		// 	</div>
 		// </figure>
-
 		?>
 		
 		

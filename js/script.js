@@ -1,3 +1,11 @@
+document.querySelector(".fas.fa-cogs").addEventListener("click",function(){
+  document.getElementById("settings-options").style.display="flex";
+  document.getElementById("panel-mode").innerHTML="Settings";
+})
+document.querySelector(".fas.fa-file-code").addEventListener("click",function(){
+  document.getElementById("settings-options").style.display="none";
+  document.getElementById("panel-mode").innerHTML="Files";
+})
 document.getElementById("theme").addEventListener("click",function(){
   if(editor.options.theme=="xq-dark"){
      editor.setOption("theme","xq-light");
@@ -13,8 +21,9 @@ var clayout="sidebyside"
 document.getElementById("layout").addEventListener("click",function(){
   if(clayout=="sidebyside"){
     clayout="topdown"
+     document.querySelector('.status-bar').style.width="90%";
      document.querySelector('.CodeMirror').style.width="90%"
-     document.querySelector('.CodeMirror').style.height="50%"
+     document.querySelector('.CodeMirror').style.height="45%"
      document.querySelector('#resize').style.height="0.8%"
      document.querySelector('#resize').style.top="60%"
      document.querySelector('#resize').style.width="90%"
@@ -27,8 +36,9 @@ document.getElementById("layout").addEventListener("click",function(){
      document.getElementsByClassName("circle")[1].style.transform="translateX(115%)";
   }else{
       clayout="sidebyside"
+      document.querySelector('.status-bar').style.width="60%";
       document.querySelector('.CodeMirror').style.width="60%"
-      document.querySelector('.CodeMirror').style.height="90%"
+      document.querySelector('.CodeMirror').style.height="85%"
       document.querySelector('#resize').style.height="90%"
       document.querySelector('#resize').style.top="10%"
       document.querySelector('#resize').style.width="0.2%"
@@ -64,14 +74,16 @@ document.querySelector("#cancel").addEventListener("click",function(){
   document.querySelector("#cancel").style.display="none";
   document.querySelector("#code-name").style.display="flex";
 })
+
+//AJAX section
 function saveCode(file){
   console.log("Called");
   var codetext=editor.getValue();
   console.log(codetext);
   console.log(file);
-  var c=document.querySelector(".save").children;
-  c[0].setAttribute("class","fas fa-history");
-  c[1].setAttribute("value","saving");
+  document.querySelector(".fas.fa-save").style.display="none";
+  document.querySelector(".fas.fa-history").style.display="flex";
+  document.querySelector("#file-status").innerHTML="saving...";
   var jsonData={
     'file':file,
     'codetext':codetext
@@ -80,8 +92,9 @@ function saveCode(file){
   var xhttp=new XMLHttpRequest();
   xhttp.onreadystatechange=function(){
     if(this.readyState==4 && this.status==200){
-      c[0].setAttribute("class","fas fa-save");
-      c[1].setAttribute("value","save");
+      document.querySelector(".fas.fa-history").style.display="none";
+      document.querySelector(".fas.fa-save").style.display="flex";
+      document.querySelector("#file-status").innerHTML="saved";
     }
   }
   xhttp.open("POST","../include/ajaxsavecode.php",true);
@@ -96,7 +109,7 @@ function executeCode(code_path,lang){
   console.log(code_path);
   console.log(lang)
   document.getElementById('run').setAttribute('value','compiling');
-  document.querySelector("#run").style.backgroundColor="#27ae60";
+  document.querySelector("#run").style.backgroundColor="#1abc9c";
   document.querySelector("#run").style.color="white";
   document.querySelector(".fas.fa-play").style.color="white";
   var jsonData={

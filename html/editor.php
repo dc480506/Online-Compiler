@@ -9,6 +9,7 @@ session_start();
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 <title>Code Mirror</title>
+<link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/lib/codemirror.css">
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/addon/hint/show-hint.css">
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/theme/xq-light.css">
@@ -30,6 +31,25 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 </head>
 <body>
+  <div class="side-panel">
+    <div class="side-options">
+    <i class="fas fa-file-code"></i>
+    <i class="fas fa-cogs"></i>
+    </div>
+    <p id="panel-mode">Files</p>
+    <div id="settings-options">
+    <div id="theme">
+      <div class="toggle-btn">
+        <div class="circle"></div>
+      </div>
+    </div>
+    <div id="layout">
+        <div class="toggle-btn">
+        <div class="circle"></div>
+      </div>
+    </div>
+    </div>
+  </div>
     <div class="menu-bar">
       <a href="../index.php">
         <i class="fas fa-laptop-code"></i>
@@ -80,17 +100,6 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
       <input id="run" type="button" name="runcode" value="run" onclick="executeCode('<?php echo $_SESSION['u_user'].'/'.$_SESSION['code']?>','<?php echo $_SESSION['language']?>')">
     </div>
     </div> 
-    <div id="theme">
-      <div class="toggle-btn">
-        <div class="circle"></div>
-      </div>
-    </div>
-    <div id="layout">
-        <div class="toggle-btn">
-        <div class="circle"></div>
-      </div>
-    </div>
-
     <!-- Remove in future changes
     <form action="../include/savecode.php" method="POST">
     <div class="save">
@@ -99,13 +108,15 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
       </div>
     <textarea id='demotext' name="code"><?php //echo file_get_contents($_SESSION['dir']."/".$_SESSION['file']);?></textarea>
     </form>-->
-    <form>
-      <div class="save">
-        <i class="fas fa-save"></i>
-        <input id="save-program" type="button" name="save" value="save" onclick="saveCode('<?php echo $_SESSION['u_user'].'/'.$_SESSION['code'].'/'.$_SESSION['file']?>')">
+    <div class="status-bar">
+      <span id="file-name"><?php echo $_SESSION['file']?></span>
+      <i class="fas fa-save"></i>
+      <i class="fas fa-history"></i>
+      <div class="file-status-container">
+      <span id="file-status">saved</span>
       </div>
+    </div>
     <textarea id='demotext' name="code"><?php echo file_get_contents($_SESSION['dir']."/".$_SESSION['file']);?></textarea>
-    </form>
     <div id="resize"></div>
     <div id="output">
       <i class="fas fa-backspace"></i>
