@@ -9,7 +9,7 @@ if($lang=="Java"){
   if(file_exists("Main.class"))
     unlink("Main.class");
   echo shell_exec("javac Main.java 2>&1");
-//echo shell_exec("java Main");
+  echo shell_exec("java Main 2>&1; echo $?");
 }else if($lang=="C"){
   if(file_exists("a.exe"))
     unlink("a.exe");
@@ -18,6 +18,6 @@ if($lang=="Java"){
 }else if($lang=="C++"){
  if(file_exists("a.exe"))
     unlink("a.exe");
- echo shell_exec("g++ main.cpp 2>&1");
+   echo shell_exec("g++ main.cpp 2>&1");
 }
 ?>

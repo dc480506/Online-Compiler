@@ -28,3 +28,23 @@ document.getElementById("close-rename").addEventListener("click",function(){
    document.querySelector('.rename-box').style.display='none';
    document.querySelector('.bg').style.opacity='1';
 },false);
+
+function onSearch(){
+    var searchtext=document.querySelector("#search-bar");
+    var jsonData={
+        'searchtext':searchtext
+      };
+      var jsonString=JSON.stringify(jsonData);
+      var xhttp=new XMLHttpRequest();
+      xhttp.onreadystatechange=function(){
+        if(this.readyState==4 && this.status==200){
+          document.querySelector(".fas.fa-history").style.display="none";
+          document.querySelector(".fas.fa-save").style.display="flex";
+          document.querySelector("#file-status").innerHTML="saved";
+        }
+      }
+      xhttp.open("POST","../include/ajaxsavecode.php",true);
+     // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+     xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
+     xhttp.send(jsonString);
+}

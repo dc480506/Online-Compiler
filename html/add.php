@@ -45,7 +45,10 @@
 				</div>   
     	</div>
 		
-
+	<div class="search-container">
+	   <i class="fas fa-search"></i>
+		<input id="search-bar" type='text' placeholder="Search code" onkeyup="onSearch()">
+	</div>
 	<div class="codes">
 	<?php
 		include_once '../include/config.php';

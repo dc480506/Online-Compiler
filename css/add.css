@@ -185,7 +185,7 @@ body {
     position: absolute;
     left: 5%;
     background-color: #f7f7f7;
-    top: 4rem;
+    top: 8rem;
     height: 100%;
     float: down;
 }
@@ -285,6 +285,27 @@ body {
     background: #93deff;
 }
 
+.search-container{
+    width:50%;
+    position: absolute;
+    top:4rem;
+    left:50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+.fas.fa-search{
+    left:2%;
+    position: absolute;
+    z-index: 1;
+    top:50%;
+    transform: translateY(50%);
+}
+#search-bar{
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    border: 0;
+}
 @media only screen and (max-width:450px) {
     /* For mobile */
     .top-bar {

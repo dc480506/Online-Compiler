@@ -27,7 +27,7 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
 <script type="text/javascript" src="../codemirror-5.48.2/addon/hint/show-hint.js"></script>
 <script type="text/javascript" src="../codemirror-5.48.2/addon/edit/closebrackets.js"></script>
 <script type="text/javascript" src="../codemirror-5.48.2/addon/edit/closetag.js"></script>
-<script src="https://kit.fontawesome.com/73dadbfb7d.js"></script>
+<script defer src="https://kit.fontawesome.com/73dadbfb7d.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 </head>
 <body>
