@@ -108,10 +108,6 @@ function executeCode(code_path,lang){
   console.log("Called 2");
   console.log(code_path);
   console.log(lang)
-  document.getElementById('run').setAttribute('value','compiling');
-  document.querySelector("#run").style.backgroundColor="#1abc9c";
-  document.querySelector("#run").style.color="white";
-  document.querySelector(".fas.fa-play").style.color="white";
   var jsonData={
     'code_path':code_path,
     'lang':lang
@@ -124,6 +120,14 @@ function executeCode(code_path,lang){
       document.getElementById('run').setAttribute('value','run');
       document.querySelector("#run").style.backgroundColor="#2f3640";
       document.querySelector(".fas.fa-play").style.color="e74c3c";
+      if(this.responseText==""){
+        runCode(code_path,lang);
+      }
+    }else{
+      document.getElementById('run').setAttribute('value','compiling');
+      document.querySelector("#run").style.backgroundColor="#1abc9c";
+      document.querySelector("#run").style.color="white";
+      document.querySelector(".fas.fa-play").style.color="white";
     }
   }
   xhttp.open("POST","../include/ajaxexeccode.php",true);
@@ -131,3 +135,42 @@ function executeCode(code_path,lang){
   xhttp.send(jsonString);
 }
 
+function runCode(code_path,lang){
+  var jsonData={
+    'code_path':code_path,
+    'lang':lang
+  }
+  var jsonString=JSON.stringify(jsonData);
+  var xhttp=new XMLHttpRequest();
+  xhttp.onreadystatechange=function(){
+    if(this.readyState==4 && this.status==200){
+      //document.getElementById('output-screen').value=this.responseText;
+      document.getElementById('run').setAttribute('value','run');
+      document.querySelector("#run").style.backgroundColor="#2f3640";
+      document.querySelector(".fas.fa-play").style.color="e74c3c";
+    }else{
+      document.getElementById('run').setAttribute('value','running');
+      document.querySelector("#run").style.backgroundColor="#1abc9c";
+      document.querySelector("#run").style.color="white";
+      document.querySelector(".fas.fa-play").style.color="white";
+    }
+  }
+  var lastResponseLength;
+  xhttp.onprogress=function(e){
+   // alert(e.currentTarget.responseText);
+   var response = e.currentTarget.response;
+   console.log(response);
+   var output = typeof lastResponseLength === typeof undefined? response: response.substring(lastResponseLength);
+   console.log(output);
+   lastResponseLength = response.length;
+   document.getElementById('output-screen').value+=output;
+  }
+  xhttp.open("POST","../include/run.php",true);
+  xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
+  xhttp.send(jsonString);
+}
+
+/*var source = new EventSource("../include/sendoutput.php");
+source.onmessage = function(event) {
+  document.getElementById("output-screen").value += event.data;
+};*/
