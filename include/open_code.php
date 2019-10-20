@@ -40,7 +40,4 @@ if($_POST['code-lang']=="C"){
 }
 header("Location: ../html/editor.php");
 exit();
-
-
-
 ?>

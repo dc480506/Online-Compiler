@@ -9,6 +9,10 @@ session_start();
 <html>
    <head>
       <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width">
+      <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+      <meta http-equiv="Pragma" content="no-cache" />
+      <meta http-equiv="Expires" content="0" />
       <title>LOGIN</title>
       <link rel="stylesheet" type="text/css" href="css/def.css">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">

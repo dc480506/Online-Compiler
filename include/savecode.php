@@ -1,4 +1,5 @@
 <?php
+//remove this in future version
 session_start();
 include "config.php"; 
 if(isset($_POST)){

@@ -9,8 +9,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-	<meta http-equiv="Pragma" content="no-cache" />
-	<meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
 	<title>Add Codes</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link href="../css/add.css" rel="stylesheet" type="text/css" />
@@ -45,13 +45,13 @@
 				</div>   
     	</div>
 		
-
+	<div class="search-container">
+	   <i class="fas fa-search"></i>
+		<input id="search-bar" type='text' placeholder="Search code">
+	</div>
 	<div class="codes">
-	<?php
-
+	<!-- <?php
 		include_once '../include/config.php';
-
-
 		$sql="SELECT * FROM code_info WHERE username='$user'";
 		$result=mysqli_query($conn,$sql);
 		
@@ -85,25 +85,7 @@
 				</figure>';
 			}
 		}
-		
-
-
-		// <figure class="code-sample">
-		// 	<div class= "code-name" >
-		// 		<a href="" class= "code-name-link">abc</a>
-		// 	</div>
-		// 	<div class= "code-lang" >
-		// 		C
-		// 	</div>
-		// 	<div class= "code-time" >
-		// 		1 hour ago
-		// 	</div>
-		// 	<div class="code-options">
-
-		// 	</div>
-		// </figure>
-
-		?>
+		?> -->
 		
 		
 	</div>
@@ -142,5 +124,38 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   </body>
 </html>
+
+<script>
+$(document).ready(function(){
+
+ load_data();
+
+ function load_data(query)
+ {
+  $.ajax({
+   url:"../include/ajaxsearchcode.php",
+   method:"POST",
+   data:{query:query},
+   success:function(data)
+   {
+	console.log(data);
+    $('.codes').html(data);
+   }
+  });
+ }
+ $('#search-bar').keyup(function(){
+  var search = $(this).val();
+  if(search != '')
+  {
+   load_data(search);
+  }
+  else
+  {
+   load_data();
+  }
+ });
+});
+</script>
