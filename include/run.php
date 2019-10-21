@@ -7,7 +7,7 @@ $wd=$base_dir.$jsonArray['code_path'];
 $lang=$jsonArray['lang'];
 chdir($wd);
 $desc = array(
-    0 => array('pipe', 'r'),
+    0 => array('file', 'input.txt','r'),
     1 => array('pipe', 'w'), 
     2 => array('pipe', 'w')
 );
@@ -15,7 +15,7 @@ $cmd = "java Main";
 $proc = proc_open($cmd, $desc, $pipes);
 stream_set_blocking($pipes[1], 0);
 stream_set_blocking($pipes[2], 0);
-stream_set_blocking($pipes[0], 0);
+//stream_set_blocking($pipes[0], 0);
 if($proc === FALSE){
     throw new Exception('Cannot execute child process');
 }
