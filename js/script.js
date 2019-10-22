@@ -120,9 +120,9 @@ function executeCode(code_path,lang){
       document.getElementById('run').setAttribute('value','run');
       document.querySelector("#run").style.backgroundColor="#2f3640";
       document.querySelector(".fas.fa-play").style.color="e74c3c";
-      if(this.responseText==""){
+      //if(this.responseText==""){
         runCode(code_path,lang);
-      }
+      //}
     }else{
       document.getElementById('run').setAttribute('value','compiling');
       document.querySelector("#run").style.backgroundColor="#1abc9c";
@@ -134,20 +134,23 @@ function executeCode(code_path,lang){
   xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
   xhttp.send(jsonString);
 }
-
+var pid;
 function runCode(code_path,lang){
   var jsonData={
     'code_path':code_path,
     'lang':lang
   }
+  var b=false;
   var jsonString=JSON.stringify(jsonData);
   var xhttp=new XMLHttpRequest();
+  document.querySelector('.stop').style.display="flex"
   xhttp.onreadystatechange=function(){
     if(this.readyState==4 && this.status==200){
       //document.getElementById('output-screen').value=this.responseText;
       document.getElementById('run').setAttribute('value','run');
       document.querySelector("#run").style.backgroundColor="#2f3640";
       document.querySelector(".fas.fa-play").style.color="e74c3c";
+      document.querySelector('.stop').style.display="none"
     }else{
       document.getElementById('run').setAttribute('value','running');
       document.querySelector("#run").style.backgroundColor="#1abc9c";
@@ -160,10 +163,16 @@ function runCode(code_path,lang){
    // alert(e.currentTarget.responseText);
    var response = e.currentTarget.response;
    console.log(response);
+   if(!b){
+     b=true;
+     pid=response;
+     lastResponseLength=pid.length;
+   }else{
    var output = typeof lastResponseLength === typeof undefined? response: response.substring(lastResponseLength);
    console.log(output);
    lastResponseLength = response.length;
    document.getElementById('output-screen').value+=output;
+   }
   }
   xhttp.open("POST","../include/run.php",true);
   xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
@@ -174,3 +183,26 @@ function runCode(code_path,lang){
 source.onmessage = function(event) {
   document.getElementById("output-screen").value += event.data;
 };*/
+function stopCode(){
+  var jsonData={
+    'pid':pid
+  }
+  document.getElementById('stop').setAttribute('value','stopping');
+  document.querySelector(".execute").style.display="none";
+  var jsonString=JSON.stringify(jsonData);
+  var xhttp=new XMLHttpRequest();
+  xhttp.onreadystatechange=function(){
+    if(this.readyState==4 && this.status==200){
+      document.querySelector(".stop").style.display="none";
+      document.getElementById('stop').setAttribute('value','stop');
+      document.getElementById('run').setAttribute('value','run');
+      document.querySelector("#run").style.backgroundColor="#2f3640";
+      document.querySelector(".fas.fa-play").style.color="e74c3c";
+      document.querySelector('.execute').style.display="flex";
+
+    }
+  }
+  xhttp.open("POST","../include/stop.php",true);
+  xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
+  xhttp.send(jsonString);
+}

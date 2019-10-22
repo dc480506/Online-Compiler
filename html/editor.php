@@ -94,20 +94,13 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
       </div>
       <div class="execute">
       <i class="fas fa-play"></i>
-      <!--<form action="editor.php" method="GET">
-      <input id="run" type="submit" name="runcode" value="run">
-      </form>-->
       <input id="run" type="button" name="runcode" value="run" onclick="executeCode('<?php echo $_SESSION['u_user'].'/'.$_SESSION['code']?>','<?php echo $_SESSION['language']?>')">
     </div>
+    <div class="stop">
+    <i class="fas fa-stop"></i>
+    <input id="stop" type="button" name="runcode" value="stop" onclick="stopCode()">
+    </div>
     </div> 
-    <!-- Remove in future changes
-    <form action="../include/savecode.php" method="POST">
-    <div class="save">
-        <i class="fas fa-save"></i>
-        <input id="save-program" type="submit" name="save" value="save">
-      </div>
-    <textarea id='demotext' name="code"><?php //echo file_get_contents($_SESSION['dir']."/".$_SESSION['file']);?></textarea>
-    </form>-->
     <div class="status-bar">
       <span id="file-name"><?php echo $_SESSION['file']?></span>
       <i class="fas fa-save"></i>
@@ -153,28 +146,3 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
   <script type="text/javascript" src="../js/script.js"></script>
 </body>
 </html>
-
-
-<?php
-  /* session_start();
-   function compile(){
-    $cwd= getcwd();
-    chdir($_SESSION['dir']);
-    if($_SESSION['language']=="Java"){
-      if(file_exists("Main.class"))
-        unlink("Main.class");
-      echo shell_exec("javac Main.java 2>&1");
-    //echo shell_exec("java Main");
-   }else if($_SESSION['language']=="C"){
-      if(file_exists("a.exe"))
-        unlink("a.exe");
-      echo shell_exec("gcc main.c 2>&1");
-    //echo shell_exec("a");
-   }else{
-     if(file_exists("a.exe"))
-        unlink("a.exe");
-     echo shell_exec("g++ main.cpp 2>&1");
-   }
-   chdir($cwd);
-  }
-*/?>

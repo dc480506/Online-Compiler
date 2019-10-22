@@ -7,11 +7,15 @@ $wd=$base_dir.$jsonArray['code_path'];
 $lang=$jsonArray['lang'];
 chdir($wd);
 $desc = array(
-    0 => array('file', 'input.txt','r'),
+ //   0 => array('file', 'input.txt','r'),
+    0 => array('pipe', 'r'),
     1 => array('pipe', 'w'), 
     2 => array('pipe', 'w')
 );
+if($lang=="Java")
 $cmd = "java Main";
+else if($lang=="Python")
+$cmd="python3 main.py";
 $proc = proc_open($cmd, $desc, $pipes);
 stream_set_blocking($pipes[1], 0);
 stream_set_blocking($pipes[2], 0);
@@ -21,7 +25,9 @@ if($proc === FALSE){
 }
 $status=proc_get_status($proc);
 $pid = $status['pid'];
-
+echo $pid;
+ob_flush();
+flush();
 while(true) {
     $status = proc_get_status($proc);
     if($status === FALSE) {
@@ -30,7 +36,7 @@ while(true) {
     if($status['running'] === FALSE) {
         $exitcode = $status['exitcode'];
         $pid = -1;
-        echo "child exited with code: $exitcode\n";
+        echo "\nchild exited with code: $exitcode\n";
         exit($exitcode);
     }
 
@@ -53,10 +59,6 @@ while(true) {
                ob_flush();
                flush();
                $a=$a+1;
-               //echo $a."\n";
-              //fwrite(STDOUT, $data);
-              //file_put_contents("out.txt",$data,FILE_APPEND | LOCK_EX);
-             // shell_exec("php sendoutput.php ".$data);
             } while (strlen($data) > 0);
            // echo "Hey". $desc;
         }
