@@ -33,13 +33,6 @@ while(true) {
     if($status === FALSE) {
         throw new Exception ("Failed to obtain status information for $pid");
     }
-    if($status['running'] === FALSE) {
-        $exitcode = $status['exitcode'];
-        $pid = -1;
-        echo "\nchild exited with code: $exitcode\n";
-        exit($exitcode);
-    }
-
     // read from childs stdout and stderr
     // avoid *forever* blocking through using a time out (50000usec)
     $a=0;
@@ -62,6 +55,19 @@ while(true) {
             } while (strlen($data) > 0);
            // echo "Hey". $desc;
         }
+    }
+    if($status['running'] === FALSE) {
+        $exitcode = $status['exitcode'];
+        $pid = -1;
+        echo "\nchild exited with code: $exitcode\n";
+        exit($exitcode);
+    }
+
+    $input=file_get_contents("input.txt");
+    if($input!=""){
+        $input.="\n";
+        fwrite($pipes[0],$input);
+        file_put_contents("input.txt","");
     }
     /*$read = array();
     $n = stream_select($read, $write, $except, $tv, $utv);

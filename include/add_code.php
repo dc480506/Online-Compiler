@@ -28,6 +28,7 @@ if(isset($_POST['add_btn'])){
             mysqli_query($conn,$sql);
             $dir=$base_dir.$user."/".$cname;
             mkdir($dir,0777,true);
+            file_put_contents($dir."/input.txt","");
             if($lang=="C"){
                 $_SESSION['file']="main.c";
                 file_put_contents($dir."/main.c","");

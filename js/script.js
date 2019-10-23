@@ -134,7 +134,7 @@ function executeCode(code_path,lang){
   xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
   xhttp.send(jsonString);
 }
-var pid;
+var pid,textarealength=0;
 function runCode(code_path,lang){
   var jsonData={
     'code_path':code_path,
@@ -172,6 +172,7 @@ function runCode(code_path,lang){
    console.log(output);
    lastResponseLength = response.length;
    document.getElementById('output-screen').value+=output;
+   textarealength=document.getElementById('output-screen').value.length;
    }
   }
   xhttp.open("POST","../include/run.php",true);
@@ -205,4 +206,36 @@ function stopCode(){
   xhttp.open("POST","../include/stop.php",true);
   xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
   xhttp.send(jsonString);
+}
+
+/*function sendUserInput(e,textarea){
+  var code=(e.keycode? e.keycode:e.which);
+  text=document.getElementById("output-screen").value
+  console.log(lastResponseLength)
+  if(code==13){
+  var input=text.substring(lastResponseLength-pid.length);
+  console.log(input)
+  }*/
+  function sendUserInput(e,code_path){
+    var code=(e.keycode? e.keycode:e.which);
+    text=document.getElementById("output-screen").value
+    console.log(textarealength)
+    if(code==13){
+    var input=text.substring(textarealength);
+    console.log(input)
+    var jsonData={
+      'code_path':code_path,
+      'input':input
+    }
+    var jsonString=JSON.stringify(jsonData);
+    var xhttp=new XMLHttpRequest();
+    xhttp.onreadystatechange=function(){
+      if(this.readyState==4 && this.status==200){
+  
+      }
+    }
+    xhttp.open("POST","../include/createInput.php",true);
+    xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
+    xhttp.send(jsonString);
+  }
 }
