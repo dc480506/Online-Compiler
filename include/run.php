@@ -63,11 +63,17 @@ while(true) {
         exit($exitcode);
     }
 
-    $input=file_get_contents("input.txt");
-    if($input!=""){
+    //$input=file_get_contents("input.txt");
+    /*if($input!=""){
         $input.="\n";
         fwrite($pipes[0],$input);
         file_put_contents("input.txt","");
+    }*/
+    if(file_exists($wd."/input.txt")){
+        $input=file_get_contents("input.txt");
+        $input.="\n";
+        fwrite($pipes[0],$input);
+        unlink("input.txt");
     }
     /*$read = array();
     $n = stream_select($read, $write, $except, $tv, $utv);
