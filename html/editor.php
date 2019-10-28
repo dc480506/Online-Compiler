@@ -61,12 +61,12 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
         </span>
         <i class="fas fa-pen"></i>
       </div>
-      <form action="../include/savecode.php" method="POST">
+      <!--<form action="../include/savecode.php" method="POST">
       <div id="rename-box">
          <input type=text name="rename-value">
          <i class="fas fa-check"></i>
       </div>
-      </form>
+      </form>-->
       <div id="lang">
         <img src="../img/<?php echo $_SESSION['language']?>.jpg" id="lang-img">
         <span><pre> <?php echo $_SESSION['language']?></pre>
@@ -114,7 +114,7 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
     <div id="output">
       <i class="fas fa-backspace"></i>
       <!--<textarea readonly="readonly" id="output-screen"></textarea>-->
-      <textarea id="output-screen" onKeyPress="sendUserInput(event,'<?php echo $_SESSION['u_user'].'/'.$_SESSION['code']?>')" ></textarea>
+      <textarea id="output-screen" spellcheck="false" onKeyPress="sendUserInput(event,'<?php echo $_SESSION['u_user'].'/'.$_SESSION['code']?>')" ></textarea>
     </div>
 <script type="text/javascript">
  var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {

@@ -63,7 +63,7 @@ document.querySelector(".fas.fa-backspace").addEventListener("click",function(){
   document.getElementById("output-screen").value="";
 })
 
-document.querySelector(".fas.fa-pen").addEventListener("click",function(){
+/*document.querySelector(".fas.fa-pen").addEventListener("click",function(){
   document.querySelector("#rename-box").style.display="flex";
   document.querySelector("#cancel").style.display="flex";
   document.querySelector("#code-name").style.display="none";
@@ -73,7 +73,7 @@ document.querySelector("#cancel").addEventListener("click",function(){
   document.querySelector("#rename-box").style.display="none";
   document.querySelector("#cancel").style.display="none";
   document.querySelector("#code-name").style.display="flex";
-})
+})*/
 
 //AJAX section
 function saveCode(file){
@@ -122,6 +122,7 @@ function executeCode(code_path,lang){
       document.querySelector(".fas.fa-play").style.color="e74c3c";
       //if(this.responseText==""){
         runCode(code_path,lang);
+        
       //}
     }else{
       document.getElementById('run').setAttribute('value','compiling');
@@ -239,3 +240,18 @@ function stopCode(){
     xhttp.send(jsonString);
   }
 }
+
+document.getElementById("output-screen").addEventListener('keydown',function(e){
+  var cursor=document.getElementById('output-screen').selectionStart
+  console.log("Textarealength is "+(textarealength-1))
+  if(e.keyCode==8)
+    cursor--;
+  console.log("cursor value is "+cursor)
+  if(cursor<=textarealength-1 && e.keyCode!=37 && e.keyCode!=38 && e.keyCode!=39 && e.keyCode!=40){
+    e.preventDefault();
+    console.log("In here")
+    return false;
+  }else{
+    return true;
+  }
+})
