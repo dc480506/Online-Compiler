@@ -14,6 +14,7 @@ session_start();
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/addon/hint/show-hint.css">
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/theme/xq-light.css">
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/theme/xq-dark.css">
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" rel="stylesheet" />
 <script type="text/javascript" src="../codemirror-5.48.2/lib/codemirror.js"></script>
 <?php
 if($_SESSION['language']=="Python"){
@@ -109,13 +110,14 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
       <span id="file-status">saved</span>
       </div>
     </div>
+    <div id="parent">
     <textarea id='demotext' name="code"><?php echo file_get_contents($_SESSION['dir']."/".$_SESSION['file']);?></textarea>
-    <div id="resize"></div>
     <div id="output">
       <i class="fas fa-backspace"></i>
       <!--<textarea readonly="readonly" id="output-screen"></textarea>-->
       <textarea id="output-screen" spellcheck="false" onKeyPress="sendUserInput(event,'<?php echo $_SESSION['u_user'].'/'.$_SESSION['code']?>')" ></textarea>
     </div>
+</div>
 <script type="text/javascript">
  var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
           lineNumbers: true,
@@ -145,5 +147,22 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
   });
   </script>
   <script type="text/javascript" src="../js/script.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+<script>
+    //$(".CodeMirror").resizable({handles:"e"});
+    $("#output").resizable({handles:"w",maxWidth:0.45*$("#parent").width(),minWidth:0.2*$("#parent").width()});
+/*$('.CodeMirror').resize(function(){
+   $('#output').width($("#parent").width()-$(".CodeMirror").width()); 
+});*/
+$('#output').resize(function(){
+   $('.CodeMirror').width($("#parent").width()-$("#output").width()-0.103*$("#parent").width()); 
+   $('.status-bar').width($("#parent").width()-$("#output").width()-0.103*$("#parent").width()); 
+});
+/*$(window).resize(function(){
+   $('#output').width($("#parent").width()-$(".CodeMirror").width()); 
+   $('#CodeMirror').height($("#parent").height()); 
+});*/
+</script>
 </body>
 </html>

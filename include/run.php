@@ -16,6 +16,8 @@ if($lang=="Java")
 $cmd = "java Main";
 else if($lang=="Python")
 $cmd="python3 main.py";
+else if($lang=="C" || $lang=="C++")
+$cmd="stdbuf -o0 ./a.out";
 $proc = proc_open($cmd, $desc, $pipes);
 stream_set_blocking($pipes[1], 0);
 stream_set_blocking($pipes[2], 0);

@@ -98,7 +98,7 @@ body{
 	position: absolute;
 	top:50%;
 	transform: translateY(-50%);
-	height: 70%;
+	height: 2.7em;
 	background-color: #2f3640;
 	border-radius: 40px;
 }
@@ -111,8 +111,8 @@ body{
 .fas.fa-search{
 	float:right;
 	color:#e74c3c;
-	width: 2.5em;
-	height: 2.5em;
+	width: 2.7em;
+	height: 2.7em;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -243,6 +243,7 @@ li{
 	background-color: #0a001f;
 	right:0;
 	width:29.8%;	
+	z-index: 5;
 }
 .fas.fa-backspace{
 	position: absolute;
@@ -338,6 +339,7 @@ li{
 	left: 0;
 	width: 10%;
 	height: 90%;
+	background-color: #FFF9CC;
 }
 .side-options{
 	position: absolute;
