@@ -82,7 +82,8 @@
 							</div>
 					</div>
 				</form>
-				</figure>';
+				</figure>
+				';
 			}
 		}
 		?> 

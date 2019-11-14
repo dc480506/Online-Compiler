@@ -40,6 +40,7 @@ document.getElementById("layout").addEventListener("click",function(){
     // $('.CodeMirror').resizable('enable');
   }else{
       clayout="sidebyside"
+      cla
       document.querySelector('.status-bar').style.width="60%";
       document.querySelector('.CodeMirror').style.width="60%"
       document.querySelector('.CodeMirror').style.height="85%"
