@@ -146,23 +146,23 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
     saveCode('<?php echo $_SESSION['u_user'].'/'.$_SESSION['code'].'/'.$_SESSION['file']?>');
   });
   </script>
-  <script type="text/javascript" src="../js/script.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
 <script>
-    //$(".CodeMirror").resizable({handles:"e"});
+   var clayout="sidebyside";
     $("#output").resizable({handles:"w",maxWidth:0.45*$("#parent").width(),minWidth:0.2*$("#parent").width()});
-/*$('.CodeMirror').resize(function(){
-   $('#output').width($("#parent").width()-$(".CodeMirror").width()); 
-});*/
 $('#output').resize(function(){
    $('.CodeMirror').width($("#parent").width()-$("#output").width()-0.103*$("#parent").width()); 
    $('.status-bar').width($("#parent").width()-$("#output").width()-0.103*$("#parent").width()); 
 });
-/*$(window).resize(function(){
-   $('#output').width($("#parent").width()-$(".CodeMirror").width()); 
-   $('#CodeMirror').height($("#parent").height()); 
-});*/
+/*$(".CodeMirror").resizable({handles:"s",maxHeight:0.45*$("#parent").height(),minWidth:0.2*$("#parent").height()});
+$('.CodeMirror').resize(function(){
+   $('#output').height($("#parent").height()-$(".CodeMirror").height()-0.103*$("#parent").height()); 
+  // $('.status-bar').width($("#parent").width()-$("#output").width()-0.103*$("#parent").width()); 
+});
+$('.CodeMirror').resizable('disable');*/
+
 </script>
+  <script type="text/javascript" src="../js/script.js"></script>
 </body>
 </html>

@@ -17,38 +17,45 @@ document.getElementById("theme").addEventListener("click",function(){
       document.getElementsByClassName("circle")[0].style.transform="translateX(0%)";
     }
 })
-var clayout="sidebyside"
+//var clayout="sidebyside"
 document.getElementById("layout").addEventListener("click",function(){
   if(clayout=="sidebyside"){
     clayout="topdown"
+    console.log(clayout)
      document.querySelector('.status-bar').style.width="90%";
      document.querySelector('.CodeMirror').style.width="90%"
      document.querySelector('.CodeMirror').style.height="45%"
-     document.querySelector('#resize').style.height="0.8%"
+     /*document.querySelector('#resize').style.height="0.8%"
      document.querySelector('#resize').style.top="60%"
      document.querySelector('#resize').style.width="90%"
      document.querySelector('#resize').style.cursor="ns-resize"
-     document.querySelector('#resize').style.left="10%"
+     document.querySelector('#resize').style.left="10%"*/
      document.querySelector('#output').style.top="60.8%"
      document.querySelector('#output').style.width="90%"
      document.querySelector('#output').style.height="39.2%"
+     document.querySelector('#output').style.left="10%"
      document.getElementsByClassName("toggle-btn")[1].style.backgroundColor="#3498db";
      document.getElementsByClassName("circle")[1].style.transform="translateX(115%)";
+     $('#output').resizable('disable');
+    // $('.CodeMirror').resizable('enable');
   }else{
       clayout="sidebyside"
       document.querySelector('.status-bar').style.width="60%";
       document.querySelector('.CodeMirror').style.width="60%"
       document.querySelector('.CodeMirror').style.height="85%"
-      document.querySelector('#resize').style.height="90%"
+     /* document.querySelector('#resize').style.height="90%"
       document.querySelector('#resize').style.top="10%"
       document.querySelector('#resize').style.width="0.2%"
       document.querySelector('#resize').style.cursor="ew-resize"
-      document.querySelector('#resize').style.left="70%"
+      document.querySelector('#resize').style.left="70%"*/
       document.querySelector('#output').style.top="10%"
       document.querySelector('#output').style.width="29.8%"
       document.querySelector('#output').style.height="90%"
+      document.querySelector('#output').style.left="70.2%"
       document.getElementsByClassName("toggle-btn")[1].style.backgroundColor="gray";
       document.getElementsByClassName("circle")[1].style.transform="translateX(0%)";
+      $('#output').resizable('enable');
+     // $('.CodeMirror').resizable('disable');
     }
 })
 var u=document.querySelector(".user-options");
@@ -88,7 +95,9 @@ function saveCode(file){
     'file':file,
     'codetext':codetext
   };
+  console.log(jsonData);
   var jsonString=JSON.stringify(jsonData);
+  console.log(jsonString);
   var xhttp=new XMLHttpRequest();
   xhttp.onreadystatechange=function(){
     if(this.readyState==4 && this.status==200){
