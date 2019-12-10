@@ -7,33 +7,34 @@ $wd=$base_dir.$jsonArray['code_path'];
 $lang=$jsonArray['lang'];
 chdir($wd);
 $desc = array(
+ //   0 => array('file', 'input.txt','r'),
     0 => array('pipe', 'r'),
     1 => array('pipe', 'w'), 
     2 => array('pipe', 'w')
 );
+if($lang=="Java")
 $cmd = "java Main";
+else if($lang=="Python")
+$cmd="python3 main.py";
+else if($lang=="C" || $lang=="C++")
+$cmd="stdbuf -o0 ./a.out";
 $proc = proc_open($cmd, $desc, $pipes);
 stream_set_blocking($pipes[1], 0);
 stream_set_blocking($pipes[2], 0);
-stream_set_blocking($pipes[0], 0);
+//stream_set_blocking($pipes[0], 0);
 if($proc === FALSE){
     throw new Exception('Cannot execute child process');
 }
 $status=proc_get_status($proc);
 $pid = $status['pid'];
-
+echo $pid;
+ob_flush();
+flush();
 while(true) {
     $status = proc_get_status($proc);
     if($status === FALSE) {
         throw new Exception ("Failed to obtain status information for $pid");
     }
-    if($status['running'] === FALSE) {
-        $exitcode = $status['exitcode'];
-        $pid = -1;
-        echo "child exited with code: $exitcode\n";
-        exit($exitcode);
-    }
-
     // read from childs stdout and stderr
     // avoid *forever* blocking through using a time out (50000usec)
     $a=0;
@@ -53,13 +54,28 @@ while(true) {
                ob_flush();
                flush();
                $a=$a+1;
-               //echo $a."\n";
-              //fwrite(STDOUT, $data);
-              //file_put_contents("out.txt",$data,FILE_APPEND | LOCK_EX);
-             // shell_exec("php sendoutput.php ".$data);
             } while (strlen($data) > 0);
            // echo "Hey". $desc;
         }
+    }
+    if($status['running'] === FALSE) {
+        $exitcode = $status['exitcode'];
+        $pid = -1;
+        echo "\nchild exited with code: $exitcode\n";
+        exit($exitcode);
+    }
+
+    //$input=file_get_contents("input.txt");
+    /*if($input!=""){
+        $input.="\n";
+        fwrite($pipes[0],$input);
+        file_put_contents("input.txt","");
+    }*/
+    if(file_exists($wd."/input.txt")){
+        $input=file_get_contents("input.txt");
+        $input.="\n";
+        fwrite($pipes[0],$input);
+        unlink("input.txt");
     }
     /*$read = array();
     $n = stream_select($read, $write, $except, $tv, $utv);

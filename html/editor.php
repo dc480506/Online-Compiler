@@ -14,6 +14,7 @@ session_start();
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/addon/hint/show-hint.css">
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/theme/xq-light.css">
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/theme/xq-dark.css">
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" rel="stylesheet" />
 <script type="text/javascript" src="../codemirror-5.48.2/lib/codemirror.js"></script>
 <?php
 if($_SESSION['language']=="Python"){
@@ -28,7 +29,6 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
 <script type="text/javascript" src="../codemirror-5.48.2/addon/edit/closebrackets.js"></script>
 <script type="text/javascript" src="../codemirror-5.48.2/addon/edit/closetag.js"></script>
 <script defer src="https://kit.fontawesome.com/73dadbfb7d.js"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 </head>
 <body>
@@ -62,12 +62,12 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
         </span>
         <i class="fas fa-pen"></i>
       </div>
-      <form action="../include/savecode.php" method="POST">
+      <!--<form action="../include/savecode.php" method="POST">
       <div id="rename-box">
          <input type=text name="rename-value">
          <i class="fas fa-check"></i>
       </div>
-      </form>
+      </form>-->
       <div id="lang">
         <img src="../img/<?php echo $_SESSION['language']?>.jpg" id="lang-img">
         <span><pre> <?php echo $_SESSION['language']?></pre>
@@ -83,28 +83,25 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
           <input id="search-text" type="text" placeholder="Type to Search an algorithm">
           <i class="fas fa-search"></i>
       </div>
-      <button class="user-button btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['u_user']?></button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="../include/logout.php">My Profile</a>
-            <a class="dropdown-item" href="../include/logout.php">Change Password</a>
-            <a class="dropdown-item" href="../include/logout.php">Log out</a>
+      <div class="user-profile">
+        <p><?php echo $_SESSION['u_user']?> <span><i class="fas fa-caret-down"></i></span></p>
+      </div>
+      <div class="user-options">
+         <ul>
+            <li>My Profile</li>
+            <li>Change Password</li>
+            <li>Log Out</li>
+          </ul>
       </div>
       <div class="execute">
       <i class="fas fa-play"></i>
-      <!--<form action="editor.php" method="GET">
-      <input id="run" type="submit" name="runcode" value="run">
-      </form>-->
       <input id="run" type="button" name="runcode" value="run" onclick="executeCode('<?php echo $_SESSION['u_user'].'/'.$_SESSION['code']?>','<?php echo $_SESSION['language']?>')">
     </div>
+    <div class="stop">
+    <i class="fas fa-stop"></i>
+    <input id="stop" type="button" name="runcode" value="stop" onclick="stopCode()">
+    </div>
     </div> 
-    <!-- Remove in future changes
-    <form action="../include/savecode.php" method="POST">
-    <div class="save">
-        <i class="fas fa-save"></i>
-        <input id="save-program" type="submit" name="save" value="save">
-      </div>
-    <textarea id='demotext' name="code"><?php //echo file_get_contents($_SESSION['dir']."/".$_SESSION['file']);?></textarea>
-    </form>-->
     <div class="status-bar">
       <span id="file-name"><?php echo $_SESSION['file']?></span>
       <i class="fas fa-save"></i>
@@ -113,12 +110,14 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
       <span id="file-status">saved</span>
       </div>
     </div>
+    <div id="parent">
     <textarea id='demotext' name="code"><?php echo file_get_contents($_SESSION['dir']."/".$_SESSION['file']);?></textarea>
-    <div id="resize"></div>
     <div id="output">
       <i class="fas fa-backspace"></i>
-      <textarea readonly="readonly" id="output-screen"></textarea>
+      <!--<textarea readonly="readonly" id="output-screen"></textarea>-->
+      <textarea id="output-screen" spellcheck="false" onKeyPress="sendUserInput(event,'<?php echo $_SESSION['u_user'].'/'.$_SESSION['code']?>')" ></textarea>
     </div>
+</div>
 <script type="text/javascript">
  var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
           lineNumbers: true,
@@ -147,34 +146,23 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
     saveCode('<?php echo $_SESSION['u_user'].'/'.$_SESSION['code'].'/'.$_SESSION['file']?>');
   });
   </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+<script>
+   var clayout="sidebyside";
+    $("#output").resizable({handles:"w",maxWidth:0.45*$("#parent").width(),minWidth:0.2*$("#parent").width()});
+$('#output').resize(function(){
+   $('.CodeMirror').width($("#parent").width()-$("#output").width()-0.103*$("#parent").width()); 
+   $('.status-bar').width($("#parent").width()-$("#output").width()-0.103*$("#parent").width()); 
+});
+/*$(".CodeMirror").resizable({handles:"s",maxHeight:0.45*$("#parent").height(),minWidth:0.2*$("#parent").height()});
+$('.CodeMirror').resize(function(){
+   $('#output').height($("#parent").height()-$(".CodeMirror").height()-0.103*$("#parent").height()); 
+  // $('.status-bar').width($("#parent").width()-$("#output").width()-0.103*$("#parent").width()); 
+});
+$('.CodeMirror').resizable('disable');*/
+
+</script>
   <script type="text/javascript" src="../js/script.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-<?php
-  /* session_start();
-   function compile(){
-    $cwd= getcwd();
-    chdir($_SESSION['dir']);
-    if($_SESSION['language']=="Java"){
-      if(file_exists("Main.class"))
-        unlink("Main.class");
-      echo shell_exec("javac Main.java 2>&1");
-    //echo shell_exec("java Main");
-   }else if($_SESSION['language']=="C"){
-      if(file_exists("a.exe"))
-        unlink("a.exe");
-      echo shell_exec("gcc main.c 2>&1");
-    //echo shell_exec("a");
-   }else{
-     if(file_exists("a.exe"))
-        unlink("a.exe");
-     echo shell_exec("g++ main.cpp 2>&1");
-   }
-   chdir($cwd);
-  }
-*/?>
