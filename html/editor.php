@@ -102,6 +102,8 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
     <input id="stop" type="button" name="runcode" value="stop" onclick="stopCode()">
     </div>
     </div> 
+
+    <div id="parent">
     <div class="status-bar">
       <span id="file-name"><?php echo $_SESSION['file']?></span>
       <i class="fas fa-save"></i>
@@ -110,7 +112,6 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
       <span id="file-status">saved</span>
       </div>
     </div>
-    <div id="parent">
     <textarea id='demotext' name="code"><?php echo file_get_contents($_SESSION['dir']."/".$_SESSION['file']);?></textarea>
     <div id="output">
       <i class="fas fa-backspace"></i>
@@ -150,18 +151,16 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
 <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
 <script>
    var clayout="sidebyside";
-    $("#output").resizable({handles:"w",maxWidth:0.45*$("#parent").width(),minWidth:0.2*$("#parent").width()});
+    $("#output").resizable({handles:"w",maxWidth:0.5*$("#parent").width(),minWidth:0.25*$("#parent").width()});
 $('#output').resize(function(){
-   $('.CodeMirror').width($("#parent").width()-$("#output").width()-0.103*$("#parent").width()); 
-   $('.status-bar').width($("#parent").width()-$("#output").width()-0.103*$("#parent").width()); 
+   $('.CodeMirror').width($("#parent").width()-$("#output").width()-0.002*$("#parent").width()); 
+   $('.status-bar').width($("#parent").width()-$("#output").width()-0.002*$("#parent").width()); 
 });
 /*$(".CodeMirror").resizable({handles:"s",maxHeight:0.45*$("#parent").height(),minWidth:0.2*$("#parent").height()});
 $('.CodeMirror').resize(function(){
-   $('#output').height($("#parent").height()-$(".CodeMirror").height()-0.103*$("#parent").height()); 
-  // $('.status-bar').width($("#parent").width()-$("#output").width()-0.103*$("#parent").width()); 
+   $('#output').height($("#parent").height()-$(".CodeMirror").height()-0.005*$("#parent").height()); 
 });
 $('.CodeMirror').resizable('disable');*/
-
 </script>
   <script type="text/javascript" src="../js/script.js"></script>
 </body>

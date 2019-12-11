@@ -1,19 +1,19 @@
 body{
 	margin: 0;
 }
-.CodeMirror{
+/*.CodeMirror{
 	top: 15%;
 	height:85%;
 	left:10%;
 	width:60%;
 	position: absolute;
 	/*resize: horizontal;*/
-	display: inline-block;
+	/*display: inline-block;
 	font-size: 1em;
 	font-family: 'Stylish', sans-serif;
 
 	/*overflow-wrap: break-word;*/
-}
+/*}*/
 
 .menu-bar{
 	top:0;
@@ -236,7 +236,7 @@ body{
 li{
 	list-style-type: none;
 }
-#output{
+/*#output{
 	position: absolute;
 	top:10%;
 	height: 90%;
@@ -244,7 +244,7 @@ li{
 	right:0;
 	width:29.8%;	
 	z-index: 5;
-}
+}*/
 .fas.fa-backspace{
 	position: absolute;
 	color:white;
@@ -288,7 +288,7 @@ li{
 .saving{
 	display: flex;
 }
-.status-bar{
+/*.status-bar{
 	position: absolute;
 	top:10%;
 	height: 5%;
@@ -296,7 +296,7 @@ li{
 	width:60%;
 	background-color: #2f3640;
 	color: aliceblue;
-}
+}*/
 #file-name{
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 0.9em;
@@ -410,4 +410,44 @@ li{
 	width:40%;
 	border-radius: 50%;
 	transition: transform 0.5s;
+}
+#parent{
+	top:10%;
+	position: absolute;
+	left:10%;
+	height: 90%;
+	width:90%;
+}
+
+.CodeMirror{
+	top: 5%;
+	height:95%;
+	left:0;
+	width:65%;
+	position: absolute;
+	/*resize: horizontal;*/
+	display: inline-block;
+	font-size: 1em;
+	font-family: 'Stylish', sans-serif;
+
+	/*overflow-wrap: break-word;*/
+}
+.status-bar{
+	position: absolute;
+	top:0%;
+	height: 5%;
+	left:0%;
+	width:65%;
+	background-color: #2f3640;
+	color: aliceblue;
+}
+#output{
+	position: relative;
+	top:0%;
+	height: 100%;
+	background-color: #0a001f;
+	left:65.2%;
+	width:34.8%;	
+	z-index: 5;
+	bottom:0;
 }

@@ -52,7 +52,7 @@
 	<div class="codes">
 	 <?php
 		include_once '../include/config.php';
-		$sql="SELECT * FROM code_info WHERE username='$user'";
+		$sql="SELECT * FROM code_info WHERE username='$user' order by utime DESC";
 		$result=mysqli_query($conn,$sql);
 		
 		if (mysqli_num_rows($result) > 0) {
@@ -100,14 +100,17 @@
 		<i class="far fa-window-close"></i>
 		<label class="cb-heading">Create a new code</label>
 		<div class="lang-box">
-		<select name="language" class="clang">
-    		<option value="C">C</option>
-    		<option value="C++">C++</option>
-			<option value="Java">Java</option>
-			<option value="Python">Python</option>
-  		</select>
+			<select name="language" class="clang">
+				<option value="C">C</option>
+				<option value="C++">C++</option>
+				<option value="Java">Java</option>
+				<option value="Python">Python</option>
+			</select>
 		</div>
-		<input class="cname" type="text" name="codename" placeholder="Name your code">
+		<div class="cname-div">
+			<input class="cname" type="text" name="codename" placeholder="Name your code">
+			<div class="xyz"><i class="fas fa-exclamation-circle"></i></div>
+		</div>
 		<input class="cb-button btn" type="submit" value="Create" name="add_btn">
 	</form>
 	</div>
@@ -140,7 +143,7 @@ $(document).ready(function(){
    data:{query:query},
    success:function(data)
    {
-	console.log(data);
+	//console.log(data);
     $('.codes').html(data);
    }
   });
@@ -154,6 +157,40 @@ $(document).ready(function(){
   else
   {
    load_data();
+  }
+ });
+});
+$(document).ready(function(){
+ create_code();
+ function create_code(query)
+ {
+  $.ajax({
+   url:"../include/ajaxcreatecode.php",
+   method:"POST",
+   data:{query:query},
+   success:function(data)
+   {
+	//console.log(data);
+	if(data!=""){
+		document.querySelector('.xyz').style.color="red";
+		console.log('add');
+	}
+	else{
+		document.querySelector('.xyz').style.color="#28c3d4";
+		console.log('remove');
+	}
+   }
+  });
+ }
+ $('.cname').keyup(function(){
+  var search = $(this).val();
+  if(search != '')
+  {
+   create_code(search);
+  }
+  else
+  {
+   create_code();
   }
  });
 });

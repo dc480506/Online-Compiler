@@ -106,8 +106,8 @@ body {
     position: absolute;
     top: 0;
     right: 0;
-    height: 31px;
-    width: 31px;
+    height: 100%;
+    width: 20%;
     text-align: center;
     line-height: 32.5px;
     color: #000;
@@ -117,15 +117,43 @@ body {
 }
 
 .cname {
-    position: absolute;
+    /* position: absolute;
+width: 80%;
+top: 52%;
+height: 10%;
+margin-left: 10%; 
+width: 80%;*/
     width: 80%;
-    top: 52%;
-    height: 10%;
-    margin-left: 10%;
+    height: 100%;
     border: 0;
     color: #000;
     font-size: 15px;
     background-color: #aee7e8;
+}
+
+.cname-div {
+    position: absolute;
+    width: 80%;
+    top: 52%;
+    height: 15%;
+    margin-left: 10%;
+}
+/* .cname-div::before { */
+
+.xyz {
+    content: " \f06a";
+    font-family: FontAwesome;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 20%;
+    text-align: center;
+    line-height: 32.5px;
+    color: red;
+    font-size: 20px;
+    background: #28c3d4;
+    pointer-events: none;
 }
 
 .cb-button {
@@ -285,27 +313,30 @@ body {
     background: #93deff;
 }
 
-.search-container{
-    width:50%;
+.search-container {
+    width: 50%;
     position: absolute;
-    top:4rem;
-    left:50%;
+    top: 4rem;
+    left: 50%;
     transform: translateX(-50%);
     margin: 0;
 }
-.fas.fa-search{
-    left:2%;
+
+.fas.fa-search {
+    left: 2%;
     position: absolute;
     z-index: 1;
-    top:50%;
+    top: 50%;
     transform: translateY(50%);
 }
-#search-bar{
+
+#search-bar {
     width: 100%;
     position: absolute;
     text-align: center;
     border: 0;
 }
+
 @media only screen and (max-width:450px) {
     /* For mobile */
     .top-bar {

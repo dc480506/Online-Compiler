@@ -22,41 +22,47 @@ document.getElementById("layout").addEventListener("click",function(){
   if(clayout=="sidebyside"){
     clayout="topdown"
     console.log(clayout)
-     document.querySelector('.status-bar').style.width="90%";
-     document.querySelector('.CodeMirror').style.width="90%"
-     document.querySelector('.CodeMirror').style.height="45%"
+     document.querySelector('.status-bar').style.width="100%";
+     document.querySelector('.CodeMirror').style.width="100%"
+     document.querySelector('.CodeMirror').style.height="55%"
      /*document.querySelector('#resize').style.height="0.8%"
      document.querySelector('#resize').style.top="60%"
      document.querySelector('#resize').style.width="90%"
      document.querySelector('#resize').style.cursor="ns-resize"
      document.querySelector('#resize').style.left="10%"*/
-     document.querySelector('#output').style.top="60.8%"
-     document.querySelector('#output').style.width="90%"
-     document.querySelector('#output').style.height="39.2%"
-     document.querySelector('#output').style.left="10%"
+     document.querySelector('#output').style.top="60.5%"
+     document.querySelector('#output').style.width="100%"
+     document.querySelector('#output').style.height="39.5%"
+     document.querySelector('#output').style.left="0%"
      document.getElementsByClassName("toggle-btn")[1].style.backgroundColor="#3498db";
      document.getElementsByClassName("circle")[1].style.transform="translateX(115%)";
-     $('#output').resizable('disable');
-    // $('.CodeMirror').resizable('enable');
+     $("#output").resizable('destroy');
+    /* $("#output").resizable({handles:"n",maxHeight:0.5*$("#parent").height(),minHeight:0.25*$("#parent").height()});
+     $('#output').resize(function(){
+    // $('.CodeMirror').height($("#parent").height()-$("#output").height()); 
+});*/
   }else{
       clayout="sidebyside"
-      cla
-      document.querySelector('.status-bar').style.width="60%";
-      document.querySelector('.CodeMirror').style.width="60%"
-      document.querySelector('.CodeMirror').style.height="85%"
+      document.querySelector('.status-bar').style.width="65%";
+      document.querySelector('.CodeMirror').style.width="65%"
+      document.querySelector('.CodeMirror').style.height="95%"
      /* document.querySelector('#resize').style.height="90%"
       document.querySelector('#resize').style.top="10%"
       document.querySelector('#resize').style.width="0.2%"
       document.querySelector('#resize').style.cursor="ew-resize"
       document.querySelector('#resize').style.left="70%"*/
-      document.querySelector('#output').style.top="10%"
-      document.querySelector('#output').style.width="29.8%"
-      document.querySelector('#output').style.height="90%"
-      document.querySelector('#output').style.left="70.2%"
+      document.querySelector('#output').style.top="0%"
+      document.querySelector('#output').style.width="34.8%"
+      document.querySelector('#output').style.height="100%"
+      document.querySelector('#output').style.left="65.2%"
       document.getElementsByClassName("toggle-btn")[1].style.backgroundColor="gray";
       document.getElementsByClassName("circle")[1].style.transform="translateX(0%)";
-      $('#output').resizable('enable');
-     // $('.CodeMirror').resizable('disable');
+     // $("#output").resizable('destroy');
+      $("#output").resizable({handles:"w",maxWidth:0.5*$("#parent").width(),minWidth:0.25*$("#parent").width()});
+      $('#output').resize(function(){
+         $('.CodeMirror').width($("#parent").width()-$("#output").width()-0.002*$("#parent").width()); 
+         $('.status-bar').width($("#parent").width()-$("#output").width()-0.002*$("#parent").width()); 
+      });
     }
 })
 var u=document.querySelector(".user-options");

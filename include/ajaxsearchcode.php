@@ -6,11 +6,11 @@ $user=$_SESSION['u_user'];
 if(isset($_POST["query"]))
 {
  $search = mysqli_real_escape_string($conn, $_POST["query"]);
- $query = "SELECT * FROM code_info WHERE username='$user' AND codename LIKE '%$search%'";
+ $query = "SELECT * FROM code_info WHERE username='$user' AND codename LIKE '%$search%' order by utime DESC";
 }
 else
 {
- $query = "SELECT * FROM code_info WHERE username='$user'";
+ $query = "SELECT * FROM code_info WHERE username='$user' order by utime DESC";
 }
 $result = mysqli_query($conn, $query);
 if(mysqli_num_rows($result) > 0)
@@ -57,12 +57,10 @@ if(mysqli_num_rows($result) > 0)
 					for(var i=0;i< rename_btn.length;i++){
 						rename_btn[i].addEventListener("click",showRename,false);
 					}
-
 					document.getElementById("close-rename").addEventListener("click",function(){
 					document.querySelector(".rename-box").style.display="none";
 					document.querySelector(".bg").style.opacity="1";
 					},false);
-
 				</script>
   ';
  }
