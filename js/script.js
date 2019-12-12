@@ -119,8 +119,10 @@ function saveCode(file){
  xhttp.send(jsonString);
   //xhttp.send("file="+file+"&code="+codetext);
 }
-
+var enablerun=true;
 function executeCode(code_path,lang){
+  if(enablerun){
+    enablerun=false;
   console.log("Called 2");
   console.log(code_path);
   console.log(lang)
@@ -151,6 +153,7 @@ function executeCode(code_path,lang){
   xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
   xhttp.send(jsonString);
 }
+}
 var pid,textarealength=0;
 function runCode(code_path,lang){
   var jsonData={
@@ -168,6 +171,7 @@ function runCode(code_path,lang){
       document.querySelector("#run").style.backgroundColor="#2f3640";
       document.querySelector(".fas.fa-play").style.color="e74c3c";
       document.querySelector('.stop').style.display="none"
+      enablerun=true;
     }else{
       document.getElementById('run').setAttribute('value','running');
       document.querySelector("#run").style.backgroundColor="#1abc9c";
