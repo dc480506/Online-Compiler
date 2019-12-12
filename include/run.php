@@ -1,5 +1,6 @@
 <?php
 // descriptor array
+session_start();
 include "config.php";
 $json = file_get_contents('php://input');
 $jsonArray=json_decode($json,true);
@@ -28,6 +29,7 @@ if($proc === FALSE){
 $status=proc_get_status($proc);
 $pid = $status['pid'];
 echo $pid;
+$_SESSION['pid']=$pid;
 ob_flush();
 flush();
 while(true) {

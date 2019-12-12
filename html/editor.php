@@ -14,7 +14,7 @@ session_start();
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/addon/hint/show-hint.css">
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/theme/xq-light.css">
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/theme/xq-dark.css">
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" rel="stylesheet" />
+<!--<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" rel="stylesheet" />-->
 <script type="text/javascript" src="../codemirror-5.48.2/lib/codemirror.js"></script>
 <?php
 if($_SESSION['language']=="Python"){
@@ -28,7 +28,8 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
 <script type="text/javascript" src="../codemirror-5.48.2/addon/hint/show-hint.js"></script>
 <script type="text/javascript" src="../codemirror-5.48.2/addon/edit/closebrackets.js"></script>
 <script type="text/javascript" src="../codemirror-5.48.2/addon/edit/closetag.js"></script>
-<script defer src="https://kit.fontawesome.com/73dadbfb7d.js"></script>
+<!--<script defer src="https://kit.fontawesome.com/73dadbfb7d.js"></script>-->
+<link rel="stylesheet" type="text/css" href="../fontawesome-icons/css/all.css">
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 </head>
 <body>
@@ -75,10 +76,10 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
       </div>
       <button type="button" id="cancel">Cancel</button>
     </div>
-    <div class="new-code">
+   <!-- <div class="new-code">
       <i class="fas fa-plus"></i>
       <input id="new-code" type="button" value="new code">
-    </div>
+    </div>-->
       <div class="algo-search">
           <input id="search-text" type="text" placeholder="Type to Search an algorithm">
           <i class="fas fa-search"></i>
@@ -93,14 +94,10 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
             <li>Log Out</li>
           </ul>
       </div>
-      <div class="execute">
-      <i class="fas fa-play"></i>
-      <input id="run" type="button" name="runcode" value="run" onclick="executeCode('<?php echo $_SESSION['u_user'].'/'.$_SESSION['code']?>','<?php echo $_SESSION['language']?>')">
-    </div>
-    <div class="stop">
-    <i class="fas fa-stop"></i>
-    <input id="stop" type="button" name="runcode" value="stop" onclick="stopCode()">
-    </div>
+      <button id="execute" type="button" onclick="executeCode('<?php echo $_SESSION['u_user'].'/'.$_SESSION['code']?>','<?php echo $_SESSION['language']?>')">
+      <i class="fas fa-play"></i><span>run</span></button>
+    <button id="stop" type="button" onclick="stopCode()">
+    <i class="fas fa-stop"></i><span>stop</span></button>
     </div> 
 
     <div id="parent">
@@ -147,8 +144,11 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
     saveCode('<?php echo $_SESSION['u_user'].'/'.$_SESSION['code'].'/'.$_SESSION['file']?>');
   });
   </script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+ <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>-->
+<link href="../jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
+<script src="../jquery-ui-1.12.1/external/jquery/jquery.js"></script>
+<script src="../jquery-ui-1.12.1/jquery-ui.min.js"></script>
 <script>
    var clayout="sidebyside";
     $("#output").resizable({handles:"w",maxWidth:0.5*$("#parent").width(),minWidth:0.25*$("#parent").width()});

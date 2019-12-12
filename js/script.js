@@ -88,7 +88,19 @@ document.querySelector("#cancel").addEventListener("click",function(){
   document.querySelector("#cancel").style.display="none";
   document.querySelector("#code-name").style.display="flex";
 })*/
-
+var enablerun=true;
+document.querySelector("#execute").addEventListener("mouseover",function(){
+  document.querySelector("#execute").style.backgroundColor="#1abc9c";
+  document.querySelector("#execute> .fas.fa-play").style.color="white";
+  document.querySelector("#execute").style.border="1px solid white";
+})
+document.querySelector("#execute").addEventListener("mouseout",function(){
+  if(enablerun){
+  document.querySelector("#execute").style.backgroundColor="#2f3640";
+  document.querySelector("#execute> .fas.fa-play").style.color="#e74c3c";
+  document.querySelector("#execute").style.border="none";
+  }
+})
 //AJAX section
 function saveCode(file){
   console.log("Called");
@@ -119,13 +131,10 @@ function saveCode(file){
  xhttp.send(jsonString);
   //xhttp.send("file="+file+"&code="+codetext);
 }
-var enablerun=true;
+
 function executeCode(code_path,lang){
   if(enablerun){
     enablerun=false;
-  console.log("Called 2");
-  console.log(code_path);
-  console.log(lang)
   var jsonData={
     'code_path':code_path,
     'lang':lang
@@ -135,18 +144,17 @@ function executeCode(code_path,lang){
   xhttp.onreadystatechange=function(){
     if(this.readyState==4 && this.status==200){
       document.getElementById('output-screen').value=this.responseText;
-      document.getElementById('run').setAttribute('value','run');
-      document.querySelector("#run").style.backgroundColor="#2f3640";
-      document.querySelector(".fas.fa-play").style.color="e74c3c";
+     document.querySelector("#execute> span").innerText="running";
       //if(this.responseText==""){
         runCode(code_path,lang);
         
       //}
     }else{
-      document.getElementById('run').setAttribute('value','compiling');
-      document.querySelector("#run").style.backgroundColor="#1abc9c";
-      document.querySelector("#run").style.color="white";
-      document.querySelector(".fas.fa-play").style.color="white";
+      document.querySelector("#execute> span").innerText="compiling";
+      document.querySelector("#execute").style.backgroundColor="#1abc9c";
+      document.querySelector("#execute").style.color="white";
+      document.querySelector("#execute").style.border="1px solid white";
+      document.querySelector("#execute> .fas.fa-play").style.color="white";
     }
   }
   xhttp.open("POST","../include/ajaxexeccode.php",true);
@@ -163,20 +171,19 @@ function runCode(code_path,lang){
   var b=false;
   var jsonString=JSON.stringify(jsonData);
   var xhttp=new XMLHttpRequest();
-  document.querySelector('.stop').style.display="flex"
+  document.querySelector('#stop').style.display="flex"
   xhttp.onreadystatechange=function(){
     if(this.readyState==4 && this.status==200){
       //document.getElementById('output-screen').value=this.responseText;
-      document.getElementById('run').setAttribute('value','run');
-      document.querySelector("#run").style.backgroundColor="#2f3640";
-      document.querySelector(".fas.fa-play").style.color="e74c3c";
-      document.querySelector('.stop').style.display="none"
+      document.querySelector("#execute").style.backgroundColor="#2f3640";
+      document.querySelector("#execute").style.border="none";
+      document.querySelector("#execute> span").innerText="run";
+     document.querySelector("#execute").style.border="none";
+      document.querySelector('#stop').style.display="none"
+      document.querySelector("#execute> .fas.fa-play").style.color="#e74c3c";
       enablerun=true;
     }else{
-      document.getElementById('run').setAttribute('value','running');
-      document.querySelector("#run").style.backgroundColor="#1abc9c";
-      document.querySelector("#run").style.color="white";
-      document.querySelector(".fas.fa-play").style.color="white";
+      document.querySelector("#execute> span").innerText="running";
     }
   }
   var lastResponseLength;
@@ -201,27 +208,21 @@ function runCode(code_path,lang){
   xhttp.send(jsonString);
 }
 
-/*var source = new EventSource("../include/sendoutput.php");
-source.onmessage = function(event) {
-  document.getElementById("output-screen").value += event.data;
-};*/
+
 function stopCode(){
   var jsonData={
     'pid':pid
   }
-  document.getElementById('stop').setAttribute('value','stopping');
-  document.querySelector(".execute").style.display="none";
+  document.querySelector('#stop> span').innerText="stopping";
+  document.querySelector("#execute").style.display="none";
   var jsonString=JSON.stringify(jsonData);
   var xhttp=new XMLHttpRequest();
   xhttp.onreadystatechange=function(){
     if(this.readyState==4 && this.status==200){
-      document.querySelector(".stop").style.display="none";
-      document.getElementById('stop').setAttribute('value','stop');
-      document.getElementById('run').setAttribute('value','run');
-      document.querySelector("#run").style.backgroundColor="#2f3640";
+      document.querySelector("#stop").style.display="none";
       document.querySelector(".fas.fa-play").style.color="e74c3c";
-      document.querySelector('.execute').style.display="flex";
-
+      document.querySelector('#execute').style.display="flex";
+      document.querySelector('#stop> span').innerText="stop";
     }
   }
   xhttp.open("POST","../include/stop.php",true);

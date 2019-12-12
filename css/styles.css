@@ -132,26 +132,7 @@ body{
 	width: 0;
 	text-align: center;
 }
-.execute{
-	position: absolute;
-	margin: 0;
-	padding: 0;
-	height:50%;
-	transform:translateY(50%);
-	width:5%;
-	left:50%;
-	top:0;
-	cursor: pointer;
-}
-.execute:hover >#run{
-	color:white;
-	/*background-color: #27ae60;*/
-	background-color: #1abc9c;
-} 
-.execute:hover > .fas.fa-play{
-	color:rgb(255, 255, 255);
-}
-#run,#stop{
+/*#run,#stop{
 	float: right;
 	display: flex;
 	align-items: center;
@@ -164,26 +145,12 @@ body{
 	border: none;
 	color: white;
 	background-color:#2f3640; 
-}
+}*/
 .fas.fa-play,.fas.fa-stop{
-	position: absolute;
-	left: 10%;
 	z-index: 1;
-	top:20%;
 	color: #e74c3c;
 }
-.stop{
-	display: none;
-	position: absolute;
-	margin: 0;
-	padding: 0;
-	height:50%;
-	transform:translateY(50%);
-	width:5%;
-	left:60%;
-	top:0;
-	cursor: pointer;
-}
+
 #save-program{
 	float: right;
 	display: flex;
@@ -450,4 +417,36 @@ li{
 	width:34.8%;	
 	z-index: 5;
 	bottom:0;
+}
+#execute,#stop{
+	position: absolute;
+	margin: 0;
+	transform:translateY(50%);
+	left:50%;
+	top:0;
+	display: flex;
+	cursor: pointer;
+	background-color:#2f3640 ;
+	border-radius: 10px;
+	padding: 0.75em;
+	color:white;
+	font-size: 0.85em;
+	/*font-size: 0.8em;*/
+	border:none;
+}
+#execute>.fas.fa-play,#stop>.fas.fa-stop{
+	font-size: 1em;
+	padding-right: 0.3em;
+}
+#execute:hover{
+	color:white;
+	background-color: #1abc9c;
+	border: #f2f0f5 1px solid ;
+}
+#execute:hover>.fas.fa-play{
+	color: white;
+}
+#stop{
+	left:60%;
+	display: none;
 }
