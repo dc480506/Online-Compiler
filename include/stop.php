@@ -1,8 +1,8 @@
 <?php
-include "config.php";
-$json = file_get_contents('php://input');
-$jsonArray=json_decode($json,true);
-$pid=$jsonArray['pid'];
+session_start();
+$pid=$_SESSION['pid'];
+/*echo $pid;
+ob_flush();
+flush();*/
 shell_exec("kill -9 ".$pid." ".($pid+1));
-
 ?>

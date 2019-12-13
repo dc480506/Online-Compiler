@@ -14,6 +14,7 @@ session_start();
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/addon/hint/show-hint.css">
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/theme/xq-light.css">
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/theme/xq-dark.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!--<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" rel="stylesheet" />-->
 <script type="text/javascript" src="../codemirror-5.48.2/lib/codemirror.js"></script>
 <?php
@@ -57,24 +58,9 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
         <i class="fas fa-laptop-code"></i>
       </a>
     <div class="code-info">
-      <div id="code-name">
-        <span>
-        <?php echo $_SESSION['code']?>
-        </span>
+        <img src="../img/<?php echo $_SESSION['language']?>.jpg" id="lang-img" title="<?php echo $_SESSION['language']?>">
+        <span><?php echo $_SESSION['code']?></span>
         <i class="fas fa-pen"></i>
-      </div>
-      <!--<form action="../include/savecode.php" method="POST">
-      <div id="rename-box">
-         <input type=text name="rename-value">
-         <i class="fas fa-check"></i>
-      </div>
-      </form>-->
-      <div id="lang">
-        <img src="../img/<?php echo $_SESSION['language']?>.jpg" id="lang-img">
-        <span><pre> <?php echo $_SESSION['language']?></pre>
-        </span>
-      </div>
-      <button type="button" id="cancel">Cancel</button>
     </div>
    <!-- <div class="new-code">
       <i class="fas fa-plus"></i>
@@ -84,28 +70,33 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
           <input id="search-text" type="text" placeholder="Type to Search an algorithm">
           <i class="fas fa-search"></i>
       </div>
-      <div class="user-profile">
-        <p><?php echo $_SESSION['u_user']?> <span><i class="fas fa-caret-down"></i></span></p>
-      </div>
       <div class="user-options">
-         <ul>
-            <li>My Profile</li>
-            <li>Change Password</li>
-            <li>Log Out</li>
-          </ul>
-      </div>
+						<?php
+						if(isset($_SESSION['u_user'])){
+							$user=$_SESSION['u_user'];
+							echo '<button class="user-button btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>';
+							echo $user;
+							echo'</span></button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<a class="dropdown-item" href="../include/logout.php">Logout</a>
+							</div>';
+						}
+						?>
+				</div>
       <button id="execute" type="button" onclick="executeCode('<?php echo $_SESSION['u_user'].'/'.$_SESSION['code']?>','<?php echo $_SESSION['language']?>')">
       <i class="fas fa-play"></i><span>run</span></button>
-    <button id="stop" type="button" onclick="stopCode()">
+     <!-- <form method="POST" action="../include/stop2.php">-->
+    <button id="stop" type="submit" onclick="stopCode()">
     <i class="fas fa-stop"></i><span>stop</span></button>
+          <!--</form>-->
     </div> 
 
     <div id="parent">
     <div class="status-bar">
       <span id="file-name"><?php echo $_SESSION['file']?></span>
+      <div class="file-status-container">
       <i class="fas fa-save"></i>
       <i class="fas fa-history"></i>
-      <div class="file-status-container">
       <span id="file-status">saved</span>
       </div>
     </div>
@@ -163,5 +154,8 @@ $('.CodeMirror').resize(function(){
 $('.CodeMirror').resizable('disable');*/
 </script>
   <script type="text/javascript" src="../js/script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 </body>
 </html>

@@ -21,7 +21,7 @@ document.getElementById("theme").addEventListener("click",function(){
 document.getElementById("layout").addEventListener("click",function(){
   if(clayout=="sidebyside"){
     clayout="topdown"
-    console.log(clayout)
+    //console.log(clayout)
      document.querySelector('.status-bar').style.width="100%";
      document.querySelector('.CodeMirror').style.width="100%"
      document.querySelector('.CodeMirror').style.height="55%"
@@ -65,14 +65,14 @@ document.getElementById("layout").addEventListener("click",function(){
       });
     }
 })
-var u=document.querySelector(".user-options");
+/*var u=document.querySelector(".user-options");
 document.querySelector(".fas.fa-caret-down").addEventListener("click",function(){
   if(u.style.display=="none"){
   u.style.display="block";
 }else{
   u.style.display="none";
 }
-})
+})*/
 document.querySelector(".fas.fa-backspace").addEventListener("click",function(){
   document.getElementById("output-screen").value="";
 })
@@ -103,10 +103,10 @@ document.querySelector("#execute").addEventListener("mouseout",function(){
 })
 //AJAX section
 function saveCode(file){
-  console.log("Called");
+  //console.log("Called");
   var codetext=editor.getValue();
-  console.log(codetext);
-  console.log(file);
+  //console.log(codetext);
+  //console.log(file);
   document.querySelector(".fas.fa-save").style.display="none";
   document.querySelector(".fas.fa-history").style.display="flex";
   document.querySelector("#file-status").innerHTML="saving...";
@@ -114,9 +114,9 @@ function saveCode(file){
     'file':file,
     'codetext':codetext
   };
-  console.log(jsonData);
+  //console.log(jsonData);
   var jsonString=JSON.stringify(jsonData);
-  console.log(jsonString);
+  //console.log(jsonString);
   var xhttp=new XMLHttpRequest();
   xhttp.onreadystatechange=function(){
     if(this.readyState==4 && this.status==200){
@@ -131,7 +131,7 @@ function saveCode(file){
  xhttp.send(jsonString);
   //xhttp.send("file="+file+"&code="+codetext);
 }
-
+var running=false;
 function executeCode(code_path,lang){
   if(enablerun){
     enablerun=false;
@@ -162,7 +162,7 @@ function executeCode(code_path,lang){
   xhttp.send(jsonString);
 }
 }
-var pid,textarealength=0;
+var textarealength=0;
 function runCode(code_path,lang){
   var jsonData={
     'code_path':code_path,
@@ -182,26 +182,20 @@ function runCode(code_path,lang){
       document.querySelector('#stop').style.display="none"
       document.querySelector("#execute> .fas.fa-play").style.color="#e74c3c";
       enablerun=true;
+      running=false;
     }else{
       document.querySelector("#execute> span").innerText="running";
+      running=true;
     }
   }
   var lastResponseLength;
   xhttp.onprogress=function(e){
-   // alert(e.currentTarget.responseText);
    var response = e.currentTarget.response;
-   console.log(response);
-   if(!b){
-     b=true;
-     pid=response;
-     lastResponseLength=pid.length;
-   }else{
    var output = typeof lastResponseLength === typeof undefined? response: response.substring(lastResponseLength);
-   console.log(output);
+  // console.log(output);
    lastResponseLength = response.length;
    document.getElementById('output-screen').value+=output;
    textarealength=document.getElementById('output-screen').value.length;
-   }
   }
   xhttp.open("POST","../include/run.php",true);
   xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
@@ -210,12 +204,9 @@ function runCode(code_path,lang){
 
 
 function stopCode(){
-  var jsonData={
-    'pid':pid
-  }
+
   document.querySelector('#stop> span').innerText="stopping";
   document.querySelector("#execute").style.display="none";
-  var jsonString=JSON.stringify(jsonData);
   var xhttp=new XMLHttpRequest();
   xhttp.onreadystatechange=function(){
     if(this.readyState==4 && this.status==200){
@@ -226,8 +217,7 @@ function stopCode(){
     }
   }
   xhttp.open("POST","../include/stop.php",true);
-  xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
-  xhttp.send(jsonString);
+  xhttp.send();
 }
 
 /*function sendUserInput(e,textarea){
@@ -239,12 +229,13 @@ function stopCode(){
   console.log(input)
   }*/
   function sendUserInput(e,code_path){
+    if(running){
     var code=(e.keycode? e.keycode:e.which);
     text=document.getElementById("output-screen").value
-    console.log(textarealength)
+    //console.log(textarealength)
     if(code==13){
     var input=text.substring(textarealength);
-    console.log(input)
+    //console.log(input)
     var jsonData={
       'code_path':code_path,
       'input':input
@@ -261,16 +252,16 @@ function stopCode(){
     xhttp.send(jsonString);
   }
 }
+}
 
 document.getElementById("output-screen").addEventListener('keydown',function(e){
   var cursor=document.getElementById('output-screen').selectionStart
-  console.log("Textarealength is "+(textarealength-1))
+  //console.log("Textarealength is "+(textarealength-1))
   if(e.keyCode==8)
     cursor--;
-  console.log("cursor value is "+cursor)
+ // console.log("cursor value is "+cursor)
   if(cursor<=textarealength-1 && e.keyCode!=37 && e.keyCode!=38 && e.keyCode!=39 && e.keyCode!=40){
     e.preventDefault();
-    console.log("In here")
     return false;
   }else{
     return true;

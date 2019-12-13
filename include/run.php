@@ -28,10 +28,11 @@ if($proc === FALSE){
 }
 $status=proc_get_status($proc);
 $pid = $status['pid'];
-echo $pid;
+//echo $pid;
 $_SESSION['pid']=$pid;
-ob_flush();
-flush();
+//ob_flush();
+//flush();
+session_write_close();
 while(true) {
     $status = proc_get_status($proc);
     if($status === FALSE) {
