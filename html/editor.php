@@ -39,7 +39,7 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
     <i class="fas fa-file-code"></i>
     <i class="fas fa-cogs"></i>
     </div>
-    <p id="panel-mode">Files</p>
+    <div id="panel-mode"><span>Files</span></div>
     <div id="settings-options">
     <div id="theme">
       <div class="toggle-btn">
@@ -60,7 +60,7 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
     <div class="code-info">
         <img src="../img/<?php echo $_SESSION['language']?>.jpg" id="lang-img" title="<?php echo $_SESSION['language']?>">
         <span><?php echo $_SESSION['code']?></span>
-        <i class="fas fa-pen"></i>
+        <i class="fas fa-pen" title="Rename"></i>
     </div>
    <!-- <div class="new-code">
       <i class="fas fa-plus"></i>
@@ -70,6 +70,7 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
           <input id="search-text" type="text" placeholder="Type to Search an algorithm">
           <i class="fas fa-search"></i>
       </div>
+     
       <div class="user-options">
 						<?php
 						if(isset($_SESSION['u_user'])){
@@ -90,7 +91,11 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
     <i class="fas fa-stop"></i><span>stop</span></button>
           <!--</form>-->
     </div> 
-
+    <div class="rename-box">
+        <span title="cancel">+</span>
+        <input type="text"/>
+        <button type="button"><span>Rename</span></button>
+      </div>
     <div id="parent">
     <div class="status-bar">
       <span id="file-name"><?php echo $_SESSION['file']?></span>
