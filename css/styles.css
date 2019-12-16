@@ -318,6 +318,7 @@
 	left:10%;
 	height: 92%;
 	width:90%;
+	max-width: 90%;
 }
 
 .CodeMirror{
