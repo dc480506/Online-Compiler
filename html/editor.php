@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['prunning']=false;
 ?>
 <html>
 <head>
@@ -109,7 +110,7 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
     <div id="output">
       <i class="fas fa-backspace"></i>
       <!--<textarea readonly="readonly" id="output-screen"></textarea>-->
-      <textarea id="output-screen" spellcheck="false" onKeyPress="sendUserInput(event,'<?php echo $_SESSION['u_user'].'/'.$_SESSION['code']?>')" ></textarea>
+      <textarea id="output-screen" readonly="readonly" spellcheck="false" onKeyPress="sendUserInput(event,'<?php echo $_SESSION['u_user'].'/'.$_SESSION['code']?>')" ></textarea>
     </div>
 </div>
 <script type="text/javascript">

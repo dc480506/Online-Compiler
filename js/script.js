@@ -166,6 +166,7 @@ function runCode(code_path,lang){
   var b=false;
   var jsonString=JSON.stringify(jsonData);
   var xhttp=new XMLHttpRequest();
+  document.querySelector("#output-screen").readOnly=false;
   document.querySelector('#stop').style.display="flex"
   xhttp.onreadystatechange=function(){
     if(this.readyState==4 && this.status==200){
@@ -181,6 +182,8 @@ function runCode(code_path,lang){
       document.querySelector("#execute> .fas.fa-play").style.color="#000";
       enablerun=true;
       running=false;
+      document.querySelector("#output-screen").readOnly=true;
+      textarealength=0;
     }else{
       document.querySelector("#execute> span").innerText="running";
       running=true;
@@ -194,6 +197,7 @@ function runCode(code_path,lang){
    lastResponseLength = response.length;
    document.getElementById('output-screen').value+=output;
    textarealength=document.getElementById('output-screen').value.length;
+   document.getElementById("output-screen").scrollTop = document.getElementById("output-screen").scrollHeight;
   }
   xhttp.open("POST","../include/run.php",true);
   xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
@@ -219,14 +223,7 @@ function stopCode(){
   xhttp.send();
 }
 
-/*function sendUserInput(e,textarea){
-  var code=(e.keycode? e.keycode:e.which);
-  text=document.getElementById("output-screen").value
-  console.log(lastResponseLength)
-  if(code==13){
-  var input=text.substring(lastResponseLength-pid.length);
-  console.log(input)
-  }*/
+
   function sendUserInput(e,code_path){
     if(running){
     var code=(e.keycode? e.keycode:e.which);
@@ -234,7 +231,11 @@ function stopCode(){
     //console.log(textarealength)
     if(code==13){
     var input=text.substring(textarealength);
+    if(input.charAt(0)=='\n'){
+      input=input.substring(1);
+    }
     //console.log(input)
+    textarealength=document.getElementById("output-screen").value.length;
     var jsonData={
       'code_path':code_path,
       'input':input
@@ -258,7 +259,7 @@ document.getElementById("output-screen").addEventListener('keydown',function(e){
   //console.log("Textarealength is "+(textarealength-1))
   if(e.keyCode==8)
     cursor--;
- // console.log("cursor value is "+cursor)
+  //console.log("cursor value is "+cursor)
   if(cursor<=textarealength-1 && e.keyCode!=37 && e.keyCode!=38 && e.keyCode!=39 && e.keyCode!=40){
     e.preventDefault();
     return false;
