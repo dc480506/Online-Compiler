@@ -240,10 +240,42 @@
         background-color: grey;
         color: #f7f7f7;
     }
+    /* .star {
+        position: absolute;
+    }
+    
+    .fa-star {
+        font-size: 25px;
+    } */
+    
+    .star {
+        position: absolute;
+        visibility: hidden;
+        font-size: 30px;
+        cursor: pointer;
+    }
+    
+    .star:before {
+        content: "\2605";
+        position: absolute;
+        visibility: visible;
+    }
+    
+    .star:checked:before {
+        content: "\2606";
+        position: absolute;
+    }
+    /* .star-yellow {
+        color: yellow;
+    }
+    
+    .star-grey {
+        color: grey;
+    } */
     
     .code-name {
         position: absolute;
-        /* left:1%; */
+        left: 10%;
         padding-top: 10px;
         height: 100%;
         width: 30%;
@@ -311,6 +343,15 @@
         border: 1px solid #323643;
         color: #000;
         background: #93deff;
+    }
+    
+    .star-toggle {
+        width: 10%;
+        position: absolute;
+        top: 4rem;
+        left: 5%;
+        transform: translateX(-50%);
+        margin: 0;
     }
     
     .search-container {

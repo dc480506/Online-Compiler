@@ -17,6 +17,7 @@
 	<script src="https://kit.fontawesome.com/ba3c03b371.js">
 	</script>
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -45,12 +46,25 @@
 				</div>   
     	</div>
 		
-	<div class="search-container">
-	   <i class="fas fa-search"></i>
-		<input id="search-bar" type='text' placeholder="Search code">
+
+	<div class="middle-bar">
+		<div class="star-toggle">
+			<style>
+				.toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
+				.toggle.ios .toggle-handle { border-radius: 20px; }
+			</style>
+			<input type="checkbox" data-toggle="toggle" data-style="ios" class="starred">
+		</div>
+		<div class="search-container">
+			<i class="fas fa-search"></i>
+			<input id="search-bar" type='text' placeholder="Search code">
+		</div>
 	</div>
+
 	<div class="codes">
-	 <?php
+	 
+	 
+	 	<!-- <?php
 		include_once '../include/config.php';
 		$sql="SELECT * FROM code_info WHERE username='$user' order by utime DESC";
 		$result=mysqli_query($conn,$sql);
@@ -86,7 +100,7 @@
 				';
 			}
 		}
-		?> 
+		?>  -->
 		
 		
 	</div>
@@ -129,6 +143,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
   </body>
 </html>
 
@@ -175,11 +190,11 @@ $(document).ready(function(){
 	//console.log(data);
 	if(data!=""){
 		document.querySelector('.xyz').style.color="red";
-		console.log('add');
+		//console.log('add');
 	}
 	else{
 		document.querySelector('.xyz').style.color="#28c3d4";
-		console.log('remove');
+		//console.log('remove');
 	}
    }
   });
@@ -195,5 +210,53 @@ $(document).ready(function(){
    create_code();
   }
  });
+
+
 });
+
+//star
+
+
+$(document).on("change", "input[class='star']", function () {
+// store the values from the form checkbox box, then send via ajax below
+var check_active = $(this).is(':checked') ? 0 : 1;
+var check_id = $(this).attr('value');
+
+// console.log(check_active);
+// console.log(check_id);
+
+    $.ajax({
+        type: "POST",
+        url: "../include/ajaxstar.php",
+        data: {id: check_id, active: check_active},
+        success: function(data){
+            //$('form#submit').hide(function(){$('div.success').fadeIn();});
+			//alert(data);
+			//console.log(data);
+        }
+    });
+//return true;
+});
+
+$(document).on("change", "input[class='starred']", function () {
+// store the values from the form checkbox box, then send via ajax below
+var check_active = $(this).is(':checked') ? 1 : 0;
+
+ console.log(check_active);
+// console.log(check_id);
+
+    $.ajax({
+        type: "POST",
+        url: "../include/ajaxsearchcode.php",
+        data: { active: check_active},
+        success: function(data){
+            //$('form#submit').hide(function(){$('div.success').fadeIn();});
+			//alert(data);
+			console.log(data);
+			$('.codes').html(data);
+        }
+    });
+//return true;
+});
+
 </script>
