@@ -37,8 +37,8 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
 <body>
   <div class="side-panel">
     <div class="side-options">
-    <i class="fas fa-file-code"></i>
-    <i class="fas fa-cogs"></i>
+    <i class="fas fa-file-code" title="Files"></i>
+    <i class="fas fa-cogs" title="Settings"></i>
     </div>
     <div id="panel-mode"><span>Files</span></div>
     <div id="settings-options">
@@ -67,6 +67,7 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
       <i class="fas fa-plus"></i>
       <input id="new-code" type="button" value="new code">
     </div>-->
+    <button type="button" id="download-btn" title="Download"><i class="fas fa-file-download"></i></button>
       <div class="algo-search">
           <input id="search-text" type="text" placeholder="Type to Search an algorithm">
           <i class="fas fa-search"></i>
@@ -85,7 +86,7 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
 						}
 						?>
 				</div>
-      <button id="execute" type="button" onclick="executeCode('<?php echo $_SESSION['u_user'].'/'.$_SESSION['code']?>','<?php echo $_SESSION['language']?>')">
+      <button id="execute" type="button" onclick="executeCode()">
       <i class="fas fa-play"></i><span>run</span></button>
      <!-- <form method="POST" action="../include/stop2.php">-->
     <button id="stop" type="submit" onclick="stopCode()">
@@ -94,7 +95,7 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
     </div> 
     <div class="rename-box">
         <span title="cancel">+</span>
-        <input type="text"/>
+        <input type="text" spellcheck="false"/>
         <button type="button"><span>Rename</span></button>
       </div>
     <div id="parent">
@@ -110,7 +111,7 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
     <div id="output">
       <i class="fas fa-backspace"></i>
       <!--<textarea readonly="readonly" id="output-screen"></textarea>-->
-      <textarea id="output-screen" readonly="readonly" spellcheck="false" onKeyPress="sendUserInput(event,'<?php echo $_SESSION['u_user'].'/'.$_SESSION['code']?>')" ></textarea>
+      <textarea id="output-screen" readonly="readonly" spellcheck="false" onKeyPress="sendUserInput(event)" ></textarea>
     </div>
 </div>
 <script type="text/javascript">
@@ -158,6 +159,32 @@ $('.CodeMirror').resize(function(){
    $('#output').height($("#parent").height()-$(".CodeMirror").height()-0.005*$("#parent").height()); 
 });
 $('.CodeMirror').resizable('disable');*/
+</script>
+<script>
+  function download() {
+    var extension='<?php 
+      if($_SESSION['language']=='C'){
+        echo "c";
+      }else if($_SESSION['language']=='C++'){
+        echo "cpp";
+      }else if($_SESSION['language']=='Java'){
+        echo "java";
+      }else{
+        echo "py";
+      }
+      ?>';
+    var element = document.createElement('a');
+    var text=editor.getValue();
+    var filename=document.querySelector(".code-info>span").innerText;
+    filename+="."+extension;
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+document.querySelector("#download-btn").addEventListener("click",download);
 </script>
   <script type="text/javascript" src="../js/script.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

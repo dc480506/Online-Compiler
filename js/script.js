@@ -74,10 +74,13 @@ document.querySelector(".fas.fa-backspace").addEventListener("click",function(){
 
 document.querySelector(".fas.fa-pen").addEventListener("click",function(){
   document.querySelector(".rename-box").style.display="flex";
+  document.querySelector(".rename-box>input").style.border="1px solid #D71820";
+  document.querySelector(".rename-box>button").disabled=true;
 })
 
 document.querySelector(".rename-box>span").addEventListener("click",function(){
   document.querySelector(".rename-box").style.display="none";
+  document.querySelector(".rename-box>input").value="";
 })
 var enablerun=true;
 document.querySelector("#execute").addEventListener("mouseover",function(){
@@ -127,21 +130,21 @@ function saveCode(file){
   //xhttp.send("file="+file+"&code="+codetext);
 }
 var running=false;
-function executeCode(code_path,lang){
+function executeCode(){
   if(enablerun){
     enablerun=false;
-  var jsonData={
+/*  var jsonData={
     'code_path':code_path,
     'lang':lang
   }
-  var jsonString=JSON.stringify(jsonData);
+  var jsonString=JSON.stringify(jsonData);*/
   var xhttp=new XMLHttpRequest();
   xhttp.onreadystatechange=function(){
     if(this.readyState==4 && this.status==200){
       document.getElementById('output-screen').value=this.responseText;
      document.querySelector("#execute> span").innerText="running";
       //if(this.responseText==""){
-        runCode(code_path,lang);
+        runCode();
         
       //}
     }else{
@@ -153,32 +156,24 @@ function executeCode(code_path,lang){
     }
   }
   xhttp.open("POST","../include/ajaxexeccode.php",true);
-  xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
-  xhttp.send(jsonString);
+ /* xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
+  xhttp.send(jsonString);*/
+  xhttp.send();
 }
 }
 var textarealength=0;
-function runCode(code_path,lang){
-  var jsonData={
-    'code_path':code_path,
-    'lang':lang
-  }
-  var b=false;
-  var jsonString=JSON.stringify(jsonData);
+function runCode(){
   var xhttp=new XMLHttpRequest();
   document.querySelector("#output-screen").readOnly=false;
   document.querySelector('#stop').style.display="flex"
   xhttp.onreadystatechange=function(){
     if(this.readyState==4 && this.status==200){
-      //document.getElementById('output-screen').value=this.responseText;
-      /*document.querySelector("#execute").style.backgroundColor="#2f3640";*/
       document.querySelector("#execute").style.backgroundColor="#93deff";
       document.querySelector("#execute").style.border="none";
       document.querySelector("#execute> span").innerText="run";
      document.querySelector("#execute").style.border="none";
      document.querySelector("#execute").style.color="#000";
       document.querySelector('#stop').style.display="none"
-      /*document.querySelector("#execute> .fas.fa-play").style.color="#e74c3c";*/
       document.querySelector("#execute> .fas.fa-play").style.color="#000";
       enablerun=true;
       running=false;
@@ -200,8 +195,7 @@ function runCode(code_path,lang){
    document.getElementById("output-screen").scrollTop = document.getElementById("output-screen").scrollHeight;
   }
   xhttp.open("POST","../include/run.php",true);
-  xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
-  xhttp.send(jsonString);
+  xhttp.send();
 }
 
 
@@ -224,7 +218,7 @@ function stopCode(){
 }
 
 
-  function sendUserInput(e,code_path){
+  function sendUserInput(e){
     if(running){
     var code=(e.keycode? e.keycode:e.which);
     text=document.getElementById("output-screen").value
@@ -237,7 +231,6 @@ function stopCode(){
     //console.log(input)
     textarealength=document.getElementById("output-screen").value.length;
     var jsonData={
-      'code_path':code_path,
       'input':input
     }
     var jsonString=JSON.stringify(jsonData);
@@ -266,4 +259,49 @@ document.getElementById("output-screen").addEventListener('keydown',function(e){
   }else{
     return true;
   }
+})
+
+document.querySelector(".rename-box>input").addEventListener("keyup",function(){
+  var xhttp=new XMLHttpRequest();
+  var newname=document.querySelector(".rename-box>input").value;
+  var jsonData={
+    'newname':newname,
+    'op':1
+  }
+  var jsonString=JSON.stringify(jsonData);
+ xhttp.onreadystatechange=function(){
+    if(this.readyState==4 && this.status==200){
+      if(this.responseText==""){
+        document.querySelector(".rename-box>input").style.border="1px solid #49C144";
+        document.querySelector(".rename-box>button").disabled=false;
+      }else{
+        document.querySelector(".rename-box>input").style.border="1px solid #D71820";
+        document.querySelector(".rename-box>button").disabled=true;
+      }
+    }
+  }
+  xhttp.open("POST","../include/ajaxrenamebox.php",true);
+  xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
+  xhttp.send(jsonString);
+})
+document.querySelector(".rename-box>button").addEventListener("click",function(){
+  var xhttp=new XMLHttpRequest();
+  var newname=document.querySelector(".rename-box>input").value;
+  var jsonData={
+    'newname':newname,
+    'op':2
+  }
+  document.querySelector(".rename-box>button>span").innerText="Renaming...";
+  document.querySelector(".rename-box>button").disabled=true;
+  var jsonString=JSON.stringify(jsonData);
+ xhttp.onreadystatechange=function(){
+    if(this.readyState==4 && this.status==200){
+      document.querySelector(".code-info>span").innerText=newname;
+      document.querySelector(".rename-box>button>span").innerText="Rename";
+      document.querySelector(".rename-box>button").disabled=false;
+    }
+  }
+  xhttp.open("POST","../include/ajaxrenamebox.php",true);
+  xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
+  xhttp.send(jsonString);
 })

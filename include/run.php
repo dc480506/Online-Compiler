@@ -2,10 +2,8 @@
 // descriptor array
 session_start();
 include "config.php";
-$json = file_get_contents('php://input');
-$jsonArray=json_decode($json,true);
-$wd=$base_dir.$jsonArray['code_path'];
-$lang=$jsonArray['lang'];
+$wd=$_SESSION['dir'];
+$lang=$_SESSION['language'];
 chdir($wd);
 $desc = array(
  //   0 => array('file', 'input.txt','r'),

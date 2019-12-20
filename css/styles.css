@@ -2,27 +2,11 @@
 	margin: 0;
 	padding: 0;
 }
-/*.CodeMirror{
-	top: 15%;
-	height:85%;
-	left:10%;
-	width:60%;
-	position: absolute;
-	/*resize: horizontal;*/
-	/*display: inline-block;
-	font-size: 1em;
-	font-family: 'Stylish', sans-serif;
-
-	/*overflow-wrap: break-word;*/
-/*}*/
 
 .menu-bar{
 	top:0;
 	height: 8%;
 	position: absolute;
-	/*background-color: #e74c3c;*/
-	/*background-color: #e67e22;*/
-	/*background-color: #3498db;*/
 	background-color: #323643;
 	width: 100%;
 }
@@ -42,14 +26,7 @@
 	background-color: #2f3640;
 	color:#3498db;
 }
-/*.fas.fa-bars{
-	font-size: 2em;
-	cursor: pointer;
-	left: 3%;
-	top:50%;
-	transform: translate(-50%,-50%);
-	position: absolute;
-}*/
+
 .code-info{
 	position: absolute;
 	left:10%;
@@ -259,7 +236,7 @@
 }
 .fas.fa-cogs{
 	top:10%;
-	font-size:1.2em;
+	font-size:1.1em;
 }
 .fas.fa-file-code:hover,.fas.fa-cogs:hover{
 	background-color: #7f8c8d;
@@ -450,6 +427,7 @@
 	width: 80%;
 	left: 50%;
 	transform: translateX(-50%);
+	outline: none;
 }
 .rename-box >button{
 	margin-top: 12%;
@@ -458,4 +436,23 @@
 	font-size: 0.8em;
 	left: 50%;
 	transform: translateX(-50%);
+}
+#download-btn{
+	position: absolute;
+	border-radius: 50%;
+	top:50%;
+	margin: auto;
+	left:35%;
+	outline: none;
+	transform: translateY(-50%);
+	padding: 0.6em;
+	background-color: #ff7f50;;
+	border:0;
+}
+.fas.fas.fa-file-download{
+	color: white;
+}
+#download-btn:hover{
+	background-color: #3498db;
+	border: 1px solid white;
 }
