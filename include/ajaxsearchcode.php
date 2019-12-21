@@ -3,17 +3,63 @@ include 'config.php';
 session_start();
 $output = '';
 $user=$_SESSION['u_user'];
-if(isset($_POST["query"]))
-{
- $search = mysqli_real_escape_string($conn, $_POST["query"]);
- $query = "SELECT * FROM code_info WHERE username='$user' AND codename LIKE '%$search%' order by utime DESC";
+// if(isset($_POST["query"]))
+// {
+//  $search = mysqli_real_escape_string($conn, $_POST["query"]);
+//  $query = "SELECT * FROM code_info WHERE username='$user' AND codename LIKE '%$search%' order by utime DESC";
+// }
+// else
+// {
+//  $query = "SELECT * FROM code_info WHERE username='$user' order by utime DESC";
+// }
+// if(isset($_POST["active"]) && $_POST["active"]==1){
+// 	$query = "SELECT * FROM code_info WHERE username='$user' AND star=1 order by utime DESC";
+// }
+// if(isset($_POST["lang"])){
+// 	$lang=mysqli_real_escape_string($conn, $_POST["lang"]);
+// 	$query = "SELECT * FROM code_info WHERE username='$user' AND language='$lang' order by utime DESC";
+// }
+if(isset($_POST["active"]) && $_POST["active"]==1){		//star
+	if(isset($_POST["lang"])){		//lang
+		$lang=mysqli_real_escape_string($conn, $_POST["lang"]);
+		if(isset($_POST["query"])){			//search
+			$search = mysqli_real_escape_string($conn, $_POST["query"]);
+			$query = "SELECT * FROM code_info WHERE username='$user' AND codename LIKE '%$search%' AND language='$lang' AND star=1 order by utime DESC";
+			}
+		else{
+			$query = "SELECT * FROM code_info WHERE username='$user' AND language='$lang' AND star=1 order by utime DESC";
+		}
+	}
+	else{
+		if(isset($_POST["query"])){
+			$search = mysqli_real_escape_string($conn, $_POST["query"]);
+			$query = "SELECT * FROM code_info WHERE username='$user' AND codename LIKE '%$search%' AND star=1 order by utime DESC";
+			}
+		else{
+			$query = "SELECT * FROM code_info WHERE username='$user' AND star=1 order by utime DESC";
+		}
+	}	
 }
-else
-{
- $query = "SELECT * FROM code_info WHERE username='$user' order by utime DESC";
-}
-if(isset($_POST["active"]) && $_POST["active"]==1){
-	$query = "SELECT * FROM code_info WHERE username='$user' AND star=1 order by utime DESC";
+else{
+	if(isset($_POST["lang"])){
+		$lang=mysqli_real_escape_string($conn, $_POST["lang"]);
+		if(isset($_POST["query"])){
+			$search = mysqli_real_escape_string($conn, $_POST["query"]);
+			$query = "SELECT * FROM code_info WHERE username='$user' AND codename LIKE '%$search%' AND language='$lang' order by utime DESC";
+			}
+		else{
+			$query = "SELECT * FROM code_info WHERE username='$user' AND language='$lang' order by utime DESC";
+		}
+	}
+	else{
+		if(isset($_POST["query"])){
+			$search = mysqli_real_escape_string($conn, $_POST["query"]);
+			$query = "SELECT * FROM code_info WHERE username='$user' AND codename LIKE '%$search%' order by utime DESC";
+			}
+		else{
+			$query = "SELECT * FROM code_info WHERE username='$user' order by utime DESC";
+		}
+	}
 }
 $result = mysqli_query($conn, $query);
 if(mysqli_num_rows($result) > 0)
@@ -28,12 +74,12 @@ if(mysqli_num_rows($result) > 0)
 		//for color of star
 		if($row["star"]==1){
 			$output.='
-			<input class="star" type="checkbox" value='.$row["codename"].' name='.$row["username"].' id="star">
+			<input class="star" type="checkbox" value='.$row["codename"].' name='.$row["username"].'">
 			';
 		}
 		else{
 			$output .='
-			<input class="star" type="checkbox" value='.$row["codename"].' checked name='.$row["username"].' id="star">
+			<input class="star" type="checkbox" value='.$row["codename"].' checked name='.$row["username"].'">
 			';	
 		}
 	$output.='
@@ -50,7 +96,7 @@ if(mysqli_num_rows($result) > 0)
 		'.$row["ctime"].'
 	</div>
 	<div class="dropdown code-options ">
-		<button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<button class="btn btn-secondary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		<i class="fas fa-ellipsis-v"></i>
 			</button>
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

@@ -116,6 +116,39 @@ body {
     pointer-events: none;
 }
 
+.lang-box-1 {
+    position: absolute;
+    width: 10%;
+    top: 4rem;
+    left: 80%;
+}
+
+.lang-box-1 select {
+    background-color: #93deff;
+    color: #000;
+    width: 100%;
+    height: 100%;
+    border: none;
+    -webkit-appearance: button;
+    outline: none;
+}
+
+.lang-box-1::before {
+    content: " \f0ab";
+    font-family: FontAwesome;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 20%;
+    text-align: center;
+    line-height: 32.5px;
+    color: #aee7e8;
+    font-size: 20px;
+    background: #323643;
+    pointer-events: none;
+}
+
 .cname {
     /* position: absolute;
 width: 80%;

@@ -1,4 +1,3 @@
- 
 <?php
   session_start();
 ?>
@@ -59,6 +58,14 @@
 		<div class="search-container">
 			<i class="fas fa-search"></i>
 			<input id="search-bar" type='text' placeholder="Search code">
+		</div>
+		<div class="lang-box-1">
+			<select name="language" class="sel-lang">
+				<option value="C">C</option>
+				<option value="C++">C++</option>
+				<option value="Java">Java</option>
+				<option value="Python">Python</option>
+			</select>
 		</div>
 	</div>
 
@@ -241,10 +248,25 @@ var check_active = $(this).is(':checked') ? 1 : 0;
         success: function(data){
             //$('form#submit').hide(function(){$('div.success').fadeIn();});
 			//alert(data);
-			console.log(data);
+			//console.log(data);
 			$('.codes').html(data);
         }
     });
 //return true;
+});
+$('.sel-lang').change(function () {
+    var lang = $(this).find(':selected')[0].value;
+    //alert(id); 
+    $.ajax({
+        type: 'POST',
+        url: '../include/ajaxsearchcode.php',
+        data: {
+            'lang': lang
+        },
+        success: function (data) {
+            console.log(data);
+			$('.codes').html(data);
+        }
+    });
 });
 </script>
