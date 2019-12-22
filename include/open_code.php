@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "config.php";
-$_SESSION['dir']=$base_dir.$_SESSION['u_user']."/".$_POST['code-name'];
+$_SESSION['dir']=$base_dir.$_SESSION['u_user']."/".$_POST['code-lang']."/".$_POST['code-name'];
 $_SESSION['file']="";
 $_SESSION['language']=$_POST['code-lang'];
 $_SESSION['code']=$_POST['code-name'];

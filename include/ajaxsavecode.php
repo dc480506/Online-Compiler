@@ -1,11 +1,13 @@
 <?php
-include "config.php"; 
-  /*$_file=$_POST['file'];
-  $code=$_POST['code'];*/
+session_start();
+if(isset($_SESSION['u_user'])){
+  include "config.php"; 
+  $filepath=$_SESSION['dir']."/".$_SESSION['file'];
+  session_write_close();
   $json = file_get_contents('php://input');
   $jsonArray=json_decode($json,true);
-  $dir=$base_dir.$jsonArray['file'];
-  file_put_contents($dir,$jsonArray['codetext']);
-  echo $dir."\n".$jsonArray['codetext'];
+  file_put_contents($filepath,$jsonArray['codetext']);
+  echo $filepath."\n".$jsonArray['codetext'];
+}
   //file_put_contents($_file,$code);
 ?>

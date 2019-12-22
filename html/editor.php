@@ -1,5 +1,10 @@
 <?php
 session_start();
+if(!isset($_SESSION['u_user'])){
+  header("Location: ../index.php");
+  exit();
+}
+$_SESSION['prunning']=false;
 ?>
 <html>
 <head>
@@ -14,7 +19,8 @@ session_start();
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/addon/hint/show-hint.css">
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/theme/xq-light.css">
 <link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/theme/xq-dark.css">
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!--<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" rel="stylesheet" />-->
 <script type="text/javascript" src="../codemirror-5.48.2/lib/codemirror.js"></script>
 <?php
 if($_SESSION['language']=="Python"){
@@ -28,16 +34,17 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
 <script type="text/javascript" src="../codemirror-5.48.2/addon/hint/show-hint.js"></script>
 <script type="text/javascript" src="../codemirror-5.48.2/addon/edit/closebrackets.js"></script>
 <script type="text/javascript" src="../codemirror-5.48.2/addon/edit/closetag.js"></script>
-<script defer src="https://kit.fontawesome.com/73dadbfb7d.js"></script>
+<!--<script defer src="https://kit.fontawesome.com/73dadbfb7d.js"></script>-->
+<link rel="stylesheet" type="text/css" href="../fontawesome-icons/css/all.css">
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 </head>
 <body>
   <div class="side-panel">
     <div class="side-options">
-    <i class="fas fa-file-code"></i>
-    <i class="fas fa-cogs"></i>
+    <i class="fas fa-file-code" title="Files"></i>
+    <i class="fas fa-cogs" title="Settings"></i>
     </div>
-    <p id="panel-mode">Files</p>
+    <div id="panel-mode"><span>Files</span></div>
     <div id="settings-options">
     <div id="theme">
       <div class="toggle-btn">
@@ -56,66 +63,59 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
         <i class="fas fa-laptop-code"></i>
       </a>
     <div class="code-info">
-      <div id="code-name">
-        <span>
-        <?php echo $_SESSION['code']?>
-        </span>
-        <i class="fas fa-pen"></i>
-      </div>
-      <!--<form action="../include/savecode.php" method="POST">
-      <div id="rename-box">
-         <input type=text name="rename-value">
-         <i class="fas fa-check"></i>
-      </div>
-      </form>-->
-      <div id="lang">
-        <img src="../img/<?php echo $_SESSION['language']?>.jpg" id="lang-img">
-        <span><pre> <?php echo $_SESSION['language']?></pre>
-        </span>
-      </div>
-      <button type="button" id="cancel">Cancel</button>
+        <img src="../img/<?php echo $_SESSION['language']?>.jpg" id="lang-img" title="<?php echo $_SESSION['language']?>">
+        <span><?php echo $_SESSION['code']?></span>
+        <i class="fas fa-pen" title="Rename"></i>
     </div>
-    <div class="new-code">
+   <!-- <div class="new-code">
       <i class="fas fa-plus"></i>
       <input id="new-code" type="button" value="new code">
-    </div>
+    </div>-->
+    <button type="button" id="download-btn" title="Download (Ctrl+Alt+S)"><i class="fas fa-file-download"></i></button>
       <div class="algo-search">
           <input id="search-text" type="text" placeholder="Type to Search an algorithm">
           <i class="fas fa-search"></i>
       </div>
-      <div class="user-profile">
-        <p><?php echo $_SESSION['u_user']?> <span><i class="fas fa-caret-down"></i></span></p>
-      </div>
+     
       <div class="user-options">
-         <ul>
-            <li>My Profile</li>
-            <li>Change Password</li>
-            <li>Log Out</li>
-          </ul>
-      </div>
-      <div class="execute">
-      <i class="fas fa-play"></i>
-      <input id="run" type="button" name="runcode" value="run" onclick="executeCode('<?php echo $_SESSION['u_user'].'/'.$_SESSION['code']?>','<?php echo $_SESSION['language']?>')">
-    </div>
-    <div class="stop">
-    <i class="fas fa-stop"></i>
-    <input id="stop" type="button" name="runcode" value="stop" onclick="stopCode()">
-    </div>
+						<?php
+						if(isset($_SESSION['u_user'])){
+							$user=$_SESSION['u_user'];
+							echo '<button class="user-button btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>';
+							echo $user;
+							echo'</span></button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<a class="dropdown-item" href="../include/logout.php">Logout</a>
+							</div>';
+						}
+						?>
+				</div>
+      <button id="execute" type="button" onclick="executeCode()" title="Run (Ctrl+Enter)">
+      <i class="fas fa-play"></i><span>run</span></button>
+     <!-- <form method="POST" action="../include/stop2.php">-->
+    <button id="stop" type="submit" onclick="stopCode()" title="Stop (Ctrl+Shift+Enter)">
+    <i class="fas fa-stop"></i><span>stop</span></button>
+          <!--</form>-->
     </div> 
+    <div class="rename-box">
+        <span title="cancel">+</span>
+        <input type="text" spellcheck="false"/>
+        <button type="button"><span>Rename</span></button>
+      </div>
+    <div id="parent">
     <div class="status-bar">
       <span id="file-name"><?php echo $_SESSION['file']?></span>
+      <div class="file-status-container">
       <i class="fas fa-save"></i>
       <i class="fas fa-history"></i>
-      <div class="file-status-container">
       <span id="file-status">saved</span>
       </div>
     </div>
-    <div id="parent">
     <textarea id='demotext' name="code"><?php echo file_get_contents($_SESSION['dir']."/".$_SESSION['file']);?></textarea>
     <div id="output">
       <i class="fas fa-backspace"></i>
       <!--<textarea readonly="readonly" id="output-screen"></textarea>-->
-      <textarea id="output-screen" spellcheck="false" onKeyPress="sendUserInput(event,'<?php echo $_SESSION['u_user'].'/'.$_SESSION['code']?>')" ></textarea>
+      <textarea id="output-screen" readonly="readonly" spellcheck="false" onKeyPress="sendUserInput(event)" ></textarea>
     </div>
 </div>
 <script type="text/javascript">
@@ -134,35 +134,72 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
           theme:"xq-dark",
           matchBrackets:true,
           autoCloseBrackets:true,
-          autoCloseTags:true
+          autoCloseTags:true,
+         
   });
   editor.on('keyup', function(editor,event){
-      if( !(event.ctrlKey) && 
+      if( !(event.ctrlKey) &&
         (event.keyCode>=65 && event.keyCode<=90)
         ||(event.keyCode>=97 && event.keyCode<=122)
         ||(event.keyCode>=46 && event.keyCode<=57)){
        editor.showHint({completeSingle:false});
     }
-    saveCode('<?php echo $_SESSION['u_user'].'/'.$_SESSION['code'].'/'.$_SESSION['file']?>');
+    if(event.keyCode>40 || event.keyCode<37)
+      saveCode();
   });
   </script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+ <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>-->
+<link href="../jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
+<script src="../jquery-ui-1.12.1/external/jquery/jquery.js"></script>
+<script src="../jquery-ui-1.12.1/jquery-ui.min.js"></script>
 <script>
    var clayout="sidebyside";
-    $("#output").resizable({handles:"w",maxWidth:0.45*$("#parent").width(),minWidth:0.2*$("#parent").width()});
+    $("#output").resizable({handles:"w",maxWidth:0.5*$("#parent").width(),minWidth:0.25*$("#parent").width()});
 $('#output').resize(function(){
-   $('.CodeMirror').width($("#parent").width()-$("#output").width()-0.103*$("#parent").width()); 
-   $('.status-bar').width($("#parent").width()-$("#output").width()-0.103*$("#parent").width()); 
+   $('.CodeMirror').width($("#parent").width()-$("#output").width()-0.002*$("#parent").width()); 
+   $('.status-bar').width($("#parent").width()-$("#output").width()-0.002*$("#parent").width()); 
 });
 /*$(".CodeMirror").resizable({handles:"s",maxHeight:0.45*$("#parent").height(),minWidth:0.2*$("#parent").height()});
 $('.CodeMirror').resize(function(){
-   $('#output').height($("#parent").height()-$(".CodeMirror").height()-0.103*$("#parent").height()); 
-  // $('.status-bar').width($("#parent").width()-$("#output").width()-0.103*$("#parent").width()); 
+   $('#output').height($("#parent").height()-$(".CodeMirror").height()-0.005*$("#parent").height()); 
 });
 $('.CodeMirror').resizable('disable');*/
-
+</script>
+<script>
+  function download() {
+    var extension='<?php 
+      if($_SESSION['language']=='C'){
+        echo "c";
+      }else if($_SESSION['language']=='C++'){
+        echo "cpp";
+      }else if($_SESSION['language']=='Java'){
+        echo "java";
+      }else{
+        echo "py";
+      }
+      ?>';
+    var element = document.createElement('a');
+    var text=editor.getValue();
+    var filename=document.querySelector(".code-info>span").innerText;
+    filename+="."+extension;
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+document.querySelector("#download-btn").addEventListener("click",download);
 </script>
   <script type="text/javascript" src="../js/script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="../mousetrap/mousetrap.min.js"></script>
+  <script>
+   Mousetrap.bind(['command+alt+s', 'ctrl+alt+s'],download);
+   Mousetrap.bind(['command+enter','ctrl+enter'],executeCode);
+   Mousetrap.bind(['command+shift+enter','ctrl+shift+enter'],stopCode);
+  </script>
 </body>
 </html>

@@ -1,10 +1,10 @@
 <?php
 // descriptor array
+session_start();
 include "config.php";
-$json = file_get_contents('php://input');
-$jsonArray=json_decode($json,true);
-$wd=$base_dir.$jsonArray['code_path'];
-$lang=$jsonArray['lang'];
+if(isset($_SESSION['u_user'])){
+$wd=$_SESSION['dir'];
+$lang=$_SESSION['language'];
 chdir($wd);
 $desc = array(
  //   0 => array('file', 'input.txt','r'),
@@ -27,9 +27,13 @@ if($proc === FALSE){
 }
 $status=proc_get_status($proc);
 $pid = $status['pid'];
-echo $pid;
-ob_flush();
-flush();
+//echo $pid;
+$_SESSION['pid']=$pid;
+//ob_flush();
+//flush();
+session_write_close();
+$inputavail=true;
+$curr_time=NULL;
 while(true) {
     $status = proc_get_status($proc);
     if($status === FALSE) {
@@ -76,6 +80,17 @@ while(true) {
         $input.="\n";
         fwrite($pipes[0],$input);
         unlink("input.txt");
+        $curr_time=NULL;
+        $inputavail=true;
+    }else if($inputavail){
+        $inputavail=false;
+        $curr_time=time();
+    }
+    if(time()-$curr_time>=200 && !$inputavail){
+        echo "\nProgram terminated due to inactivity!! Please try again";
+        ob_flush();
+        flush();
+        shell_exec("kill -9 ".$pid." ".($pid+1));
     }
     /*$read = array();
     $n = stream_select($read, $write, $except, $tv, $utv);
@@ -86,5 +101,6 @@ while(true) {
     }else{
         echo "Not working";
     }*/
+}
 }
 ?>

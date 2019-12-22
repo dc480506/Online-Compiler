@@ -26,7 +26,7 @@ if(isset($_POST['add_btn'])){
             //insert the code_info into database
             $sql="INSERT INTO code_info (username,codename,language,ctime,utime) VALUES ('$user','$cname','$lang','$ctime','$utime');";
             mysqli_query($conn,$sql);
-            $dir=$base_dir.$user."/".$cname;
+            $dir=$base_dir."/".$user."/".$lang."/".$cname;
             mkdir($dir,0777,true);
             //file_put_contents($dir."/input.txt","");
             if($lang=="C"){

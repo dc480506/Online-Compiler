@@ -1,5 +1,9 @@
 <?php
   session_start();
+  if(!isset($_SESSION['u_user'])){
+	  header("Location: ../index.php");
+	  exit();
+  }
 ?>
 
 <!DOCTYPE html>
@@ -61,6 +65,7 @@
 		</div>
 		<div class="lang-box-1">
 			<select name="language" class="sel-lang">
+				<option value="all">All Languages</option>
 				<option value="C">C</option>
 				<option value="C++">C++</option>
 				<option value="Java">Java</option>
@@ -183,25 +188,29 @@ $(document).ready(function(){
   }
  });
 });
-
-
 $(document).ready(function(){
  create_code();
- function create_code(query)
+ function create_code(query,lang)
  {
+	console.log(lang);	
   $.ajax({
    url:"../include/ajaxcreatecode.php",
    method:"POST",
-   data:{query:query},
+   data:{
+	   query:query,
+	   lang:lang
+	   },
    success:function(data)
    {
 	//console.log(data);
 	if(data!=""){
 		document.querySelector('.xyz').style.color="red";
+		$(".cb-button").attr("disabled", true);
 		//console.log('add');
 	}
 	else{
 		document.querySelector('.xyz').style.color="#28c3d4";
+		$(".cb-button").attr("disabled", false);
 		//console.log('remove');
 	}
    }
@@ -209,30 +218,24 @@ $(document).ready(function(){
  }
  $('.cname').keyup(function(){
   var search = $(this).val();
+  var lang = $('.clang').find(':selected')[0].value;
   if(search != '')
   {
-   create_code(search);
+   create_code(search,lang);
   }
   else
   {
    create_code();
   }
  });
-
-
 });
-
 //star
-
-
 $(document).on("change", "input[class='star']", function () {
 // store the values from the form checkbox box, then send via ajax below
 var check_active = $(this).is(':checked') ? 0 : 1;
 var check_id = $(this).attr('value');
-
 // console.log(check_active);
 // console.log(check_id);
-
     $.ajax({
         type: "POST",
         url: "../include/ajaxstar.php",
@@ -245,14 +248,11 @@ var check_id = $(this).attr('value');
     });
 //return true;
 });
-
 $(document).on("change", "input[class='starred']", function () {
 // store the values from the form checkbox box, then send via ajax below
 var check_active = $(this).is(':checked') ? 1 : 0;
-
  console.log(check_active);
 // console.log(check_id);
-
     $.ajax({
         type: "POST",
         url: "../include/ajaxsearchcode.php",
@@ -266,7 +266,6 @@ var check_active = $(this).is(':checked') ? 1 : 0;
     });
 //return true;
 });
-
 $('.sel-lang').change(function () {
     var lang = $(this).find(':selected')[0].value;
     //alert(id); 
@@ -281,7 +280,5 @@ $('.sel-lang').change(function () {
 			$('.codes').html(data);
         }
     });
-
 });
-
 </script>

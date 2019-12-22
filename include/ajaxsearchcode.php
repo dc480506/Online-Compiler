@@ -12,18 +12,20 @@ $user=$_SESSION['u_user'];
 // {
 //  $query = "SELECT * FROM code_info WHERE username='$user' order by utime DESC";
 // }
-
 // if(isset($_POST["active"]) && $_POST["active"]==1){
 // 	$query = "SELECT * FROM code_info WHERE username='$user' AND star=1 order by utime DESC";
 // }
-
 // if(isset($_POST["lang"])){
 // 	$lang=mysqli_real_escape_string($conn, $_POST["lang"]);
 // 	$query = "SELECT * FROM code_info WHERE username='$user' AND language='$lang' order by utime DESC";
 // }
 
+if(isset($_POST["lang"]) && $_POST["lang"]=='all'){
+	$query = "SELECT * FROM code_info WHERE username='$user' order by utime DESC";
+}
 
-if(isset($_POST["active"]) && $_POST["active"]==1){		//star
+
+else if(isset($_POST["active"]) && $_POST["active"]==1){		//star
 	if(isset($_POST["lang"])){		//lang
 		$lang=mysqli_real_escape_string($conn, $_POST["lang"]);
 		if(isset($_POST["query"])){			//search
@@ -65,15 +67,11 @@ else{
 		}
 	}
 }
-
-
-
 $result = mysqli_query($conn, $query);
 if(mysqli_num_rows($result) > 0)
 {
  while($row = mysqli_fetch_array($result))
  {
-
 	$output .= '
 	<figure class="code-sample">
 	<form method="POST" action="../include/open_code.php">
@@ -90,7 +88,6 @@ if(mysqli_num_rows($result) > 0)
 			<input class="star" type="checkbox" value='.$row["codename"].' checked name='.$row["username"].'">
 			';	
 		}
-
 	$output.='
 	
 	<div class= "code-name">
@@ -130,15 +127,12 @@ if(mysqli_num_rows($result) > 0)
 		for(var i=0;i< rename_btn.length;i++){
 			rename_btn[i].addEventListener("click",showRename,false);
 		}
-
 		document.getElementById("close-rename").addEventListener("click",function(){
 		document.querySelector(".rename-box").style.display="none";
 		document.querySelector(".bg").style.opacity="1";
 		},false);
-
 	</script>
 	';
-
  }
  echo $output;
 }
