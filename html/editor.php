@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(!isset($_SESSION['u_user'])){
+  header("Location: ../index.php");
+  exit();
+}
 $_SESSION['prunning']=false;
 ?>
 <html>
@@ -67,7 +71,7 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
       <i class="fas fa-plus"></i>
       <input id="new-code" type="button" value="new code">
     </div>-->
-    <button type="button" id="download-btn" title="Download"><i class="fas fa-file-download"></i></button>
+    <button type="button" id="download-btn" title="Download (Ctrl+Alt+S)"><i class="fas fa-file-download"></i></button>
       <div class="algo-search">
           <input id="search-text" type="text" placeholder="Type to Search an algorithm">
           <i class="fas fa-search"></i>
@@ -86,10 +90,10 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
 						}
 						?>
 				</div>
-      <button id="execute" type="button" onclick="executeCode()">
+      <button id="execute" type="button" onclick="executeCode()" title="Run (Ctrl+Enter)">
       <i class="fas fa-play"></i><span>run</span></button>
      <!-- <form method="POST" action="../include/stop2.php">-->
-    <button id="stop" type="submit" onclick="stopCode()">
+    <button id="stop" type="submit" onclick="stopCode()" title="Stop (Ctrl+Shift+Enter)">
     <i class="fas fa-stop"></i><span>stop</span></button>
           <!--</form>-->
     </div> 
@@ -130,16 +134,18 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
           theme:"xq-dark",
           matchBrackets:true,
           autoCloseBrackets:true,
-          autoCloseTags:true
+          autoCloseTags:true,
+         
   });
   editor.on('keyup', function(editor,event){
-      if( !(event.ctrlKey) && 
+      if( !(event.ctrlKey) &&
         (event.keyCode>=65 && event.keyCode<=90)
         ||(event.keyCode>=97 && event.keyCode<=122)
         ||(event.keyCode>=46 && event.keyCode<=57)){
        editor.showHint({completeSingle:false});
     }
-    saveCode('<?php echo $_SESSION['u_user'].'/'.$_SESSION['code'].'/'.$_SESSION['file']?>');
+    if(event.keyCode>40 || event.keyCode<37)
+      saveCode();
   });
   </script>
  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -189,6 +195,11 @@ document.querySelector("#download-btn").addEventListener("click",download);
   <script type="text/javascript" src="../js/script.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
+  <script type="text/javascript" src="../mousetrap/mousetrap.min.js"></script>
+  <script>
+   Mousetrap.bind(['command+alt+s', 'ctrl+alt+s'],download);
+   Mousetrap.bind(['command+enter','ctrl+enter'],executeCode);
+   Mousetrap.bind(['command+shift+enter','ctrl+shift+enter'],stopCode);
+  </script>
 </body>
 </html>

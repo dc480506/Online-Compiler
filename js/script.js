@@ -100,7 +100,7 @@ document.querySelector("#execute").addEventListener("mouseout",function(){
   }
 })
 //AJAX section
-function saveCode(file){
+function saveCode(){
   //console.log("Called");
   var codetext=editor.getValue();
   //console.log(codetext);
@@ -109,7 +109,6 @@ function saveCode(file){
   document.querySelector(".fas.fa-history").style.display="flex";
   document.querySelector("#file-status").innerHTML="saving...";
   var jsonData={
-    'file':file,
     'codetext':codetext
   };
   //console.log(jsonData);
@@ -200,7 +199,7 @@ function runCode(){
 
 
 function stopCode(){
-
+if(!enablerun){
   document.querySelector('#stop> span').innerText="stopping";
   document.querySelector("#execute").style.display="none";
   var xhttp=new XMLHttpRequest();
@@ -215,6 +214,7 @@ function stopCode(){
   }
   xhttp.open("POST","../include/stop.php",true);
   xhttp.send();
+}
 }
 
 

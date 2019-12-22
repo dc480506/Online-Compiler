@@ -2,6 +2,7 @@
 // descriptor array
 session_start();
 include "config.php";
+if(isset($_SESSION['u_user'])){
 $wd=$_SESSION['dir'];
 $lang=$_SESSION['language'];
 chdir($wd);
@@ -100,5 +101,6 @@ while(true) {
     }else{
         echo "Not working";
     }*/
+}
 }
 ?>

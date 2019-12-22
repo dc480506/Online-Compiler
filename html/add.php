@@ -1,5 +1,9 @@
 <?php
   session_start();
+  if(!isset($_SESSION['u_user'])){
+	  header("Location: ../index.php");
+	  exit();
+  }
 ?>
 
 <!DOCTYPE html>
