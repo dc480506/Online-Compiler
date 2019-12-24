@@ -65,7 +65,7 @@
 		</div>
 		<div class="lang-box-1">
 			<select name="language" class="sel-lang">
-				<option value="all">All Languages</option>
+				<option value="all">All</option>
 				<option value="C">C</option>
 				<option value="C++">C++</option>
 				<option value="Java">Java</option>
@@ -205,12 +205,14 @@ $(document).ready(function(){
 	//console.log(data);
 	if(data!=""){
 		document.querySelector('.xyz').style.color="red";
-		$(".cb-button").attr("disabled", true);
+		$(".cb-button").hide();
+		//$(".cb-button").attr("disabled", true);
 		//console.log('add');
 	}
 	else{
 		document.querySelector('.xyz').style.color="#28c3d4";
-		$(".cb-button").attr("disabled", false);
+		$(".cb-button").show();
+		//$(".cb-button").attr("disabled", false);
 		//console.log('remove');
 	}
    }
@@ -234,12 +236,13 @@ $(document).on("change", "input[class='star']", function () {
 // store the values from the form checkbox box, then send via ajax below
 var check_active = $(this).is(':checked') ? 0 : 1;
 var check_id = $(this).attr('value');
-// console.log(check_active);
+var lang = $(this).attr('name');
 // console.log(check_id);
+// console.log(lang);
     $.ajax({
         type: "POST",
         url: "../include/ajaxstar.php",
-        data: {id: check_id, active: check_active},
+        data: {id: check_id, active: check_active,lang:lang},
         success: function(data){
             //$('form#submit').hide(function(){$('div.success').fadeIn();});
 			//alert(data);
@@ -251,7 +254,7 @@ var check_id = $(this).attr('value');
 $(document).on("change", "input[class='starred']", function () {
 // store the values from the form checkbox box, then send via ajax below
 var check_active = $(this).is(':checked') ? 1 : 0;
- console.log(check_active);
+//console.log(check_active);
 // console.log(check_id);
     $.ajax({
         type: "POST",

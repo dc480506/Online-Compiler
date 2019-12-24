@@ -17,7 +17,7 @@ if(isset($_POST['add_btn'])){
         exit();
     }else{
         //check if input data is not repeated (username , code name)
-        $sql="SELECT * FROM code_info WHERE username='$user' and codename='$cname'";
+        $sql="SELECT * FROM code_info WHERE username='$user' and codename='$cname' and language='$lang'";
         $result=mysqli_query($conn,$sql);
         if(mysqli_num_rows($result) > 0 ){
             header("Location: ../html/add.php?add_code=code_already_exists");
@@ -25,7 +25,7 @@ if(isset($_POST['add_btn'])){
         }else{
             //insert the code_info into database
             $sql="INSERT INTO code_info (username,codename,language,ctime,utime) VALUES ('$user','$cname','$lang','$ctime','$utime');";
-            mysqli_query($conn,$sql);
+            $result=mysqli_query($conn,$sql);
             $dir=$base_dir."/".$user."/".$lang."/".$cname;
             mkdir($dir,0777,true);
             //file_put_contents($dir."/input.txt","");

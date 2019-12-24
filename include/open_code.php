@@ -9,9 +9,10 @@ $_SESSION['code']=$_POST['code-name'];
 $user=$_SESSION['u_user'];
 $code=$_SESSION['code'];
 $dir=$_SESSION['dir'];
+$lang=$_SESSION['language'];
 
 if(isset($_POST['del_btn'])){
-    $sql="DELETE FROM code_info WHERE username='$user' AND codename='$code';";
+    $sql="DELETE FROM code_info WHERE username='$user' AND codename='$code' AND language='$lang';";
     mysqli_query($conn,$sql);
     array_map('unlink', glob("$dir/*.*"));
     rmdir($dir);

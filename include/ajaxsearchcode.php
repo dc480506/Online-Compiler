@@ -80,12 +80,12 @@ if(mysqli_num_rows($result) > 0)
 		//for color of star
 		if($row["star"]==1){
 			$output.='
-			<input class="star" type="checkbox" value='.$row["codename"].' name='.$row["username"].'">
+			<input class="star" type="checkbox" value='.$row["codename"].' name='.$row["language"].'>
 			';
 		}
 		else{
 			$output .='
-			<input class="star" type="checkbox" value='.$row["codename"].' checked name='.$row["username"].'">
+			<input class="star" type="checkbox" value='.$row["codename"].' checked name='.$row["language"].'>
 			';	
 		}
 	$output.='
