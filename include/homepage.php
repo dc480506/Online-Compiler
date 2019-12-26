@@ -76,10 +76,15 @@ if(mysqli_num_rows($result)==1)
     exit();
 }
 else if(mysqli_num_rows($result) < 1){
-    header("Location: ../index.php?login=error");
+    $p=strpos($_POST['email'],'@',0);
+    $username=substr($_POST['email'],0,$p);
+    $email=$_POST['email'];
+    $query="INSERT INTO user_details (username,email) VALUES ('$username','$email')";
+    mysqli_query($conn,$query);
+    $dir=$base_dir.$username;
+    mkdir($dir,0777,true);
+    $_SESSION['u_user']=$username;
+    header("Location: ../html/add.php?login=Sucess!!!!!");
     exit();
 }  
-else 
-header("LOCATION: ../index.php?error=notfound1");
-exit();
 ?>

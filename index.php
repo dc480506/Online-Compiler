@@ -1,7 +1,7 @@
 <?php
 session_start();
   if(isset($_SESSION['u_user'])){
-	header("Location: ../OnlineCompiler/html/add.php");
+	header("Location: html/add.php");
   }
 ?>
 <!DOCTYPE html>
@@ -12,6 +12,74 @@ session_start();
 	<meta name="viewport" content="width=device-width initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/def2.css">
 	<link rel="stylesheet" type="text/css" href="fontawesome-icons/css/all.css">
+
+	
+
+	<!--	<link rel="stylesheet" type="text/css" href="style.css">-->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<meta charset = "utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+		<meta name="google-signin-client_id" content="444425785443-5mh44gn88jrf46t217t7i4m62r4ui1ro.apps.googleusercontent.com">
+
+		<!--Enter yout OAuth Client ID in the content tag -->
+
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+		<script type="text/javascript">
+
+			
+		function onSignIn(googleUser) {
+			var profile = googleUser.getBasicProfile();
+			name = profile.getName();
+			pic=profile.getImageUrl();
+			var email=profile.getEmail();
+            googleUser.disconnect();
+			if(email.includes("somaiya.edu")) //domain constraint
+			{
+			var theForm, newInput1, newInput2, newInput3;
+			theForm = document.createElement('form');
+			theForm.action = 'include/homepage.php';	//enter the page url you want to redirect the index page to after sign in
+			theForm.method = 'post';
+			newInput1 = document.createElement('input');
+			newInput1.type = 'hidden';
+			newInput1.name = 'user';
+			newInput1.value = name;
+			newInput2 = document.createElement('input');
+			newInput2.type = 'hidden';
+			newInput2.name = 'pic';
+			newInput2.value = pic;
+			newInput3 = document.createElement('input');
+			newInput3.type = 'hidden';
+			newInput3.name = 'email';
+			newInput3.value = email;
+			theForm.appendChild(newInput1);
+			theForm.appendChild(newInput2);
+			theForm.appendChild(newInput3);
+
+			document.getElementById('hidden_form_container').appendChild(theForm);
+			theForm.submit();
+			}else{
+				window.location.href="index.php";
+				alert("Please login using Somaiya Mail ID");
+			}
+
+			
+		}
+
+
+			function signOut() {
+				var auth2 = gapi.auth2.getAuthInstance();
+				auth2.signOut().then(function () {
+				alert('User signed out.');
+				});
+			}
+
+		</script>
 </head>
 <body>
 	<div class="my-main">
@@ -50,6 +118,7 @@ session_start();
 					
 				</form>
 
+   
 				
 			</div>
 			<div class="social">
@@ -63,6 +132,22 @@ session_start();
 				</ul>
 				
 			</div>
+
+				 <!--	Google Signin Code  -->
+					<div id="wrapper">
+					  <div class="loginbox" id="myform" >						
+						<form method="post" action="#" class="popup">
+							
+							<div class="col-md-12 text-center">
+		        				<p style="color: #44a0b3;font-size: 22px"> OR </p>
+		        			</div>
+							<div class="g-signin2" data-onsuccess="onSignIn" align="middle"></div>			
+							
+						</form>
+					  </div>
+					</div>
+		         <!--	Google Signin Code End  -->
+
 			<div class="animated-text">
             <div class="line">GET</div>
             <div class="line">READY</div>
@@ -79,5 +164,32 @@ session_start();
 	</div>
 	</div>
 
+
+<?php
+if (isset($_GET['error']))
+	{
+		if($_GET['error']=='notfound')
+		{
+			?>
+		    <script type="text/javascript">
+			$(document).ready(function(){
+		    	document.getElementById("signin-error").innerHTML="There is an error in the input email or password.";
+		        $('#myModal').modal('show');
+		    });
+		    </script>
+			<?php 
+		}
+		else if($_GET['error']=='notfound1')
+		{
+			?>
+		    <script type="text/javascript">
+			  window.location.href="http://localhost/dd/index.php";
+              alert("You are not authorised user. Please try again! or Contact Administrator");
+		    </script>
+			<?php 
+		}
+	}
+?>
+<div id="hidden_form_container" style="display:none;"></div>
 </body>
 </html>

@@ -19,7 +19,10 @@ $user=$_SESSION['u_user'];
 // 	$lang=mysqli_real_escape_string($conn, $_POST["lang"]);
 // 	$query = "SELECT * FROM code_info WHERE username='$user' AND language='$lang' order by utime DESC";
 // }
-if(isset($_POST["active"]) && $_POST["active"]==1){		//star
+if(isset($_POST["lang"]) && $_POST["lang"]=='all'){
+	$query = "SELECT * FROM code_info WHERE username='$user' order by utime DESC";
+}
+else if(isset($_POST["active"]) && $_POST["active"]==1){		//star
 	if(isset($_POST["lang"])){		//lang
 		$lang=mysqli_real_escape_string($conn, $_POST["lang"]);
 		if(isset($_POST["query"])){			//search
@@ -74,12 +77,12 @@ if(mysqli_num_rows($result) > 0)
 		//for color of star
 		if($row["star"]==1){
 			$output.='
-			<input class="star" type="checkbox" value='.$row["codename"].' name='.$row["username"].'">
+			<input class="star" type="checkbox" value='.$row["codename"].' name='.$row["language"].'>
 			';
 		}
 		else{
 			$output .='
-			<input class="star" type="checkbox" value='.$row["codename"].' checked name='.$row["username"].'">
+			<input class="star" type="checkbox" value='.$row["codename"].' checked name='.$row["language"].'>
 			';	
 		}
 	$output.='

@@ -178,6 +178,10 @@ function runCode(){
       running=false;
       document.querySelector("#output-screen").readOnly=true;
       textarealength=0;
+     /* document.querySelector(".fas.fa-play").style.color="e74c3c";*/
+     document.querySelector(".fas.fa-play").style.color="#000";
+      document.querySelector('#execute').style.display="flex";
+      document.querySelector('#stop> span').innerText="stop";
     }else{
       document.querySelector("#execute> span").innerText="running";
       running=true;
@@ -187,11 +191,12 @@ function runCode(){
   xhttp.onprogress=function(e){
    var response = e.currentTarget.response;
    var output = typeof lastResponseLength === typeof undefined? response: response.substring(lastResponseLength);
-  // console.log(output);
+   //console.log(output);
    lastResponseLength = response.length;
    document.getElementById('output-screen').value+=output;
    textarealength=document.getElementById('output-screen').value.length;
    document.getElementById("output-screen").scrollTop = document.getElementById("output-screen").scrollHeight;
+   console.log(lastResponseLength);
   }
   xhttp.open("POST","../include/run.php",true);
   xhttp.send();
@@ -205,11 +210,11 @@ if(!enablerun){
   var xhttp=new XMLHttpRequest();
   xhttp.onreadystatechange=function(){
     if(this.readyState==4 && this.status==200){
-      document.querySelector("#stop").style.display="none";
-     /* document.querySelector(".fas.fa-play").style.color="e74c3c";*/
-     document.querySelector(".fas.fa-play").style.color="#000";
-      document.querySelector('#execute').style.display="flex";
-      document.querySelector('#stop> span').innerText="stop";
+    //   document.querySelector("#stop").style.display="none";
+    //  /* document.querySelector(".fas.fa-play").style.color="e74c3c";*/
+    //  document.querySelector(".fas.fa-play").style.color="#000";
+    //   document.querySelector('#execute').style.display="flex";
+    //   document.querySelector('#stop> span').innerText="stop";
     }
   }
   xhttp.open("POST","../include/stop.php",true);
