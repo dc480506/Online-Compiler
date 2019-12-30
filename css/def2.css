@@ -34,9 +34,9 @@ h1{
 }
 .my-main
 {
-	background-image:url(../images/image2.jpg); 
+	background-image:url(../img/imaged.jpg); 
 	background-repeat: repeat-x;
-	animation: slideleft 2000s infinite linear;
+	animation: slideleft 20000s infinite linear;
 	background-size: cover;
 	background-attachment: fixed;
 	position: relative;
@@ -104,8 +104,9 @@ h1{
 	letter-spacing: 1px;
 }
 .header-left-bottom button.btn{
-	background: linear-gradient(120deg,#83a4d4,#b6fbff);
+	background: linear-gradient(120deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
 	color:black;
+	background-size:400%; 
 	 font-family: "Monstserrat",cursive;
 	font-size: 15px;
 	padding: .8em 2em;
@@ -119,6 +120,47 @@ h1{
 	border-radius: 50px;
 	width: 100%;
 	opacity: 1;
+
+}
+
+.btn:hover {
+	animation: animate 8s linear infinite;
+  transform: scale(1.05);
+  color: #a8ff78;}
+@keyframes animate{
+	0%
+	{
+		background-position:0%; 
+	}
+	100%
+	{
+		background-position:400%; 
+	}
+}
+
+.btn:before
+{
+	content: '';
+	position: absolute;
+	top:-5px;
+	left:-5px;
+    right:-5px;
+	bottom: -5px;
+    z-index:-1;
+    background: linear-gradient(120deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
+    background-size:400%; 
+    border-radius: 50px;
+    filter: blur(20px);
+    opacity: 0;
+    transition:0.5; 
+}
+
+.btn:hover:before
+{
+	filter: blur(20px);
+	 opacity: 1;
+	 animation: animate 8s linear infinite;
+
 }
 .header-left-bottom p{
 	font-size: 17px;

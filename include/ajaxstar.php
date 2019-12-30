@@ -15,6 +15,4 @@ $result = mysqli_query($conn, $query);
 //    echo 'Updated';
 // }
 //       echo 
-
-
 ?>

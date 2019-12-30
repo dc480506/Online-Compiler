@@ -13,11 +13,11 @@ $desc = array(
     2 => array('pipe', 'w')
 );
 if($lang=="Java")
-$cmd = "java Main";
+$cmd = "exec java Main";
 else if($lang=="Python")
-$cmd="python3 main.py";
+$cmd="exec python3 main.py";
 else if($lang=="C" || $lang=="C++")
-$cmd="stdbuf -o0 ./a.out";
+$cmd="exec stdbuf -o0 ./a.out";
 $proc = proc_open($cmd, $desc, $pipes);
 stream_set_blocking($pipes[1], 0);
 stream_set_blocking($pipes[2], 0);
@@ -29,11 +29,13 @@ $status=proc_get_status($proc);
 $pid = $status['pid'];
 //echo $pid;
 $_SESSION['pid']=$pid;
+$_SESSION['php_pid']=getmypid();
 //ob_flush();
 //flush();
 session_write_close();
 $inputavail=true;
 $curr_time=NULL;
+$a=0;
 while(true) {
     $status = proc_get_status($proc);
     if($status === FALSE) {
@@ -41,7 +43,6 @@ while(true) {
     }
     // read from childs stdout and stderr
     // avoid *forever* blocking through using a time out (50000usec)
-    $a=0;
     foreach(array(1, 2) as $desc) {
         // check stdout for data
         $read = array($pipes[$desc]);
@@ -53,12 +54,15 @@ while(true) {
         $n = stream_select($read, $write, $except, $tv, $utv);
         if($n > 0) {
             do {
-                $data = fread($pipes[$desc], 8092);
+                $data = fread($pipes[$desc], 1024);
+                if(strlen($data)<1){
+                break;
+                }
                echo $data;
                ob_flush();
                flush();
-               $a=$a+1;
-            } while (strlen($data) > 0);
+               $status = proc_get_status($proc);
+            } while (!$status['running']);
            // echo "Hey". $desc;
         }
     }
@@ -90,7 +94,7 @@ while(true) {
         echo "\nProgram terminated due to inactivity!! Please try again";
         ob_flush();
         flush();
-        shell_exec("kill -9 ".$pid." ".($pid+1));
+        shell_exec("kill -9 ".$pid);
     }
     /*$read = array();
     $n = stream_select($read, $write, $except, $tv, $utv);

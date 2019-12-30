@@ -1,15 +1,12 @@
-<?php
 
+<?php
 session_start();
 if(isset($_POST['add_btn'])){
     include_once 'config.php';
-
     $user=$_SESSION['u_user'];
     $lang=mysqli_real_escape_string($conn,$_POST['language']);
     $cname=mysqli_real_escape_string($conn,$_POST['codename']);
     $ctime=$utime= date("Y-m-d H:i:s");
-
-
     //error handlers
     //check for empty fields
     if(empty($lang) || empty($cname) ){
@@ -56,6 +53,4 @@ if(isset($_POST['add_btn'])){
     header("Location: ../index.php");
     exit();
 }
-
-
 ?>
