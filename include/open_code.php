@@ -9,6 +9,20 @@ $user=$_SESSION['u_user'];
 $code=$_SESSION['code'];
 $dir=$_SESSION['dir'];
 $lang=$_SESSION['language'];
+if($_POST['code-lang']=="C"){
+    $_SESSION['file']="main.c";
+    $filename=$code.".c";
+}else if($_POST['code-lang']=="C++"){
+    $_SESSION['file']="main.cpp";
+    $filename=$code.".cpp";
+}else if($_POST['code-lang']=="Java"){
+    $_SESSION['file']="Main.java";
+    $filename=$code.".java";
+}else{
+    $_SESSION['file']="main.py";
+    $filename=$code.".py";
+}
+$path=$dir."/".$_SESSION['file'];
 if(isset($_POST['del_btn'])){
     $sql="DELETE FROM code_info WHERE username='$user' AND codename='$code' AND language='$lang';";
     mysqli_query($conn,$sql);
@@ -26,14 +40,16 @@ else if(isset($_POST['rename_btn'])){
     header("Location: ../html/add.php?renamed");
     exit();
 }
-if($_POST['code-lang']=="C"){
-    $_SESSION['file']="main.c";
-}else if($_POST['code-lang']=="C++"){
-    $_SESSION['file']="main.cpp";
-}else if($_POST['code-lang']=="Java"){
-    $_SESSION['file']="Main.java";
-}else{
-    $_SESSION['file']="main.py";
+else if(isset($_POST['dwd_btn'])){
+    header("Cache-Control: public");
+    header("Content-Description: File Transfer");
+    header("Content-Disposition: attachment; filename=$filename");
+    header("Content-Type: application/zip");
+    header("Content-Transfer-Encoding: binary");
+    readfile($path);
+    //echo $path;
+    //header("Location: ../html/add.php?code-downloaded");
+    exit();
 }
 header("Location: ../html/editor.php");
 exit();

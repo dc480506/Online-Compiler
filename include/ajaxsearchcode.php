@@ -103,6 +103,7 @@ if(mysqli_num_rows($result) > 0)
 		<i class="fas fa-ellipsis-v"></i>
 			</button>
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<input class="dropdown-item" type="submit" value="Download" name="dwd_btn">
 				<button class="dropdown-item r-btn" name='.$row["codename"].' value='.$row["language"].' type="button">Rename</button>
 				<input class="dropdown-item" type="submit" value="Delete" name="del_btn">
 			</div>
