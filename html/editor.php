@@ -75,7 +75,7 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
       <div class="algo-search">
           <input id="search-text" type="text" placeholder="Type to Search an algorithm">
           <i class="fas fa-search"></i>
-      </div>
+      </div> 
      
       <div class="user-options">
 						<?php

@@ -138,7 +138,7 @@ h1{
 	}
 }
 
-.btn:before
+/* .btn:before
 {
 	content: '';
 	position: absolute;
@@ -161,7 +161,7 @@ h1{
 	 opacity: 1;
 	 animation: animate 8s linear infinite;
 
-}
+} */
 .header-left-bottom p{
 	font-size: 17px;
 	color: #000;

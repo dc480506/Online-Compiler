@@ -69,6 +69,9 @@ while(true) {
     if($status['running'] === FALSE) {
         $exitcode = $status['exitcode'];
         $pid = -1;
+        fclose($pipes[0]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
         echo "\nchild exited with code: $exitcode\n";
         exit($exitcode);
     }

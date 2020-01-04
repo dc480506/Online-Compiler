@@ -310,3 +310,6 @@ document.querySelector(".rename-box>button").addEventListener("click",function()
   xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
   xhttp.send(jsonString);
 })
+window.addEventListener('beforeunload',function(e){
+  stopCode();
+})
