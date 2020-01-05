@@ -6,6 +6,7 @@ if(!isset($_SESSION['u_user'])){
 }
 $_SESSION['prunning']=false;
 ?>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -15,27 +16,30 @@ $_SESSION['prunning']=false;
 <meta http-equiv="Expires" content="0" />
 <title>Code Mirror</title>
 <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/lib/codemirror.css">
-<link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/addon/hint/show-hint.css">
-<link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/theme/xq-light.css">
-<link rel="stylesheet" type="text/css" href="../codemirror-5.48.2/theme/xq-dark.css">
+<link rel="stylesheet" type="text/css" href="../codemirror/lib/codemirror.css">
+<link rel="stylesheet" type="text/css" href="../codemirror/addon/hint/show-hint.css">
+<link rel="stylesheet" type="text/css" href="../codemirror/theme/xq-light.css">
+<link rel="stylesheet" type="text/css" href="../codemirror/theme/xq-dark.css">
+<link rel="stylesheet" type="text/css" href="../codemirror/theme/night.css">
+<link rel="stylesheet" type="text/css" href="../codemirror/theme/material-ocean.css">
+<link rel="stylesheet" type="text/css" href="../codemirror/theme/ayu-mirage.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!--<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" rel="stylesheet" />-->
-<script type="text/javascript" src="../codemirror-5.48.2/lib/codemirror.js"></script>
+<script type="text/javascript" src="../codemirror/lib/codemirror.js"></script>
 <?php
 if($_SESSION['language']=="Python"){
-  echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/python/python.js"></script>';
+  echo '<script type="text/javascript" src="../codemirror/mode/python/python.js"></script>';
 }else{
-echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.js"></script>';
+echo '<script type="text/javascript" src="../codemirror/mode/clike/clike.js"></script>';
 }
 ?>
-<script type="text/javascript" src="../codemirror-5.48.2/addon/edit/matchbrackets.js"></script>
-<script type="text/javascript" src="../codemirror-5.48.2/addon/edit/matchtags.js"></script>
-<script type="text/javascript" src="../codemirror-5.48.2/addon/hint/show-hint.js"></script>
-<script type="text/javascript" src="../codemirror-5.48.2/addon/edit/closebrackets.js"></script>
-<script type="text/javascript" src="../codemirror-5.48.2/addon/edit/closetag.js"></script>
+<script type="text/javascript" src="../codemirror/addon/edit/matchbrackets.js"></script>
+<script type="text/javascript" src="../codemirror/addon/edit/matchtags.js"></script>
+<script type="text/javascript" src="../codemirror/addon/hint/show-hint.js"></script>
+<script type="text/javascript" src="../codemirror/addon/edit/closebrackets.js"></script>
+<script type="text/javascript" src="../codemirror/addon/edit/closetag.js"></script>
 <!--<script defer src="https://kit.fontawesome.com/73dadbfb7d.js"></script>-->
-<link rel="stylesheet" type="text/css" href="../fontawesome-icons/css/all.css">
+<link rel="stylesheet" type="text/css" href="../fontawesome-icons/css/all.min.css">
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 </head>
 <body>
@@ -72,10 +76,11 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
       <input id="new-code" type="button" value="new code">
     </div>-->
     <button type="button" id="download-btn" title="Download (Ctrl+Alt+S)"><i class="fas fa-file-download"></i></button>
-      <div class="algo-search">
+      <!-- <div class="algo-search">
           <input id="search-text" type="text" placeholder="Type to Search an algorithm">
           <i class="fas fa-search"></i>
-      </div> 
+      </div>  -->
+      <button type="button" id="exec-mode" title="Test Case Mode"><i class="fas fa-terminal"></i></button>
      
       <div class="user-options">
 						<?php
@@ -117,6 +122,12 @@ echo '<script type="text/javascript" src="../codemirror-5.48.2/mode/clike/clike.
       <!--<textarea readonly="readonly" id="output-screen"></textarea>-->
       <textarea id="output-screen" readonly="readonly" spellcheck="false" onKeyPress="sendUserInput(event)" ></textarea>
     </div>
+</div>
+<div id="screen-container">
+<div id="testcase-box" class="ui-widget-content">
+ <p>Input:</p>
+ <textarea id="input-text"></textarea>
+</div>
 </div>
 <script type="text/javascript">
  var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
@@ -165,6 +176,18 @@ $('.CodeMirror').resize(function(){
    $('#output').height($("#parent").height()-$(".CodeMirror").height()-0.005*$("#parent").height()); 
 });
 $('.CodeMirror').resizable('disable');*/
+$( function() {
+    $( "#testcase-box" ).draggable({containment: "#screen-container"});
+  } );
+  $(function() {
+      $( "#testcase-box" ).resizable({
+        containment:"#screen-container",
+        maxWidth:0.5*$("#screen-container").width(),
+        minWidth:0.12*$("#screen-container").width(),
+        maxHeight:0.6*$("#screen-container").height(),
+        minHeight:0.20*$("#screen-container").height()
+      });
+    });
 </script>
 <script>
   function download() {
