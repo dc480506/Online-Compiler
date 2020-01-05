@@ -502,9 +502,9 @@
     left: 35%;
     outline: none;
     transform: translateY(-50%);
-    padding: 0.5em;
-    padding-right: 0.75em;
-    padding-left: 0.75em;
+    padding: 0.4em;
+    padding-right: 0.65em;
+    padding-left: 0.65em;
     background-color: #ff7f50;
     ;
     border: 0;

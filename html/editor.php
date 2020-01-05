@@ -166,7 +166,7 @@ echo '<script type="text/javascript" src="../codemirror/mode/clike/clike.js"></s
 <script src="../jquery-ui-1.12.1/jquery-ui.min.js"></script>
 <script>
    var clayout="sidebyside";
-    $("#output").resizable({handles:"w",maxWidth:0.5*$("#parent").width(),minWidth:0.25*$("#parent").width()});
+    $("#output").resizable({containment:"#parent",handles:"w",maxWidth:0.5*$("#parent").width(),minWidth:0.25*$("#parent").width()});
 $('#output').resize(function(){
    $('.CodeMirror').width($("#parent").width()-$("#output").width()-0.002*$("#parent").width()); 
    $('.status-bar').width($("#parent").width()-$("#output").width()-0.002*$("#parent").width()); 
