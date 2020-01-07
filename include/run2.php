@@ -17,11 +17,11 @@ $desc = array(
     2 => array('pipe', 'w')
 );
 if($lang=="Java")
-$cmd = "exec java Main";
+$cmd = "exec java -cp ".$_SESSION['dir']." ".$_SESSION['code'];
 else if($lang=="Python")
-$cmd="exec python3 main.py";
+$cmd="exec python3 ".$_SESSION['dir']."/main.py";
 else if($lang=="C" || $lang=="C++")
-$cmd="exec stdbuf -o0 ./a.out";
+$cmd="exec stdbuf -o0 ".$_SESSION['dir']."/a.out";
 $proc = proc_open($cmd, $desc, $pipes);
 stream_set_blocking($pipes[1], 0);
 stream_set_blocking($pipes[2], 0);
@@ -33,7 +33,6 @@ $status=proc_get_status($proc);
 $pid = $status['pid'];
 //echo $pid;
 $_SESSION['pid']=$pid;
-$_SESSION['php_pid']=getmypid();
 //ob_flush();
 //flush();
 session_write_close();

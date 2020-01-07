@@ -11,16 +11,16 @@ chdir($wd);
 if($lang=="Java"){
   if(file_exists("Main.class"))
     unlink("Main.class");
-  echo shell_exec("javac Main.java 2>&1");
+  echo shell_exec("javac ".$_SESSION['file']." 2>&1");
   //echo shell_exec("java Main 2>&1; echo $?");
 }else if($lang=="C"){
   if(file_exists("a.out"))
     unlink("a.out");
-  echo shell_exec("gcc main.c 2>&1");
+  echo shell_exec("gcc ".$_SESSION['file']." 2>&1");
 //echo shell_exec("a");
 }else if($lang=="C++"){
  if(file_exists("a.out"))
     unlink("a.out");
-   echo shell_exec("g++ main.cpp 2>&1");
+   echo shell_exec("g++ ".$_SESSION['file']." 2>&1");
 }
 ?>

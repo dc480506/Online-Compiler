@@ -16,7 +16,7 @@ if($_POST['code-lang']=="C"){
     $_SESSION['file']="main.cpp";
     $filename=$code.".cpp";
 }else if($_POST['code-lang']=="Java"){
-    $_SESSION['file']="Main.java";
+    $_SESSION['file']=$code.".java";
     $filename=$code.".java";
 }else{
     $_SESSION['file']="main.py";

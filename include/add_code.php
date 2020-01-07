@@ -24,7 +24,7 @@ if(isset($_POST['add_btn'])){
             $sql="INSERT INTO code_info (username,codename,language,ctime,utime) VALUES ('$user','$cname','$lang','$ctime','$utime');";
             $result=mysqli_query($conn,$sql);
             $dir=$base_dir."/".$user."/".$lang."/".$cname;
-            mkdir($dir,0777,true);
+            mkdir($dir,0755,true);
             //file_put_contents($dir."/input.txt","");
             if($lang=="C"){
                 $_SESSION['file']="main.c";
@@ -33,8 +33,11 @@ if(isset($_POST['add_btn'])){
                 $_SESSION['file']="main.cpp";
                 file_put_contents($dir."/main.cpp","");
             }else if($lang=="Java"){
-                $_SESSION['file']="Main.java";
-                file_put_contents($dir."/Main.java","");
+                // $_SESSION['file']="Main.java";
+                // file_put_contents($dir."/Main.java","");
+                $_SESSION['file']=$cname.".java";
+                $ini_code="public class ".$cname."{\n\tpublic static void main(String args[]){\n\n\t}\n}";
+                file_put_contents($dir."/".$_SESSION['file'],$ini_code);
             }else if($lang=="Python"){
                 $_SESSION['file']="main.py";
                 file_put_contents($dir."/main.py","");

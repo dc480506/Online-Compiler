@@ -53,6 +53,11 @@
     top: 50%;
     font-family: Arial, Helvetica, sans-serif;
     margin: auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;;
+    overflow: hidden;
+    display: inline-block;
+    font-size: 0.9em;
 }
 
 .fas.fa-pen {
@@ -347,6 +352,9 @@
     font-family: 'Stylish', sans-serif;
     /*overflow-wrap: break-word;*/
 }
+.CodeMirror-wrap pre {
+    word-break: break-word;
+}
 
 #output {
     position: relative;
@@ -558,13 +566,14 @@
 }
 #testcase-box{
     position: absolute;
-    height:30%;
+    height:50%;
     width:20%;
     top:50%;
     left:50%;
     margin: auto;
     z-index: 10;
     display: none;
+    border-radius: 0.45em;
 }
 #testcase-box >p{
     font-size: 0.85em;

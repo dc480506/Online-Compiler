@@ -1,10 +1,16 @@
 <?php
 session_start();
+include_once '../include/config.php';
 if(!isset($_SESSION['u_user'])){
   header("Location: ../index.php");
   exit();
 }
 $_SESSION['prunning']=false;
+if(!isset($_SESSION['runfolder'])){
+  $u=md5(uniqid(rand(), true));
+  $_SESSION['runfolder']=$rundir."/".$u;
+  mkdir($_SESSION['runfolder'],0777,true);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -146,6 +152,7 @@ echo '<script type="text/javascript" src="../codemirror/mode/clike/clike.js"></s
           matchBrackets:true,
           autoCloseBrackets:true,
           autoCloseTags:true,
+          lineWrapping: true,
          
   });
   editor.on('keyup', function(editor,event){
