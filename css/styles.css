@@ -239,7 +239,7 @@
     left: 0;
     width: 10%;
     height: 92%;
-    background-color: #FFF9CC;
+    background-color: #f7f7f7;
     z-index: 1;
 }
 
@@ -574,6 +574,8 @@
     z-index: 10;
     display: none;
     border-radius: 0.45em;
+    box-shadow: -0.0625em -0.125em 1.0625em -0.1875em #bdc3c7;
+
 }
 #testcase-box >p{
     font-size: 0.85em;

@@ -8,7 +8,10 @@ document.querySelector(".fas.fa-file-code").addEventListener("click",function(){
 })
 document.getElementById("theme").addEventListener("click",function(){
   if(editor.options.theme=="xq-dark"){
-     editor.setOption("theme","xq-light");
+    // editor.setOption("theme","xq-light");
+   editor.setOption("theme","night");
+     //editor.setOption("theme","material-ocean");
+     //editor.setOption("theme","ayu-mirage");
      document.getElementsByClassName("toggle-btn")[0].style.backgroundColor="#3498db";
      document.getElementsByClassName("circle")[0].style.transform="translateX(115%)";
     }else{

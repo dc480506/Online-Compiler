@@ -153,6 +153,7 @@ echo '<script type="text/javascript" src="../codemirror/mode/clike/clike.js"></s
           autoCloseBrackets:true,
           autoCloseTags:true,
           lineWrapping: true,
+      
          
   });
   editor.on('keyup', function(editor,event){
