@@ -16,15 +16,13 @@ if($_POST['code-lang']=="C"){
     $_SESSION['file']="main.cpp";
     $filename=$code.".cpp";
 }else if($_POST['code-lang']=="Java"){
-    $_SESSION['file']="Main.java";
+    $_SESSION['file']=$code.".java";
     $filename=$code.".java";
 }else{
     $_SESSION['file']="main.py";
     $filename=$code.".py";
 }
-
 $path=$dir."/".$_SESSION['file'];
-
 if(isset($_POST['del_btn'])){
     $sql="DELETE FROM code_info WHERE username='$user' AND codename='$code' AND language='$lang';";
     mysqli_query($conn,$sql);

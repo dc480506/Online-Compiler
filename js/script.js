@@ -8,7 +8,10 @@ document.querySelector(".fas.fa-file-code").addEventListener("click",function(){
 })
 document.getElementById("theme").addEventListener("click",function(){
   if(editor.options.theme=="xq-dark"){
-     editor.setOption("theme","xq-light");
+    // editor.setOption("theme","xq-light");
+   editor.setOption("theme","night");
+     //editor.setOption("theme","material-ocean");
+     //editor.setOption("theme","ayu-mirage");
      document.getElementsByClassName("toggle-btn")[0].style.backgroundColor="#3498db";
      document.getElementsByClassName("circle")[0].style.transform="translateX(115%)";
     }else{
@@ -67,6 +70,35 @@ document.getElementById("layout").addEventListener("click",function(){
       });
     }
 })
+var execmode="liveio";
+f1=function(){
+  document.querySelector("#exec-mode").style.backgroundColor="#ED4C67";
+}
+f2=function(){
+  document.querySelector("#exec-mode").style.backgroundColor="#3498db";
+}
+document.querySelector("#exec-mode").addEventListener("click",function(){
+  if(execmode=='liveio'){
+    execmode="testcase";
+    document.querySelector("#testcase-box").style.display="flex";
+    document.querySelector("#exec-mode").title="Live I/O mode";
+    document.querySelector("#exec-mode").style.backgroundColor="#3498db";
+    document.querySelector("#exec-mode").removeEventListener("mouseover",f2)
+    document.querySelector("#exec-mode").addEventListener("mouseover",f1)
+    document.querySelector("#exec-mode").removeEventListener("mouseout",f1)
+    document.querySelector("#exec-mode").addEventListener("mouseout",f2)
+  }else if(execmode=='testcase'){
+    execmode="liveio";
+    document.querySelector("#testcase-box").style.display="none";
+    document.querySelector("#exec-mode").title="Test case mode";
+    document.querySelector("#exec-mode").style.backgroundColor="#ED4C67";
+    document.querySelector("#exec-mode").removeEventListener("mouseover",f1)
+    document.querySelector("#exec-mode").addEventListener("mouseover",f2)
+    document.querySelector("#exec-mode").removeEventListener("mouseout",f2)
+  document.querySelector("#exec-mode").addEventListener("mouseout",f1);
+  }
+})
+
 
 document.querySelector(".fas.fa-backspace").addEventListener("click",function(){
   document.getElementById("output-screen").value="";
@@ -143,8 +175,11 @@ function executeCode(){
       document.getElementById('output-screen').value=this.responseText;
      document.querySelector("#execute> span").innerText="running";
       //if(this.responseText==""){
+        if(execmode=='liveio'){
         runCode();
-        
+        }else if(execmode=='testcase'){
+          runCode2();
+        }
       //}
     }else{
       document.querySelector("#execute> span").innerText="compiling";
@@ -202,7 +237,51 @@ function runCode(){
   xhttp.send();
 }
 
-
+function runCode2(){
+  var xhttp=new XMLHttpRequest();
+  document.querySelector('#stop').style.display="flex"
+  xhttp.onreadystatechange=function(){
+    if(this.readyState==4 && this.status==200){
+      document.querySelector("#execute").style.backgroundColor="#93deff";
+      document.querySelector("#execute").style.border="none";
+      document.querySelector("#execute> span").innerText="run";
+     document.querySelector("#execute").style.border="none";
+     document.querySelector("#execute").style.color="#000";
+      document.querySelector('#stop').style.display="none"
+      document.querySelector("#execute> .fas.fa-play").style.color="#000";
+      enablerun=true;
+      running=false;
+      document.querySelector("#output-screen").readOnly=true;
+      textarealength=0;
+     /* document.querySelector(".fas.fa-play").style.color="e74c3c";*/
+     document.querySelector(".fas.fa-play").style.color="#000";
+      document.querySelector('#execute').style.display="flex";
+      document.querySelector('#stop> span').innerText="stop";
+    }else{
+      document.querySelector("#execute> span").innerText="running";
+      running=true;
+    }
+  }
+  var lastResponseLength;
+  xhttp.onprogress=function(e){
+   var response = e.currentTarget.response;
+   var output = typeof lastResponseLength === typeof undefined? response: response.substring(lastResponseLength);
+   //console.log(output);
+   lastResponseLength = response.length;
+   document.getElementById('output-screen').value+=output;
+   textarealength=document.getElementById('output-screen').value.length;
+   document.getElementById("output-screen").scrollTop = document.getElementById("output-screen").scrollHeight;
+   console.log(lastResponseLength);
+  }
+  var input=document.querySelector("#input-text").value;
+  var jsonData={
+    'inputs':input
+  }
+  var jsonString=JSON.stringify(jsonData);
+  xhttp.open("POST","../include/run2.php",true);
+  xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
+  xhttp.send(jsonString);
+}
 function stopCode(){
 if(!enablerun){
   document.querySelector('#stop> span').innerText="stopping";
@@ -309,4 +388,7 @@ document.querySelector(".rename-box>button").addEventListener("click",function()
   xhttp.open("POST","../include/ajaxrenamebox.php",true);
   xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
   xhttp.send(jsonString);
+})
+window.addEventListener('beforeunload',function(e){
+  stopCode();
 })

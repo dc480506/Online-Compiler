@@ -22,7 +22,10 @@ session_start();
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 
-		<meta name="google-signin-client_id" content="444425785443-5mh44gn88jrf46t217t7i4m62r4ui1ro.apps.googleusercontent.com">
+		<meta name="google-signin-client_id" content="<?php 
+		include_once 'include/config.php';
+		echo $CLIENT_ID;  
+		?>">
 
 		<!--Enter yout OAuth Client ID in the content tag -->
 
@@ -31,46 +34,27 @@ session_start();
 
 
 		<script type="text/javascript">
-
-			
-		function onSignIn(googleUser) {
+        function onSignIn(googleUser){
 			var profile = googleUser.getBasicProfile();
-			name = profile.getName();
-			pic=profile.getImageUrl();
 			var email=profile.getEmail();
-            googleUser.disconnect();
-			if(email.includes("somaiya.edu")) //domain constraint
-			{
-			var theForm, newInput1, newInput2, newInput3;
-			theForm = document.createElement('form');
-			theForm.action = 'include/homepage.php';	//enter the page url you want to redirect the index page to after sign in
-			theForm.method = 'post';
-			newInput1 = document.createElement('input');
-			newInput1.type = 'hidden';
-			newInput1.name = 'user';
-			newInput1.value = name;
-			newInput2 = document.createElement('input');
-			newInput2.type = 'hidden';
-			newInput2.name = 'pic';
-			newInput2.value = pic;
-			newInput3 = document.createElement('input');
-			newInput3.type = 'hidden';
-			newInput3.name = 'email';
-			newInput3.value = email;
-			theForm.appendChild(newInput1);
-			theForm.appendChild(newInput2);
-			theForm.appendChild(newInput3);
-
-			document.getElementById('hidden_form_container').appendChild(theForm);
-			theForm.submit();
+			var id_token = googleUser.getAuthResponse().id_token;
+			googleUser.disconnect();
+			if(email.includes("somaiya.edu")){
+				theForm = document.createElement('form');
+		 	    theForm.action = 'include/homepage.php';	//enter the page url you want to redirect the index page to after sign in
+				theForm.method = 'post';
+				newInput = document.createElement('input');
+		 	    newInput.type = 'hidden';
+		 	    newInput.name = 'idtoken';
+			    newInput.value = id_token;
+				theForm.appendChild(newInput);
+				document.getElementById('hidden_form_container').appendChild(theForm);
+		     	theForm.submit();
 			}else{
 				window.location.href="index.php";
-				alert("Please login using Somaiya Mail ID");
+		 		alert("Please login using Somaiya Mail ID");
 			}
-
-			
 		}
-
 
 			function signOut() {
 				var auth2 = gapi.auth2.getAuthInstance();
@@ -124,17 +108,19 @@ session_start();
 			<div class="social">
 				<ul>
 					<h4>--------or connect with--------</h4>
-					<li>
-						<a href="#" class="google">
+					<!-- <li> -->
+					<div class="g-signin2" data-onsuccess="onSignIn" align="middle">
+						<!-- <a href="#" class="google">
 							<span class="fab fa-google"></span>
-						</a>
-					</li>
+						</a> -->
+						</div>
+					<!-- </li> -->
 				</ul>
 				
 			</div>
 
 				 <!--	Google Signin Code  -->
-					<div id="wrapper">
+				<!--	<div id="wrapper">
 					  <div class="loginbox" id="myform" >						
 						<form method="post" action="#" class="popup">
 							
@@ -145,7 +131,7 @@ session_start();
 							
 						</form>
 					  </div>
-					</div>
+					</div>-->
 		         <!--	Google Signin Code End  -->
 
 			<div class="animated-text">
