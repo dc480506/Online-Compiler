@@ -383,6 +383,9 @@ document.querySelector(".rename-box>button").addEventListener("click",function()
       document.querySelector(".code-info>span").innerText=newname;
       document.querySelector(".rename-box>button>span").innerText="Rename";
       document.querySelector(".rename-box>button").disabled=false;
+      if(this.responseText=="Java"){
+        document.querySelector("#file-name").innerText=newname+".java";
+      }
     }
   }
   xhttp.open("POST","../include/ajaxrenamebox.php",true);
