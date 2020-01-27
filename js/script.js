@@ -233,7 +233,7 @@ function runCode(){
    document.getElementById("output-screen").scrollTop = document.getElementById("output-screen").scrollHeight;
    console.log(lastResponseLength);
   }
-  xhttp.open("POST","../include/run.php",true);
+  xhttp.open("POST","../include/run3.php",true);
   xhttp.send();
 }
 

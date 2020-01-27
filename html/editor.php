@@ -7,9 +7,14 @@ if(!isset($_SESSION['u_user'])){
 }
 $_SESSION['prunning']=false;
 if(!isset($_SESSION['runfolder'])){
+  //Original section
+  // $u=md5(uniqid(rand(), true));
+  // $_SESSION['runfolder']=$rundir."/".$u;
+  // mkdir($_SESSION['runfolder'],0777,true);
   $u=md5(uniqid(rand(), true));
-  $_SESSION['runfolder']=$rundir."/".$u;
+  $_SESSION['runfolder']=$rundir.$u;
   mkdir($_SESSION['runfolder'],0777,true);
+  $_SESSION['runfolder_rel']=$rundir_rel.$u;
 }
 ?>
 <!DOCTYPE html>
