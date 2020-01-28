@@ -15,6 +15,8 @@ if(!isset($_SESSION['runfolder'])){
   $_SESSION['runfolder']=$rundir.$u;
   mkdir($_SESSION['runfolder'],0777,true);
   $_SESSION['runfolder_rel']=$rundir_rel.$u;
+}else{
+  shell_exec("rm -r ".$_SESSION['runfolder']."/*");
 }
 ?>
 <!DOCTYPE html>

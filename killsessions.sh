@@ -1,0 +1,1 @@
+schroot -l --all-sessions | grep 'session' | while read line; do sudo schroot -e -c "$line"; done
