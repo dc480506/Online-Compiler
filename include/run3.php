@@ -80,18 +80,18 @@ while(true) {
         fwrite($pipes[0],$input);
         file_put_contents("input.txt","");
     }*/
-    // if(file_exists($sd."/input.txt")){
-    //     $input=file_get_contents($sd."/input.txt");
-    //     $input.="\n";
-    //     fwrite($pipes[0],$input);
-    //     unlink($sd."/input.txt");
-    //     $curr_time=NULL;
-    //     $inputavail=true;
-    // }else if($inputavail){
-    //     $inputavail=false;
-    //     $curr_time=time();
-    // }
-    if(time()-$curr_time>=10 && !$inputavail){
+    if(file_exists($awd."/input.txt")){
+        $input=file_get_contents($awd."/input.txt");
+        $input.="\n";
+        fwrite($pipes[0],$input);
+        unlink($awd."/input.txt");
+        $curr_time=NULL;
+        $inputavail=true;
+    }else if($inputavail){
+        $inputavail=false;
+        $curr_time=time();
+    }
+    if(time()-$curr_time>=100 && !$inputavail){
         echo "\nProgram terminated due to inactivity!! Please try again";
         ob_flush();
         flush();
