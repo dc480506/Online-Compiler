@@ -13,7 +13,7 @@ if(!isset($_SESSION['runfolder'])){
   // mkdir($_SESSION['runfolder'],0777,true);
   //$u=md5(uniqid(rand(), true));
   //$u=sha1($_SESSION['u_user'].date("Y-m-d H:i:s"));
-  $u=hash("sha256","dev.c".date("Y-m-d H:i:s"));
+  $u=hash("sha256",$_SESSION['u_user'].date("Y-m-d H:i:s"));
   $_SESSION['runfolder']=$rundir.$u;
   mkdir($_SESSION['runfolder'],0777,true);
   $_SESSION['runfolder_rel']=$rundir_rel.$u;
