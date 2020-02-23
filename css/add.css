@@ -12,15 +12,16 @@ body {
 .fa-laptop-code {
     font-size: 2.2rem;
     position: absolute;
-    left: 3rem;
+    left: 1.5rem;
     padding: 0.4rem 0;
     color: #93deff;
 }
 
 #add-button {
     position: absolute;
-    right: 15%;
-    margin-top: 4px;
+    right: 25%;
+    /* height: 15px; */
+    margin: auto 0;
     color: #000;
     background: #93deff;
     padding: 10px 15px;
@@ -49,13 +50,25 @@ body {
     border: 5px solid #93deff;
 }
 
-#cb-close {
-    font-size: 40px;
-    padding: 10px;
-    color: black;
-    right: 7%;
+.rename-box {
+    top: 50%;
     position: absolute;
-    transform: rotate(45deg);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 30%;
+    width: 20%;
+    background-color: #323643;
+    display: none;
+    border-radius: 10px;
+    border: 5px solid #93deff;
+}
+
+.fa-window-close {
+    font-size: 30px;
+    color: #f7f7f7;
+    position: absolute;
+    right: 7%;
+    top: 10%;
     cursor: pointer;
 }
 
@@ -65,7 +78,7 @@ body {
     width: 65%;
     top: 10%;
     font-size: 120%;
-    height: 10%;
+    height: 15%;
     margin-left: 10%;
 }
 
@@ -80,7 +93,6 @@ body {
 .lang-box select {
     background-color: #aee7e8;
     color: #000;
-    padding: 10px;
     width: 100%;
     height: 100%;
     border: none;
@@ -94,8 +106,8 @@ body {
     position: absolute;
     top: 0;
     right: 0;
-    height: 32.5px;
-    width: 32.5px;
+    height: 100%;
+    width: 20%;
     text-align: center;
     line-height: 32.5px;
     color: #000;
@@ -104,16 +116,79 @@ body {
     pointer-events: none;
 }
 
-.cname {
+.lang-box-1 {
     position: absolute;
+    width: 10%;
+    top: 4rem;
+    left: 80%;
+}
+
+.lang-box-1 select {
+    background-color: #93deff;
+    color: #000;
+    width: 100%;
+    height: 100%;
+    border: none;
+    -webkit-appearance: button;
+    outline: none;
+}
+
+.lang-box-1::before {
+    content: " \f0ab";
+    font-family: FontAwesome;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 20%;
+    text-align: center;
+    line-height: 32.5px;
+    color: #aee7e8;
+    font-size: 20px;
+    background: #323643;
+    pointer-events: none;
+}
+
+.cname {
+    /* position: absolute;
+width: 80%;
+top: 52%;
+height: 10%;
+margin-left: 10%; 
+width: 80%;*/
     width: 80%;
-    top: 52%;
-    height: 10%;
-    margin-left: 10%;
+    height: 100%;
     border: 0;
     color: #000;
     font-size: 15px;
     background-color: #aee7e8;
+}
+
+.cname-div {
+    position: absolute;
+    width: 80%;
+    top: 52%;
+    height: 15%;
+    margin-left: 10%;
+}
+
+
+/* .cname-div::before { */
+
+.xyz {
+    content: " \f06a";
+    font-family: FontAwesome;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 20%;
+    text-align: center;
+    line-height: 32.5px;
+    color: red;
+    font-size: 20px;
+    background: #28c3d4;
+    pointer-events: none;
 }
 
 .cb-button {
@@ -131,13 +206,50 @@ body {
     border: 1px solid #93deff;
 }
 
+.cb-button:hover {
+    color: #323643;
+    background-color: #93deff;
+}
+
+.rname {
+    position: absolute;
+    width: 80%;
+    top: 40%;
+    height: 15%;
+    margin-left: 10%;
+    border: 0;
+    color: #000;
+    font-size: 15px;
+    background-color: #aee7e8;
+}
+
+.r-button {
+    position: absolute;
+    color: white;
+    background-color: #323643;
+    width: 50%;
+    top: 70%;
+    font-size: 120%;
+    height: 15%;
+    margin-left: 25%;
+    padding: 0 12px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 1px solid #93deff;
+}
+
+.r-button:hover {
+    color: #323643;
+    background-color: #93deff;
+}
+
 .codes {
     width: 90%;
     position: absolute;
     left: 5%;
     background-color: #f7f7f7;
-    top: 4rem;
-    height: 100%;
+    top: 7rem;
+    height: 80%;
     float: down;
 }
 
@@ -147,7 +259,7 @@ body {
     left: 5%;
     background-color: #f7f7f7;
     top: 0.5rem;
-    height: 5%;
+    height: 7%;
 }
 
 .code-sample:hover {
@@ -164,11 +276,46 @@ body {
     color: #f7f7f7;
 }
 
+
+/* .star {
+    position: absolute;
+}
+
+.fa-star {
+    font-size: 25px;
+} */
+
+.star {
+    position: absolute;
+    visibility: hidden;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.star:before {
+    content: "\2605";
+    position: absolute;
+    visibility: visible;
+}
+
+.star:checked:before {
+    content: "\2606";
+    position: absolute;
+}
+
+
+/* .star-yellow {
+    color: yellow;
+}
+
+.star-grey {
+    color: grey;
+} */
+
 .code-name {
     position: absolute;
-    /* left:1%; */
+    left: 10%;
     padding-top: 10px;
-    height: 100%;
     width: 30%;
     color: #000;
     font-weight: bolder;
@@ -178,7 +325,6 @@ body {
 .code-name-link {
     position: absolute;
     left: 1%;
-    height: 100%;
     width: 30%;
     color: #000;
     font-weight: bolder;
@@ -189,7 +335,6 @@ body {
     position: absolute;
     left: 50%;
     padding-top: 10px;
-    height: 100%;
     width: 10%;
     color: #000;
     font-weight: bolder;
@@ -199,20 +344,28 @@ body {
     position: absolute;
     left: 70%;
     padding-top: 10px;
-    height: 100%;
-    width: 10%;
+    width: 15%;
     color: #63707e;
+}
+
+.code-options {
+    position: absolute;
+    right: 3%;
+    background-color: #f7f7f7;
+    color: #000;
 }
 
 .user-options {
     position: absolute;
-    right: 10%;
+    right: 8%;
+    height: 3rem;
+    width: 10%;
 }
 
 .user-button {
     position: absolute;
-    margin-top: 10px;
-    padding: 5px 7px;
+    margin: auto 0;
+    /* padding: 5px 7px; */
     font-size: 14px;
     cursor: pointer;
     border-radius: 10px;
@@ -225,4 +378,66 @@ body {
     border: 1px solid #323643;
     color: #000;
     background: #93deff;
+}
+
+.star-toggle {
+    width: 10%;
+    position: absolute;
+    top: 4rem;
+    left: 5%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
+.search-container {
+    width: 50%;
+    position: absolute;
+    top: 4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
+.fas.fa-search {
+    left: 2%;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(50%);
+}
+
+#search-bar {
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    border: 0;
+}
+
+@media only screen and (max-width:450px) {
+    /* For mobile */
+    .top-bar {
+        width: 100%;
+    }
+    #add-button {
+        position: absolute;
+        right: 40%;
+        left: 40%;
+    }
+    .user-options {
+        position: absolute;
+        right: 18%;
+    }
+    .dropdown-menu {
+        min-width: 100px;
+    }
+    .dropdown-menu.show {
+        display: block;
+        transform: translate3d(-75px, 38px, 0px);
+    }
+    .rename-box {
+        width: 50%;
+    }
+    .create-box {
+        width: 50%;
+    }
 }
