@@ -233,7 +233,7 @@ function runCode(){
    document.getElementById("output-screen").scrollTop = document.getElementById("output-screen").scrollHeight;
    console.log(lastResponseLength);
   }
-  xhttp.open("POST","../include/run.php",true);
+  xhttp.open("POST","../include/run3.php",true);
   xhttp.send();
 }
 
@@ -278,7 +278,7 @@ function runCode2(){
     'inputs':input
   }
   var jsonString=JSON.stringify(jsonData);
-  xhttp.open("POST","../include/run2.php",true);
+  xhttp.open("POST","../include/run4.php",true);
   xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
   xhttp.send(jsonString);
 }
