@@ -19,11 +19,14 @@ $desc = array(
     2 => array('pipe', 'w')
 );
 if($lang=="Java")
-$cmd = "schroot -c bionic --directory ".$wd." -- java $code";
+//$cmd = "schroot -c bionic --directory ".$wd." -- java $code";
+$cmd="schroot -r -c ".$_SESSION['csession']." --directory ".$_SESSION['runfolder_rel']." -- java $code";
 else if($lang=="Python")
-$cmd = "schroot -c bionic --directory ".$wd." -- python3 main.py";
+//$cmd = "schroot -c bionic --directory ".$wd." -- python3 main.py";
+$cmd="schroot -r -c ".$_SESSION['csession']." --directory ".$_SESSION['runfolder_rel']." -- python3 main.py";
 else if($lang=="C" || $lang=="C++")
- $cmd= "schroot -c bionic --directory ".$wd." -- stdbuf -o0 ./a.out";
+// $cmd= "schroot -c bionic --directory ".$wd." -- stdbuf -o0 ./a.out";
+$cmd="schroot -r -c ".$_SESSION['csession']." --directory ".$_SESSION['runfolder_rel']." -- stdbuf -o0 ./a.out";
 $proc = proc_open($cmd, $desc, $pipes);
 stream_set_blocking($pipes[1], 0);
 stream_set_blocking($pipes[2], 0);

@@ -14,9 +14,11 @@ if(!isset($_SESSION['runfolder'])){
   //$u=md5(uniqid(rand(), true));
   //$u=sha1($_SESSION['u_user'].date("Y-m-d H:i:s"));
   $u=hash("sha256",$_SESSION['u_user'].date("Y-m-d H:i:s"));
+  $_SESSION['csession']=$u;
   $_SESSION['runfolder']=$rundir.$u;
   mkdir($_SESSION['runfolder'],0777,true);
   $_SESSION['runfolder_rel']=$rundir_rel.$u;
+  shell_exec("schroot -c bionic --begin-session -n ".$u);
 }else{
   shell_exec("rm -r ".$_SESSION['runfolder']."/*");
 }
