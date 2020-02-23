@@ -13,7 +13,9 @@ shell_exec("cp -r $wd $des");
 if($lang=="Java"){
   // if(file_exists("Main.class"))
   //   unlink("Main.class");
-  echo shell_exec("javac -d ".$_SESSION['runfolder']." ".$_SESSION['file']." 2>&1");
+ // echo shell_exec("javac -d ".$_SESSION['runfolder']." ".$_SESSION['file']." 2>&1");
+ echo shell_exec("schroot -c bionic --directory ".$_SESSION['runfolder_rel']." -- javac ".$_SESSION['file']." 2>&1");
+
 }else if($lang=="C"){
   // if(file_exists("a.out"))
   //   unlink("a.out");
