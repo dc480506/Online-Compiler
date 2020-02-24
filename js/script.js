@@ -233,7 +233,11 @@ function runCode(){
    document.getElementById("output-screen").scrollTop = document.getElementById("output-screen").scrollHeight;
    console.log(lastResponseLength);
   }
+<<<<<<< HEAD
   xhttp.open("POST","../include/run3.php",true);
+=======
+  xhttp.open("POST","../include/run.php",true);
+>>>>>>> meet
   xhttp.send();
 }
 
@@ -383,9 +387,12 @@ document.querySelector(".rename-box>button").addEventListener("click",function()
       document.querySelector(".code-info>span").innerText=newname;
       document.querySelector(".rename-box>button>span").innerText="Rename";
       document.querySelector(".rename-box>button").disabled=false;
+<<<<<<< HEAD
       if(this.responseText=="Java"){
         document.querySelector("#file-name").innerText=newname+".java";
       }
+=======
+>>>>>>> meet
     }
   }
   xhttp.open("POST","../include/ajaxrenamebox.php",true);

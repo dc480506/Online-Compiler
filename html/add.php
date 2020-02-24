@@ -133,11 +133,19 @@
 				<option value="Java">Java</option>
 				<option value="Python">Python</option>
 			</select>
+<<<<<<< HEAD
 		</div>
 		<div class="cname-div">
 			<input class="cname" type="text" name="codename" placeholder="Name your code">
 			<div class="xyz"><i class="fas fa-exclamation-circle"></i></div>
 		</div>
+=======
+		</div>
+		<div class="cname-div">
+			<input class="cname" type="text" name="codename" placeholder="Name your code">
+			<div class="xyz"><i class="fas fa-exclamation-circle"></i></div>
+		</div>
+>>>>>>> meet
 		<input class="cb-button btn" type="submit" value="Create" name="add_btn">
 	</form>
 	</div>
@@ -163,16 +171,24 @@
 <script>
 $(document).ready(function(){
  load_data();
+<<<<<<< HEAD
  function load_data(query,starred,lang)
+=======
+ function load_data(query)
+>>>>>>> meet
  {
   $.ajax({
    url:"../include/ajaxsearchcode.php",
    method:"POST",
+<<<<<<< HEAD
    data:{
 	   query:query,
 	   starred:starred,
 	   lang:lang
 	   },
+=======
+   data:{query:query},
+>>>>>>> meet
    success:function(data)
    {
 	//console.log(data);
@@ -180,6 +196,7 @@ $(document).ready(function(){
    }
   });
  }
+<<<<<<< HEAD
 
 
  $('#search-bar').keyup(function(){
@@ -191,12 +208,20 @@ $(document).ready(function(){
 	// console.log(starred);
 	// console.log(lang);
    load_data(search,starred,lang);
+=======
+ $('#search-bar').keyup(function(){
+  var search = $(this).val();
+  if(search != '')
+  {
+   load_data(search);
+>>>>>>> meet
   }
   else
   {
    load_data();
   }
  });
+<<<<<<< HEAD
 
  $(document).on("change", "input[class='starred']", function () {
   var search = $('#search-bar').val();
@@ -233,11 +258,18 @@ $(document).ready(function(){
 });
 
 
+=======
+});
+>>>>>>> meet
 $(document).ready(function(){
  create_code();
  function create_code(query,lang)
  {
+<<<<<<< HEAD
 	//console.log(lang);	
+=======
+	console.log(lang);	
+>>>>>>> meet
   $.ajax({
    url:"../include/ajaxcreatecode.php",
    method:"POST",
@@ -296,6 +328,7 @@ var lang = $(this).attr('name');
     });
 //return true;
 });
+<<<<<<< HEAD
 
 // starred
 // $(document).on("change", "input[class='starred']", function () {
@@ -374,4 +407,39 @@ $(document).ready(function(){
 });
 
 
+=======
+$(document).on("change", "input[class='starred']", function () {
+// store the values from the form checkbox box, then send via ajax below
+var check_active = $(this).is(':checked') ? 1 : 0;
+//console.log(check_active);
+// console.log(check_id);
+    $.ajax({
+        type: "POST",
+        url: "../include/ajaxsearchcode.php",
+        data: { active: check_active},
+        success: function(data){
+            //$('form#submit').hide(function(){$('div.success').fadeIn();});
+			//alert(data);
+			//console.log(data);
+			$('.codes').html(data);
+        }
+    });
+//return true;
+});
+$('.sel-lang').change(function () {
+    var lang = $(this).find(':selected')[0].value;
+    //alert(id); 
+    $.ajax({
+        type: 'POST',
+        url: '../include/ajaxsearchcode.php',
+        data: {
+            'lang': lang
+        },
+        success: function (data) {
+            console.log(data);
+			$('.codes').html(data);
+        }
+    });
+});
+>>>>>>> meet
 </script>

@@ -3,6 +3,7 @@ include 'config.php';
 session_start();
 $output = '';
 $user=$_SESSION['u_user'];
+<<<<<<< HEAD
 
 if(isset($_GET['offset']) && isset($_GET['limit']) ){
 $limit=$_GET['limit'];
@@ -99,6 +100,72 @@ else{
 $result = mysqli_query($conn, $query);
 // if(mysqli_num_rows($result) > 0)
 // {
+=======
+// if(isset($_POST["query"]))
+// {
+//  $search = mysqli_real_escape_string($conn, $_POST["query"]);
+//  $query = "SELECT * FROM code_info WHERE username='$user' AND codename LIKE '%$search%' order by utime DESC";
+// }
+// else
+// {
+//  $query = "SELECT * FROM code_info WHERE username='$user' order by utime DESC";
+// }
+// if(isset($_POST["active"]) && $_POST["active"]==1){
+// 	$query = "SELECT * FROM code_info WHERE username='$user' AND star=1 order by utime DESC";
+// }
+// if(isset($_POST["lang"])){
+// 	$lang=mysqli_real_escape_string($conn, $_POST["lang"]);
+// 	$query = "SELECT * FROM code_info WHERE username='$user' AND language='$lang' order by utime DESC";
+// }
+if(isset($_POST["lang"]) && $_POST["lang"]=='all'){
+	$query = "SELECT * FROM code_info WHERE username='$user' order by utime DESC";
+}
+else if(isset($_POST["active"]) && $_POST["active"]==1){		//star
+	if(isset($_POST["lang"])){		//lang
+		$lang=mysqli_real_escape_string($conn, $_POST["lang"]);
+		if(isset($_POST["query"])){			//search
+			$search = mysqli_real_escape_string($conn, $_POST["query"]);
+			$query = "SELECT * FROM code_info WHERE username='$user' AND codename LIKE '%$search%' AND language='$lang' AND star=1 order by utime DESC";
+			}
+		else{
+			$query = "SELECT * FROM code_info WHERE username='$user' AND language='$lang' AND star=1 order by utime DESC";
+		}
+	}
+	else{
+		if(isset($_POST["query"])){
+			$search = mysqli_real_escape_string($conn, $_POST["query"]);
+			$query = "SELECT * FROM code_info WHERE username='$user' AND codename LIKE '%$search%' AND star=1 order by utime DESC";
+			}
+		else{
+			$query = "SELECT * FROM code_info WHERE username='$user' AND star=1 order by utime DESC";
+		}
+	}	
+}
+else{
+	if(isset($_POST["lang"])){
+		$lang=mysqli_real_escape_string($conn, $_POST["lang"]);
+		if(isset($_POST["query"])){
+			$search = mysqli_real_escape_string($conn, $_POST["query"]);
+			$query = "SELECT * FROM code_info WHERE username='$user' AND codename LIKE '%$search%' AND language='$lang' order by utime DESC";
+			}
+		else{
+			$query = "SELECT * FROM code_info WHERE username='$user' AND language='$lang' order by utime DESC";
+		}
+	}
+	else{
+		if(isset($_POST["query"])){
+			$search = mysqli_real_escape_string($conn, $_POST["query"]);
+			$query = "SELECT * FROM code_info WHERE username='$user' AND codename LIKE '%$search%' order by utime DESC";
+			}
+		else{
+			$query = "SELECT * FROM code_info WHERE username='$user' order by utime DESC";
+		}
+	}
+}
+$result = mysqli_query($conn, $query);
+if(mysqli_num_rows($result) > 0)
+{
+>>>>>>> meet
  while($row = mysqli_fetch_array($result))
  {
 	$output .= '
@@ -165,9 +232,17 @@ $result = mysqli_query($conn, $query);
 	';
  }
  echo $output;
+<<<<<<< HEAD
 // }
 // else
 // {
 //  echo 'Code Not Found';
 // }
+=======
+}
+else
+{
+ echo 'Code Not Found';
+}
+>>>>>>> meet
 ?>

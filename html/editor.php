@@ -7,6 +7,7 @@ if(!isset($_SESSION['u_user'])){
 }
 $_SESSION['prunning']=false;
 if(!isset($_SESSION['runfolder'])){
+<<<<<<< HEAD
   //Original section
   // $u=md5(uniqid(rand(), true));
   // $_SESSION['runfolder']=$rundir."/".$u;
@@ -15,6 +16,11 @@ if(!isset($_SESSION['runfolder'])){
   $_SESSION['runfolder']=$rundir.$u;
   mkdir($_SESSION['runfolder'],0777,true);
   $_SESSION['runfolder_rel']=$rundir_rel.$u;
+=======
+  $u=md5(uniqid(rand(), true));
+  $_SESSION['runfolder']=$rundir."/".$u;
+  mkdir($_SESSION['runfolder'],0777,true);
+>>>>>>> meet
 }
 ?>
 <!DOCTYPE html>

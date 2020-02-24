@@ -24,7 +24,11 @@ if(isset($_POST['add_btn'])){
             $sql="INSERT INTO code_info (username,codename,language,ctime,utime) VALUES ('$user','$cname','$lang','$ctime','$utime');";
             $result=mysqli_query($conn,$sql);
             $dir=$base_dir."/".$user."/".$lang."/".$cname;
+<<<<<<< HEAD
             mkdir($dir,0751,true);
+=======
+            mkdir($dir,0755,true);
+>>>>>>> meet
             //file_put_contents($dir."/input.txt","");
             if($lang=="C"){
                 $_SESSION['file']="main.c";

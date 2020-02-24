@@ -171,8 +171,11 @@ width: 80%;*/
     height: 15%;
     margin-left: 10%;
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> meet
 /* .cname-div::before { */
 
 .xyz {
@@ -248,8 +251,13 @@ width: 80%;*/
     position: absolute;
     left: 5%;
     background-color: #f7f7f7;
+<<<<<<< HEAD
     top: 7rem;
     height: 80%;
+=======
+    top: 8rem;
+    height: 100%;
+>>>>>>> meet
     float: down;
 }
 
@@ -275,6 +283,38 @@ width: 80%;*/
     background-color: grey;
     color: #f7f7f7;
 }
+/* .star {
+    position: absolute;
+}
+
+.fa-star {
+    font-size: 25px;
+} */
+
+.star {
+    position: absolute;
+    visibility: hidden;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.star:before {
+    content: "\2605";
+    position: absolute;
+    visibility: visible;
+}
+
+.star:checked:before {
+    content: "\2606";
+    position: absolute;
+}
+/* .star-yellow {
+    color: yellow;
+}
+
+.star-grey {
+    color: grey;
+} */
 
 
 /* .star {
@@ -344,6 +384,10 @@ width: 80%;*/
     position: absolute;
     left: 70%;
     padding-top: 10px;
+<<<<<<< HEAD
+=======
+    height: 100%;
+>>>>>>> meet
     width: 15%;
     color: #63707e;
 }

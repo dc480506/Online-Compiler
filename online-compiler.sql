@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 02, 2019 at 09:11 PM
+-- Generation Time: Dec 18, 2019 at 08:39 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.8
 
@@ -33,15 +33,18 @@ CREATE TABLE `code_info` (
   `codename` varchar(256) NOT NULL,
   `language` varchar(256) NOT NULL,
   `ctime` datetime NOT NULL,
-  `utime` datetime NOT NULL
+  `utime` datetime NOT NULL,
+  `star` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `code_info`
 --
 
-INSERT INTO `code_info` (`username`, `codename`, `language`, `ctime`, `utime`) VALUES
-('abc', 'hiih', 'C++', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `code_info` (`username`, `codename`, `language`, `ctime`, `utime`, `star`) VALUES
+('abc', 'hii', 'C', '2019-12-17 08:17:21', '2019-12-17 08:17:21', 1),
+('abc', 'hiih', 'C', '2019-11-03 19:57:36', '2019-11-03 19:57:36', 0),
+('abc', 'meet', 'C', '2019-12-10 16:18:17', '2019-12-10 16:18:17', 0);
 
 -- --------------------------------------------------------
 

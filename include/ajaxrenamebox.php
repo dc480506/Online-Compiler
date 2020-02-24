@@ -5,7 +5,10 @@ $user=$_SESSION['u_user'];
 $codename=$_SESSION['code'];
 $lang=$_SESSION['language'];
 $dir=$_SESSION['dir'];
+<<<<<<< HEAD
 $file=$_SESSION['file'];
+=======
+>>>>>>> meet
 $json = file_get_contents('php://input');
 $jsonArray=json_decode($json,true);
 $newname=$jsonArray['newname'];
@@ -31,12 +34,15 @@ if($op==1){
     mysqli_query($conn, $query);
     $new=$base_dir.$user."/".$lang."/".$newname;
     rename($dir,$new);
+<<<<<<< HEAD
     if($lang=="Java"){
      $newfile=$newname.".java";   
      rename($new."/".$file,$new."/".$newfile);
      $_SESSION['file']=$newfile;  
      echo "Java"; 
     }
+=======
+>>>>>>> meet
     $_SESSION['code']=$newname;
     $_SESSION['dir']=$new;
 }
