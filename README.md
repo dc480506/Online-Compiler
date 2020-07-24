@@ -18,4 +18,4 @@ This Web App supports execution of Programs for 4 different languages without an
 </ul>
 <br>
 <b>Demo</b>
-<img src="readme-images/demo.gif">
+<img src="readme-img/create_code_execute-2020-07-24_18.43.06.gif">
